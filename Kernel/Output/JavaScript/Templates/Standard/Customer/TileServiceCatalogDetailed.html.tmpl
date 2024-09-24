@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -97,8 +97,12 @@
                     <div>
                         {% if DynamicFieldList %}
                             <p class="oooDetailedAccordionCaption oooDetailedSubtitle">{{ 'Service Information' | Translate }}</p>
-                            {% for DFLabel, DFValue in DynamicFieldList %}
-                                <p class="ooo12"><span>{{ DFLabel }}:</span> {{ DFValue }}</p>
+                            {% for DFData in DynamicFieldList %}
+                                {% if DFData.Link %}
+                                <p class="ooo12"><span>{{ DFData.Label }}:</span> <a href="{{ DFData.Link }}" class="DynamicFieldLink" {% if DFData.LinkPreview %} data-trigger="floater" data-floater-url="{{ DFData.LinkPreview }}"{% endif %} target="_blank">{{ DFData.Value }}</a>
+                                {% else %}
+                                <p class="ooo12"><span>{{ DFData.Label }}:</span> {{ DFData.Value }}</p>
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     </div>

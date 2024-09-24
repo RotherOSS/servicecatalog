@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -375,7 +375,7 @@ sub Run {
 
     # Get the dynamic field values for every service.
     for my $ServiceID ( keys %ServiceList ) {
-        my %DynamicFieldList;
+        my @DynamicFieldList;
 
         # # Get the dynamic field values for this service.
         DYNAMICFIELD:
@@ -400,13 +400,16 @@ sub Run {
 
             # Set field value.
             if ( $Label && $ValueStrg->{Value} ) {
-                $DynamicFieldList{$Label} = $ValueStrg->{Value};
+                push @DynamicFieldList, {
+                    $ValueStrg->%*,
+                    Label => $Label,
+                };
             }
         }
 
         # Add the dynamic field values to the service.
-        if ( IsHashRefWithData( \%DynamicFieldList ) ) {
-            $ServiceList{$ServiceID}->{DynamicField} = \%DynamicFieldList;
+        if ( IsArrayRefWithData( \@DynamicFieldList ) ) {
+            $ServiceList{$ServiceID}->{DynamicField} = \@DynamicFieldList;
         }
     }
 
