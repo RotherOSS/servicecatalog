@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <otobo_config version="2.0" init="Application">
-    <Setting Name="CustomerDashboard::Tiles###ServiceCatalog-01" Required="0" Valid="0">
+    <Setting Name="CustomerDashboard::Tiles###ServiceCatalog-01" Required="0" Valid="1">
         <Description Translatable="1">Tile registration for the CustomerDashboard. Module is required.</Description>
         <Navigation>Frontend::Customer::View::Dashboard::Tiles</Navigation>
         <Value>
@@ -10,11 +10,6 @@
                 <Item Key="Config">
                     <Hash>
                         <Item Key="HeaderText">Find the right service for your ticket</Item>
-                        <!-- <Item Key="MainText" ValueType="Textarea">Erstellen Sie ein Ticket über den Service-Katalog.</Item> -->
-                        <!-- <Item Key="TextColor">#00023c</Item> -->
-                        <!-- <Item Key="BackgroundColor">#fff</Item> -->
-                        <!-- <Item Key="ServiceColor">#001bff</Item> -->
-                        <!-- <Item Key="ServiceBackgroundColor">#fff</Item> -->
                     </Hash>
                 </Item>
             </Hash>
@@ -39,7 +34,7 @@
         <Navigation>Frontend::Customer::View::Dashboard::Configuration</Navigation>
         <Value>
             <Hash>
-                <DefaultItem ValueType="Select">
+                <DefaultItem ValueType="Select" SelectedID="0">
                     <Item ValueType="Option" Value="0" Translatable="1">0 - Disabled</Item>
                     <Item ValueType="Option" Value="1" Translatable="1">1 - Enabled</Item>
                 </DefaultItem>

@@ -39,6 +39,10 @@ our @ObjectDependencies = (
     'Kernel::System::Ticket',
     'Kernel::System::Type',
     'Kernel::System::Valid',
+    'Kernel::System::DynamicField',
+    'Kernel::System::DynamicField::Backend',
+    'Kernel::System::LinkObject',
+    'Kernel::System::Package'
 );
 
 sub new {
@@ -183,7 +187,7 @@ sub Run {
         my %Service = ();
 
         # Get all needed parameters
-        for my $Needed (qw(ServiceID NameShort DescriptionShort DescriptionLong TicketTypeIDs ParentID)) {
+        for my $Needed (qw(ServiceID NameShort Descriptions TicketTypeIDs ParentID Keywords)) {
             if ( $ServiceRef->{$Needed} ) {
                 if ( $Needed eq 'TicketTypeIDs' ) {
 
@@ -199,6 +203,14 @@ sub Run {
                             };
                         }
                     }
+                } elsif ( $Needed eq 'Descriptions' ) {
+                    $Service{DescriptionShort} = $ServiceRef->{$Needed}->{$LayoutObject->{UserLanguage}}->{DescriptionShort} || 
+                        $ServiceRef->{$Needed}->{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}->{DescriptionShort} || 
+                            $ServiceRef->{$Needed}->{'en'}->{DescriptionShort} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
+
+                    $Service{DescriptionLong} = $ServiceRef->{$Needed}->{$LayoutObject->{UserLanguage}}->{DescriptionLong} || 
+                        $ServiceRef->{$Needed}->{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}->{DescriptionLong} || 
+                            $ServiceRef->{$Needed}->{'en'}->{DescriptionLong} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
                 }
                 else {
                     $Service{$Needed} = $ServiceRef->{$Needed};
@@ -443,6 +455,17 @@ sub Run {
                 last SERVICEDATA;
             }
         }
+    }
+
+
+    # TODO: Names have to be translated somewhere for the breadcrumb, we need to prevent translation of those translated values
+    for my $ServiceID ( keys %ServiceList ) {
+        $ServiceList{$ServiceID}{NameShort} = $LayoutObject->Output(
+            Template => '[%  Translate(Data.Name) | html %]',
+            Data     => {
+                Name => $ServiceList{$ServiceID}{NameShort},
+            },
+        );
     }
 
     # Show all first level services, sorted by the name.

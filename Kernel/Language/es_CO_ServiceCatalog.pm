@@ -14,7 +14,7 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 # --
 
-package Kernel::Language::de_ServiceCatalog;
+package Kernel::Language::es_CO_ServiceCatalog;
 
 use strict;
 use warnings;
@@ -47,6 +47,10 @@ sub Data {
         '';
     $Self->{Translation}->{'Here, there is the possibility to automatically calculate the correct ticket priority in the background based on the dynamic field "ITSMCriticality" and "ITSMImpact". Please activate the option "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService" and the option "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix". In the next step, you have the possibility using "Admin -> Criticality ↔ Impact ↔ Priority" to set the priority using a matrix.'} =
         '';
+    $Self->{Translation}->{'Keywords to facilitate the search for services within the service catalog.'} =
+        '';
+    $Self->{Translation}->{'Service descriptions (short & long) specified by User Language.'} =
+        '';
     $Self->{Translation}->{'Short summary of the service, mainly used in the CustomerDashboard.'} =
         '';
     $Self->{Translation}->{'Description of the service. Screenshots and tables are also allowed. Please ensure the correct width of the image for screenshots. This can be adjusted in the ckeditor after uploading the screenshot. A width of 600px has proven to be useful or you can configure a "max-width" of 95% under Advanced.'} =
@@ -56,14 +60,14 @@ sub Data {
         '';
 
     # Template: AgentITSMSLAZoom
-    $Self->{Translation}->{'SLA Information'} = 'SLA-Informationen';
-    $Self->{Translation}->{'Last changed'} = 'Zuletzt geändert';
-    $Self->{Translation}->{'Last changed by'} = 'Zuletzt geändert von';
+    $Self->{Translation}->{'SLA Information'} = '';
+    $Self->{Translation}->{'Last changed'} = '';
+    $Self->{Translation}->{'Last changed by'} = '';
     $Self->{Translation}->{'Minimum Time Between Incidents'} = '';
     $Self->{Translation}->{'Associated Services'} = '';
 
     # Template: AgentITSMServiceZoom
-    $Self->{Translation}->{'Service Information'} = 'Service-Informationen';
+    $Self->{Translation}->{'Service Information'} = '';
     $Self->{Translation}->{'Current incident state'} = '';
     $Self->{Translation}->{'Associated SLAs'} = '';
 
@@ -94,13 +98,16 @@ sub Data {
     # Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
     $Self->{Translation}->{'No ServiceID is given!'} = '';
     $Self->{Translation}->{'ServiceID %s not found in database!'} = '';
-    $Self->{Translation}->{'operational'} = 'operativ';
-    $Self->{Translation}->{'warning'} = 'Warnung';
-    $Self->{Translation}->{'incident'} = 'Vorfall';
+    $Self->{Translation}->{'operational'} = '';
+    $Self->{Translation}->{'warning'} = '';
+    $Self->{Translation}->{'incident'} = '';
+
+    # JS File: Core.Agent.Admin.Service
+    $Self->{Translation}->{'Do you really want to delete this service description language?'} =
+        '';
 
     # JS File: Core.Customer.TileServiceCatalog
-    $Self->{Translation}->{'results for %s'} = '';
-    $Self->{Translation}->{'results'} = '';
+    $Self->{Translation}->{'Results for %s'} = '';
 
     # SysConfig
     $Self->{Translation}->{'Additional settings for the service catalog.'} = '';
@@ -114,9 +121,9 @@ sub Data {
     $Self->{Translation}->{'Show services with the following ticket type last.'} = '';
     $Self->{Translation}->{'The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...).'} =
         '';
-    $Self->{Translation}->{'This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected. The "AddBulkACL" console script can also be used to create ACLs for services that have already been create.'} =
+    $Self->{Translation}->{'This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected. The \"AddBulkACL\" console script can also be used to create ACLs for services that have already been create.'} =
         '';
-    $Self->{Translation}->{'This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the "ServiceCatalog::CreateTypeServiceRelatedAcls" option. "GenerateInitalACLToDisableAllServices" generates an ACL that initially hides all services. The value "Possible" or "PossibleAdd" can be set for the key "ConfigChange". The "DeployNewACL" key decides whether the changed ACL should also be deployed immediately. "ACLValidID" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid.'} =
+    $Self->{Translation}->{'This option makes it possible to preconfigure the automatically generated ACL\\'s. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the \"ServiceCatalog::CreateTypeServiceRelatedAcls\" option. \"GenerateInitalACLToDisableAllServices\" generates an ACL that initially hides all services. The value \"Possible\" or \"PossibleAdd\" can be set for the key \"ConfigChange\". The \"DeployNewACL"\ key decides whether the changed ACL should also be deployed immediately. \"ACLValidID"\ (1, 2, 3) sets the ACL\\'s to valid, invalid or temporarily invalid.'} =
         '';
 
 
@@ -149,8 +156,6 @@ sub Data {
     'Sub-Service(s)',
     'hour(s)',
     'o\'clock',
-    'results',
-    'results for %s',
     'sub-service(s) available',
     );
 

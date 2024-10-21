@@ -7,7 +7,10 @@
     <Vendor>Rother OSS GmbH</Vendor>
     <URL>https://otobo.io/</URL>
     <License>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</License>
+    <Description Lang="de">Ein ausführlicher Leistungskatalog.</Description>
     <Description Lang="en">A detailed service catalog.</Description>
+    <Description Lang="es">Catálogo de Servicios detallado.</Description>
+    <ChangeLog Date="2024-05-10 12:00:00" Version="10.1.15">Add multilanguage support for service descriptions, Keywords field for service filtering.</ChangeLog>    
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Modules/AdminService.pm" />
         <File Permission="660" Location="Custom/Kernel/Modules/AgentITSMServiceZoom.pm" />
@@ -19,6 +22,8 @@
         <File Permission="660" Location="Custom/Kernel/System/Service.pm" />
         <File Permission="660" Location="Kernel/Config/Files/XML/ServiceCatalog.xml" />
         <File Permission="660" Location="Kernel/Language/de_ServiceCatalog.pm" />
+        <File Permission="660" Location="Kernel/Language/es_ServiceCatalog.pm" />
+        <File Permission="660" Location="Kernel/Language/es_CO_ServiceCatalog.pm" />
         <File Permission="660" Location="Kernel/Modules/CustomerTileServiceCatalog.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/CustomerDashboard/TileServiceCatalog.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/Dashboard/TileServiceCatalog.tt" />
@@ -34,14 +39,29 @@
         <File Permission="660" Location="Kernel/System/Console/Command/Admin/ServiceCatalog/AddBulkACL.pm" />
         <File Permission="660" Location="Kernel/System/Ticket/Event/SetDynamicFieldCriticalityFromService.pm" />
         <File Permission="660" Location="Kernel/System/Ticket/Event/SetPriorityFromCriticalityAndImpactMatrix.pm" />
-        <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/AgentTicketPhone.tt" />
-        <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/AgentTicketEmail.tt" />
         <File Permission="660" Location="var/httpd/htdocs/skins/Agent/default/css/Core.InputFields.css" />
         <File Permission="660" Location="var/httpd/htdocs/js/Core.UI.Dialog.js" />
         <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.ITSMServiceZoom.js" />
-    </Filelist>
-    <PackageMerge Name="RotherOSS-ServiceCatalog" TargetVersion="10.0.4"></PackageMerge>
+        <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.Admin.Service.js" />
+        <File Permission="660" Location="var/packagesetup/ServiceCatalog.pm" />
+    </Filelist>    
     <DatabaseInstall Type="post">
+        <TableCreate Name="service_description">
+            <Column AutoIncrement="true" Name="id" PrimaryKey="true" Required="true" Type="BIGINT"></Column>
+            <Column Name="service_id" Required="true" Size="11" Type="INTEGER"></Column>
+            <Column Name="description_short" Required="true" Size="191" Type="VARCHAR"></Column>
+            <Column Name="description_long" Required="false" Size="3000" Type="VARCHAR"></Column>
+            <Column Name="content_type" Required="true" Size="250" Type="VARCHAR"></Column>
+            <Column Name="language" Required="true" Size="60" Type="VARCHAR"></Column>
+            <Index Name="service_description_language">
+                <IndexColumn Name="language">
+                </IndexColumn>
+            </Index>
+            <Index Name="service_description_service_id">
+                <IndexColumn Name="service_id">
+                </IndexColumn>
+            </Index>
+        </TableCreate>
         <TableCreate Name="service_type">
             <Column Name="service_id" Required="true" Type="INTEGER"></Column>
             <Column Name="ticket_type_id" Required="false" Type="SMALLINT"></Column>
@@ -81,6 +101,7 @@
             <ColumnAdd Name="description_short" Required="false" Size="191" Type="VARCHAR"></ColumnAdd>
             <ColumnAdd Name="description_long" Required="false" Size="3000" Type="VARCHAR"></ColumnAdd>
             <ColumnAdd Name="dest_queueid" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
+            <ColumnAdd Name="keywords" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
         </TableAlter>
     </DatabaseInstall>
     <DatabaseUpgrade>
@@ -101,33 +122,86 @@
                 </IndexColumn>
             </Index>
         </TableCreate>
-        <TableAlter Name="service">
-            <ColumnAdd Name="description_short" Required="false" Size="191" Type="VARCHAR"></ColumnAdd>
-            <ColumnAdd Name="description_long" Required="false" Size="3000" Type="VARCHAR"></ColumnAdd>
+        <TableCreate Name="service_description" Version="10.1.15">
+            <Column AutoIncrement="true" Name="id" PrimaryKey="true" Required="true" Type="BIGINT"></Column>
+            <Column Name="service_id" Required="true" Size="11" Type="INTEGER"></Column>
+            <Column Name="description_short" Required="true" Size="191" Type="VARCHAR"></Column>
+            <Column Name="description_long" Required="false" Size="3000" Type="VARCHAR"></Column>
+            <Column Name="content_type" Required="true" Size="250" Type="VARCHAR"></Column>
+            <Column Name="language" Required="true" Size="60" Type="VARCHAR"></Column>
+            <Index Name="service_description_language">
+                <IndexColumn Name="language">
+                </IndexColumn>
+            </Index>
+            <Index Name="service_description_service_id">
+                <IndexColumn Name="service_id">
+                </IndexColumn>
+            </Index>
+        </TableCreate>
+        <TableAlter Name="service" Version="10.1.15">
             <ColumnAdd Name="dest_queueid" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
+            <ColumnAdd Name="keywords" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
+            <ColumnChange Name="description_short" NameNew="description_short" Required="false" Size="255" Type="VARCHAR"></ColumnChange>
         </TableAlter>
     </DatabaseUpgrade>
     <DatabaseUninstall Type="pre">
         <TableDrop Name="service_type">
         </TableDrop>
+        <TableDrop Name="service_attachment">
+        </TableDrop>
+        <TableDrop Name="service_description">
+        </TableDrop>        
         <TableAlter Name="service">
             <ColumnDrop Name="description_short"></ColumnDrop>
             <ColumnDrop Name="description_long"></ColumnDrop>
             <ColumnDrop Name="dest_queueid"></ColumnDrop>
+            <ColumnDrop Name="keywords"></ColumnDrop>
         </TableAlter>
     </DatabaseUninstall>
-    <IntroInstall Type="post" Title="Installation Information" Lang="en"><![CDATA[
-
-        <br/>
-        <strong>NOTICE</strong>
-        <br/>
-        <br/>
-        For the service catalog to show in the customer dashboard, please activate CustomerDashboard::Tiles###ServiceCatalog-01, optionally change the order (default 7) and/or adapt
-        var/httpd/htdocs/skins/Customer/default/css/Core.Dashboard.Default.css to show #Tile07 (or the respective order you chose) to show in the desired position.
-        <br/>
-        <br/>
-        ((enjoy))<br/>
-        <br/>
-
-    ]]></IntroInstall>
+    <CodeUpgrade Version="10.1.15"><![CDATA[
+    # create the package name
+    my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
+      
+    $Kernel::OM->Get($CodeModule)->CodeUpgradeFromLowerThan_10_1_14();
+]]></CodeUpgrade>    
+    <IntroInstall Lang="en" Title="Install Information" Type="pre">
+        &lt;br&gt;
+        WELCOME!&lt;br&gt;
+        &lt;br&gt;
+        You are about to install the Rother OSS Service Catalog package.&lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        For more information visit:&lt;br&gt;
+        &lt;br&gt;
+        https://otobo.de &lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>
+    <IntroInstall Lang="de" Title="Installationsinformationen" Type="pre">
+        &lt;br&gt;
+        Herzlich willkommen!&lt;br&gt;
+        &lt;br&gt;
+        Sie sind dabei, das Rother OSS Service Catalog-Paket zu installieren.&lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        Weitere Informationen finden Sie unter der URL:&lt;br&gt;
+        &lt;br&gt;
+        https://otobo.de &lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>
+    <IntroInstall Lang="es" Title="Información de Instalación" Type="pre">
+        &lt;br&gt;
+        BIENVENIDO!&lt;br&gt;
+        &lt;br&gt;
+        Usted está a punto de instalar el paquete del Catálogo de Servicios de Rother OSS.&lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        Para más información visite:&lt;br&gt;
+        &lt;br&gt;
+        https://otobo.de &lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>    
+    <PackageMerge Name="RotherOSS-ServiceCatalog" TargetVersion="10.0.4"></PackageMerge>
 </otobo_package>

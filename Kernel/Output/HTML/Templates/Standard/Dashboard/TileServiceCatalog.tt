@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 # --
+
 <div id="oooTile[% Data.TileID | html %]" class="oooTile oooTile_ServiceCatalog">
     <h2><div class="oooNewBox"><span>[% Translate('New') | html %]</span></div>[% Translate(Data.HeaderText) | html %]</h2>
     <div class="oooServiceCatalogWrapper">

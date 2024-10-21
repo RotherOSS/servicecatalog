@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 739b3be62b71991d6571cc1f091e6d96f6bff498 - Kernel/System/Service.pm
+# $origin: otobo - 8c46f6f3a06ae394efe716ed5ba9dce2062e15a0 - Kernel/System/Service.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -41,7 +41,14 @@ our @ObjectDependencies = (
 # ---
     'Kernel::System::Log',
     'Kernel::System::Main',
+    'Kernel::System::Translations',
     'Kernel::System::Valid',
+# RotherOSS ServiceCatalog    
+    'Kernel::System::ACL::DB::ACL',
+    'Kernel::System::Encode',
+    'Kernel::System::Service',
+    'Kernel::System::Type'
+# EO ServiceCatalog    
 );
 
 =head1 NAME
@@ -266,10 +273,21 @@ return a list of services with the complete list of attributes for each service
 # ---
 # RotherOSS
 # ---
-            DescriptionShort => 'Short information...',
-            DescriptionLong  => 'Long information...',
+            Descriptions => {
+                en => {
+                    DescriptionShort  => 'Service A',
+                    DescriptionLong   => 'This is Service A.',
+                    ContentType       => 'text/html',
+                },
+                de => {
+                    DescriptionShort  => 'Service A',
+                    DescriptionLong   => 'Das ist Service A.',
+                    ContentType       => 'text/html',
+                },
+            }
             TicketTypeIDs    => [ 1, 2, 3 ],
-# ---
+            Keywords         => 'service hints for filter',
+# EO ServiceCatalog
         },
         {
             ServiceID  => 2,
@@ -333,7 +351,7 @@ sub ServiceListGet {
 # ---
 # RotherOSS
 # ---
-        . ", description_short, description_long "
+        . ", keywords "
 # ---
 
         . 'FROM service';
@@ -375,8 +393,7 @@ sub ServiceListGet {
 # ---
 # RotherOSS
 # ---
-         $ServiceData{DescriptionShort} = $Row[10];
-         $ServiceData{DescriptionLong}  = $Row[11];
+         $ServiceData{Keywords}         = $Row[10];
 # ---
         # add service data to service list
         push @ServiceList, \%ServiceData;
@@ -433,6 +450,35 @@ sub ServiceListGet {
         );
         $ServiceData = \%NewServiceData;
 # ---
+
+# ---
+# RotherOSS
+# ---
+
+        # get service descriptions data
+        $DBObject->Prepare(
+            SQL => '
+                SELECT description_short, description_long, content_type, language
+                FROM service_description
+                WHERE service_id = ?',
+            Bind => [ \$ServiceData->{ServiceID} ],
+        );
+
+        my %Descriptions;
+
+        while ( my @Row = $DBObject->FetchrowArray() ) {
+
+            # add to descriptions hash with the language as key
+            $Descriptions{ $Row[3] } = {
+                DescriptionShort => $Row[0],
+                DescriptionLong  => $Row[1],
+                ContentType      => $Row[2],
+            };
+        }
+
+        $ServiceData->{Descriptions} = \%Descriptions;
+
+# ---
     }
 
     if (@ServiceList) {
@@ -467,10 +513,21 @@ Return
 # ---
 # RotherOSS
 # ---
-    $ServiceData{DescriptionShort}
-    $ServiceData{DescriptionLong}
+    Descriptions => {
+        en => {
+            DescriptionShort  => 'Service A',
+            DescriptionLong   => 'This is Service A.',
+            ContentType       => 'text/html',
+        },
+        de => {
+            DescriptionShort  => 'Service A',
+            DescriptionLong   => 'Das ist Service A.',
+            ContentType       => 'text/html',
+        },
+    }
     $ServiceData{TicketTypeIDs}
     $ServiceData{DestQueueID}
+    $ServiceData{Keywords}
 # ---
 # ---
 # ITSMCore
@@ -568,7 +625,7 @@ sub ServiceGet {
 # ---
 # RotherOSS
 # ---
-         . ", description_short, description_long, dest_queueid "
+            . ", dest_queueid, keywords "
 # ---
             . 'FROM service WHERE id = ?',
         Bind  => [ \$Param{ServiceID} ],
@@ -595,11 +652,35 @@ sub ServiceGet {
 # ---
 # RotherOSS
 # ---
-        $ServiceData{DescriptionShort} = $Row[10];
-        $ServiceData{DescriptionLong}  = $Row[11];
-        $ServiceData{DestQueueID}  = $Row[12];
+        $ServiceData{DestQueueID}      = $Row[10];
+        $ServiceData{Keywords}         = $Row[11];
 # ---
     }
+
+# ---
+# RotherOSS
+# ---
+
+    # get service descriptions data
+    $DBObject->Prepare(
+        SQL => '
+            SELECT description_short, description_long, content_type, language
+            FROM service_description
+            WHERE service_id = ?',
+        Bind => [ \$ServiceData{ServiceID} ],
+    );
+
+    while ( my @Row = $DBObject->FetchrowArray() ) {
+
+        # add to descriptions hash with the language as key
+        $ServiceData{Descriptions}->{ $Row[3] } = {
+            DescriptionShort => $Row[0],
+            DescriptionLong  => $Row[1],
+            ContentType      => $Row[2],
+        };
+    }
+
+# ---
 
 # ---
 # RotherOSS
@@ -789,9 +870,20 @@ add a service
 # ---
 # RotherOSS
 # ---
-        DescriptionShort => 'Short information...',
-        DescriptionLong  => 'Long information...',
+        Descriptions => {
+            en => {
+                DescriptionShort  => 'Service A',
+                DescriptionLong   => 'This is Service A.',
+                ContentType       => 'text/html',
+            },
+            de => {
+                DescriptionShort  => 'Service A',
+                DescriptionLong   => 'Das ist Service A.',
+                ContentType       => 'text/html',
+            },
+        },
         TicketTypeIDs    => [ 1, 2, 3 ],
+        Keywords         => 'service hints for filter',
 # ---
     );
 
@@ -810,7 +902,7 @@ sub ServiceAdd {
 # ---
 # RotherOSS
 # ---
-    for my $Argument (qw(Name ValidID UserID DescriptionShort Criticality)) {
+    for my $Argument (qw(Name ValidID UserID Descriptions Criticality)) {
 # ---
         if ( !$Param{$Argument} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
@@ -824,8 +916,9 @@ sub ServiceAdd {
     # set comment
     $Param{Comment} ||= '';
 
-    # Rother OSS / Move ticket to queue
+# Rother OSS / ServiceCatalog
     $Param{DestQueueID} ||= '';
+# EO ServiceCatalog
 
     # cleanup given params
     for my $Argument (qw(Name Comment)) {
@@ -844,6 +937,40 @@ sub ServiceAdd {
         );
         return;
     }
+
+# ---
+# RotherOSS
+# ---
+
+    # check service descriptions parameter
+    if ( !IsHashRefWithData( $Param{Descriptions} ) ) {
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority => 'error',
+            Message  => "Need Service descriptions!",
+        );
+        return;
+    }
+
+    # check each argument for each service descriptions language
+    for my $Language ( sort keys %{ $Param{Descriptions} } ) {
+
+        for my $Argument (qw(DescriptionShort ContentType)) {
+
+            # error if message data is incomplete
+            if ( !$Param{Descriptions}->{$Language}->{$Argument} ) {
+                $Kernel::OM->Get('Kernel::System::Log')->Log(
+                    Priority => 'error',
+                    Message  => "Need service description argument '$Argument' for language '$Language'!",
+                );
+                return;
+            }
+
+            # fix some bad stuff from some browsers (Opera)!
+            $Param{Descriptions}->{$Language}->{DescriptionLong} ||= '';
+            $Param{Descriptions}->{$Language}->{DescriptionLong} =~ s/(\n\r|\r\r\n|\r\n|\r)/\n/g;
+        }
+    }
+# ---
 
     # create full name
     $Param{FullName} = $Param{Name};
@@ -907,12 +1034,12 @@ sub ServiceAdd {
 # ---
         SQL => 'INSERT INTO service '
             . '(name, valid_id, comments, create_time, create_by, change_time, change_by, '
-            . 'type_id, criticality, description_short, description_long, dest_queueid) '
-            . 'VALUES (?, ?, ?, current_timestamp, ?, current_timestamp, ?, ?, ?, ?, ?, ?)',
+            . 'type_id, criticality, dest_queueid, keywords) '
+            . 'VALUES (?, ?, ?, current_timestamp, ?, current_timestamp, ?, ?, ?, ?, ?)',
         Bind => [
             \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
             \$Param{UserID}, \$Param{UserID}, \$Param{TypeID}, \$Param{Criticality},
-            \$Param{DescriptionShort}, \$Param{DescriptionLong}, \$Param{DestQueueID},
+            \$Param{DestQueueID}, \$Param{Keywords},
         ],
 # ---
     );
@@ -932,8 +1059,10 @@ sub ServiceAdd {
 # RotherOSS
 # ---
     # Insert new ticket type relations.
-    my @TicketTypeIDs = grep { $_ } $Param{TicketTypeIDs}->@*;
-    for my $TicketTypeID ( @TicketTypeIDs ) {
+    TICKETTYPEID:
+    for my $TicketTypeID ( @{ $Param{TicketTypeIDs} } ) {
+        next TICKETTYPEID if !$TicketTypeID;
+
         return if !$DBObject->Do(
             SQL => 'INSERT INTO service_type '
                 . '(service_id, ticket_type_id, create_time, create_by) '
@@ -941,11 +1070,40 @@ sub ServiceAdd {
             Bind => [ \$ServiceID, \$TicketTypeID, \$Param{UserID} ]
         );
     }
+
+    # insert service descriptions data
+    for my $Language ( sort keys %{ $Param{Descriptions} } ) {
+
+        my %Description = %{ $Param{Descriptions}->{$Language} };
+
+        return if !$DBObject->Do(
+            SQL => '
+                INSERT INTO service_description
+                    (service_id, description_short, description_long, content_type, language)
+                VALUES (?, ?, ?, ?, ?)',
+            Bind => [
+                \$ServiceID,
+                \$Description{DescriptionShort},
+                \$Description{DescriptionLong},
+                \$Description{ContentType},
+                \$Language,
+            ],
+        );
+    }
 # ---
 
     # reset cache
     $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
         Type => $Self->{CacheType},
+    );
+
+    my %Services = $Self->ServiceList(
+        UserID => $Param{UserID},
+    );
+
+    # generate chained translations automatically
+    $Kernel::OM->Get('Kernel::System::Translations')->TranslateParentChildElements(
+        Strings => [ values %Services ],
     );
 
     return $ServiceID;
@@ -968,6 +1126,24 @@ update an existing service
         TypeID      => 2,
         Criticality => '3 normal',
 # ---
+# ---
+# RotherOSS
+# ---
+        Descriptions => {
+            en => {
+                DescriptionShort  => 'Service A',
+                DescriptionLong   => 'This is Service A.',
+                ContentType       => 'text/html',
+            },
+            de => {
+                DescriptionShort  => 'Service A',
+                DescriptionLong   => 'Das ist Service A.',
+                ContentType       => 'text/html',
+            },
+        },
+        TicketTypeIDs    => [ 1, 2, 3 ],
+        Keyword          => 'service hints for filter',
+# ---
     );
 
 =cut
@@ -985,7 +1161,7 @@ sub ServiceUpdate {
 # ---
 # RotherOSS
 # ---
-    for my $Argument (qw(ServiceID Name DescriptionShort ValidID UserID Criticality)) {
+    for my $Argument (qw(ServiceID Name Descriptions ValidID UserID Criticality)) {
 # ---
         if ( !$Param{$Argument} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
@@ -999,8 +1175,9 @@ sub ServiceUpdate {
     # set default comment
     $Param{Comment} ||= '';
 
-    # Rother OSS / Move ticket to queue
+# Rother OSS / ServiceCatalog
     $Param{DestQueueID} ||= '';
+# EO ServiceCatalog
 
     # cleanup given params
     for my $Argument (qw(Name Comment)) {
@@ -1032,6 +1209,41 @@ sub ServiceUpdate {
         );
         return;
     }
+
+# ---
+# RotherOSS
+# ---
+
+    # check service descriptions parameter
+    if ( !IsHashRefWithData( $Param{Descriptions} ) ) {
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority => 'error',
+            Message  => "Need Service descriptions!",
+        );
+        return;
+    }
+
+    # check each argument for each service descriptions language
+    for my $Language ( sort keys %{ $Param{Descriptions} } ) {
+
+        for my $Argument (qw(DescriptionShort ContentType)) {
+
+            # error if message data is incomplete
+            if ( !$Param{Descriptions}->{$Language}->{$Argument} ) {
+                $Kernel::OM->Get('Kernel::System::Log')->Log(
+                    Priority => 'error',
+                    Message  => "Need service description argument '$Argument' for language '$Language'!",
+                );
+                return;
+            }
+
+            # fix some bad stuff from some browsers (Opera)!
+            $Param{Descriptions}->{$Language}->{DescriptionLong} ||= '';
+            $Param{Descriptions}->{$Language}->{DescriptionLong} =~ s/(\n\r|\r\r\n|\r\n|\r)/\n/g;
+        }
+    }    
+
+# ---
 
     # create full name
     $Param{FullName} = $Param{Name};
@@ -1118,12 +1330,12 @@ sub ServiceUpdate {
 # ---
         SQL => 'UPDATE service SET name = ?, valid_id = ?, comments = ?, '
             . ' change_time = current_timestamp, change_by = ?, criticality = ?, '
-            . ' description_short = ?, description_long = ?, dest_queueid = ?'
+            . ' dest_queueid = ?, keywords = ?'
             . ' WHERE id = ?',
         Bind => [
             \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
             \$Param{UserID}, \$Param{Criticality},
-            \$Param{DescriptionShort}, \$Param{DescriptionLong}, \$Param{DestQueueID}, \$Param{ServiceID},
+            \$Param{DestQueueID}, \$Param{Keywords}, \$Param{ServiceID},
         ],
 # ---
     );
@@ -1169,9 +1381,49 @@ sub ServiceUpdate {
         );
     }
 
+# ---
+# RotherOSS
+# ---
+
+    # Delete existing service descriptions data.
+    $DBObject->Do(
+        SQL  => 'DELETE FROM service_description WHERE service_id = ?',
+        Bind => [ \$Param{ServiceID} ],
+    );
+
+    # Insert new service descriptions data.
+    for my $Language ( sort keys %{ $Param{Descriptions} // {} } ) {
+
+        my %Descriptions = %{ $Param{Descriptions}->{$Language} };
+
+        $DBObject->Do(
+            SQL => '
+                INSERT INTO service_description
+                    (service_id, description_short, description_long, content_type, language)
+                VALUES (?, ?, ?, ?, ?)',
+            Bind => [
+                \$Param{ServiceID},
+                \$Descriptions{DescriptionShort},
+                \$Descriptions{DescriptionLong},
+                \$Descriptions{ContentType},
+                \$Language,
+            ],
+        );
+    }    
+# ---
+
     # reset cache
     $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
         Type => $Self->{CacheType},
+    );
+
+    my %Services = $Self->ServiceList(
+        UserID => $Param{UserID},
+    );
+
+    # generate chained translations automatically
+    $Kernel::OM->Get('Kernel::System::Translations')->TranslateParentChildElements(
+        Strings => [ values %Services ],
     );
 
     return 1;
@@ -1188,9 +1440,7 @@ return service ids as an array
 # ---
 # ITSMCore
 # ---
-# Rother OSS
-#         TypeIDs       => 2,
-# EO Rother OSS
+        TypeIDs       => 2,
         Criticalities => [ '2 low', '3 normal' ],
 # ---
     );
@@ -1235,17 +1485,16 @@ sub ServiceSearch {
 # ---
 # ITSMCore
 # ---
-# Rother OSS
-#    # add type ids
-#    if ( $Param{TypeIDs} && ref $Param{TypeIDs} eq 'ARRAY' && @{ $Param{TypeIDs} } ) {
+    # add type ids
+    if ( $Param{TypeIDs} && ref $Param{TypeIDs} eq 'ARRAY' && @{ $Param{TypeIDs} } ) {
 
-#        # quote as integer
-#        for my $TypeID ( @{ $Param{TypeIDs} } ) {
-#            $TypeID = $Self->{DBObject}->Quote( $TypeID, 'Integer' );
-#        }
+        # quote as integer
+        for my $TypeID ( @{ $Param{TypeIDs} } ) {
+            $TypeID = $Self->{DBObject}->Quote( $TypeID, 'Integer' );
+        }
 
-#        $SQL .= " AND type_id IN (" . join(', ', @{ $Param{TypeIDs} }) . ") ";
-#    }
+        $SQL .= " AND type_id IN (" . join(', ', @{ $Param{TypeIDs} }) . ") ";
+    }
 
     # add criticalities
     if ($Param{Criticalities} && ref $Param{Criticalities} eq 'ARRAY' && @{ $Param{Criticalities} } ) {
@@ -1741,12 +1990,14 @@ sub _ServiceGetCurrentIncidentState {
     # make local copies
     my %ServiceData = %{ $Param{ServiceData} };
     my %Preferences = %{ $Param{Preferences} };
-# Rother OSS
-#    # get service type list
-#    my $ServiceTypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
-#        Class => 'ITSM::Service::Type',
-#    );
-#    $ServiceData{Type} = $ServiceTypeList->{ $ServiceData{TypeID} } || '';
+
+    # get service type list
+    my $ServiceTypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+        Class => 'ITSM::Service::Type',
+    );
+    if ( $ServiceData{TypeID} ) {
+        $ServiceData{Type} = $ServiceTypeList->{ $ServiceData{TypeID} } || '';
+    }
 
     # set default incident state type
     $ServiceData{CurInciStateType} = 'operational';
@@ -2107,12 +2358,11 @@ sub ServiceInlineAttachmentURLUpdate {
         . "ServiceID=$Param{ServiceID};FileID=$Param{FileID}";
 
     # rewrite picture URLs
-    if ( $ServiceData{DescriptionLong} ) {
-        # remove newlines
-        # $ServiceData{DescriptionLong} =~ s{ [\n\r]+ }{}gxms;
-
-        # replace URL
-        $ServiceData{DescriptionLong} =~ s{$Search}{$Replace}xms;
+    foreach my $LanguageID ( keys %{$ServiceData{Descriptions}} ) {
+        if ( $ServiceData{Descriptions}->{$LanguageID}->{DescriptionLong} ) {
+            # replace URL
+            $ServiceData{Descriptions}->{$LanguageID}->{DescriptionLong} =~ s{$Search}{$Replace}xms;
+        }
     }
 
     # Cut off sub services from service name
@@ -2387,8 +2637,8 @@ sub UpdateTypServiceACL {
             Valid => 1,
         );
 
-    TYPE:
-    for my $TicketType ( values %TypeList ) {
+        TYPE:
+        for my $TicketType ( values %TypeList ) {
 
             my $ACLRemoveName = 'zzz - Show Service based on Ticket-Type: ' . $TicketType;
 
@@ -2398,22 +2648,23 @@ sub UpdateTypServiceACL {
                 UserID => 1,
             );
 
-        if (IsHashRefWithData($ACL) ) {
+            if (IsHashRefWithData($ACL) ) {
+                my $ConfigChangeHashRefOld = $ACL->{ConfigChange};
+                my $OldServices            = $ConfigChangeHashRefOld->{$Possible} && $ConfigChangeHashRefOld->{$Possible}{Ticket}
+                    ? $ConfigChangeHashRefOld->{$Possible}{Ticket}{Service} : undef;
+                my @ConfigServices         = $OldServices ? $OldServices->@* : ();
 
-            my $ConfigChangeHashRefOld = $ACL->{ConfigChange};
-            my $OldServices = $ConfigChangeHashRefOld->{$Possible} && $ConfigChangeHashRefOld->{$Possible}{Ticket} ? $ConfigChangeHashRefOld->{$Possible}{Ticket}{Service} : undef;
-            my @ConfigServices = $OldServices ? $OldServices->@* : ();
-            @ConfigServices = grep { $_ !~ /$ServiceName/ } @ConfigServices;
-
+                @ConfigServices                                       = grep { $_ !~ /$ServiceName/ } @ConfigServices;
                 $ConfigChangeHashRefOld->{$Possible}{Ticket}{Service} = [@ConfigServices];
-                $ACL->{ConfigChange} = $ConfigChangeHashRefOld;
+                $ACL->{ConfigChange}                                  = $ConfigChangeHashRefOld;
 
-            $Success = $ACLObject->ACLUpdate(
+                $Success = $ACLObject->ACLUpdate(
                     $ACL->%*,
                     UserID => 1,
                 );
+            }
         }
-    }
+
         return 1;
     }
 
@@ -2422,37 +2673,37 @@ sub UpdateTypServiceACL {
 
         my $ACLDisableName = 'zza - Disable all Services if no Ticket-Type is selected.';
 
-    # Check if disable ACL exists
-    my $ACL = $ACLObject->ACLGet(
-            Name   => $ACLDisableName,
-            UserID => 1,
-        );
-
-    # Create ACL if it not exists
-    if ( !IsHashRefWithData($ACL) ) {
-
-        my $DisableConfigMatchHashRef;
-        $DisableConfigMatchHashRef->{Properties}->{Frontend}->{Action} = $FrontendAction;
-        # $DisableConfigMatchHashRef->{Properties}->{Ticket}->{Type} = [];
-
-        my $DisableConfigChangeHashRef;
-        $DisableConfigChangeHashRef->{PossibleNot}{Ticket}{Service} = ['[RegExp].*'];
-
-            my %NewACL = (
-                Name           => $ACLDisableName,
-                Comment        => 'This ACL was generated when a service was added or changed.',
-                Description    => 'This ACL is used to restrict Services per Ticket-Type',
-                StopAfterMatch => 0,
-                ConfigMatch    => $DisableConfigMatchHashRef,
-                ConfigChange   => $DisableConfigChangeHashRef,
-                ValidID        => $ACLValidID,
-            );
-
-            $Success = $ACLObject->ACLAdd(
-                %NewACL,
+        # Check if disable ACL exists
+        my $ACL = $ACLObject->ACLGet(
+                Name   => $ACLDisableName,
                 UserID => 1,
             );
-    }
+
+        # Create ACL if it not exists
+        if ( !IsHashRefWithData($ACL) ) {
+
+            my $DisableConfigMatchHashRef;
+            $DisableConfigMatchHashRef->{Properties}->{Frontend}->{Action} = $FrontendAction;
+            # $DisableConfigMatchHashRef->{Properties}->{Ticket}->{Type} = [];
+
+            my $DisableConfigChangeHashRef;
+            $DisableConfigChangeHashRef->{PossibleNot}{Ticket}{Service} = ['[RegExp].*'];
+
+                my %NewACL = (
+                    Name           => $ACLDisableName,
+                    Comment        => 'This ACL was generated when a service was added or changed.',
+                    Description    => 'This ACL is used to restrict Services per Ticket-Type',
+                    StopAfterMatch => 0,
+                    ConfigMatch    => $DisableConfigMatchHashRef,
+                    ConfigChange   => $DisableConfigChangeHashRef,
+                    ValidID        => $ACLValidID,
+                );
+
+                $Success = $ACLObject->ACLAdd(
+                    %NewACL,
+                    UserID => 1,
+                );
+        }
     }
 
     $ACLName = 'zzz - Show Service based on Ticket-Type: ' . $TicketType;

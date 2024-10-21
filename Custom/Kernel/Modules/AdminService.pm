@@ -2,9 +2,9 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 64d95578480e81261eefac7e2fc1c7686ee79038 - Kernel/Modules/AdminService.pm
+# $origin: otobo - 4dade81e7e04433cb2aed36af0c8727d822a1c61 - Kernel/Modules/AdminService.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -45,7 +45,7 @@ sub new {
     $Self->{IncludeInvalid} = $Preferences{ $Self->{PrefKeyIncludeInvalid} };
 
     # ---
-    # RotherOSS
+    # Rother OSS / ServiceCatalog
     # ---
     # get form id
     $Self->{FormID} = $Kernel::OM->Get('Kernel::System::Web::Request')->GetParam( Param => 'FormID' );
@@ -156,23 +156,40 @@ sub Run {
 # RotherOSS
 # ---
         @{ $GetParam{TicketTypeIDs} } = $ParamObject->GetArray( Param => 'TicketTypeIDs' );
-        for (qw(ServiceID ParentID Name DescriptionShort Criticality ValidID Comment CustomerDefaultService DestQueueID)) {
+        @{ $GetParam{LanguageID} }   = $ParamObject->GetArray( Param => 'LanguageID' );
+
+        for (qw(ServiceID ParentID Name Criticality ValidID Comment CustomerDefaultService DestQueueID Keywords)) {
 # ---
             $GetParam{$_} = $ParamObject->GetParam( Param => $_ ) || '';
         }
 
+        my %Error;
+
 # ---
 # RotherOSS
 # ---
-        $GetParam{'DescriptionLong'} = $ParamObject->GetParam(
-            Param => 'DescriptionLong',
-            Raw   => 1
-        ) || '';
-
         # get composed content type
         $GetParam{ContentType} = 'text/plain';
         if ( $LayoutObject->{BrowserRichText} ) {
             $GetParam{ContentType} = 'text/html';
+        }
+
+        # get the subject and body for all languages
+        for my $LanguageID ( @{ $GetParam{LanguageID} } ) {
+
+            my $DescriptionShort = $ParamObject->GetParam( Param => $LanguageID . '_DescriptionShort' ) || '';
+            my $DescriptionLong  = $ParamObject->GetParam( Param => $LanguageID . '_DescriptionLong' )    || '';
+
+            $GetParam{Descriptions}->{$LanguageID} = {
+                DescriptionShort => $DescriptionShort,
+                DescriptionLong  => $DescriptionLong,
+                ContentType      => $GetParam{ContentType},
+            };
+
+            # set server error flag if field is empty
+            if ( !$DescriptionShort ) {
+                $Error{ $LanguageID . '_DescriptionShortServerError' } = "ServerError";
+            }
         }
 
         # get dynamic field values
@@ -187,8 +204,6 @@ sub Run {
             );
         }
 # ---
-
-        my %Error;
 
         if ( !$GetParam{Name} ) {
             $Error{'NameInvalid'} = 'ServerError';
@@ -210,14 +225,6 @@ sub Run {
             $Error{'NameInvalid'} = 'ServerError';
             $Error{LongName}      = 1;
         }
-
-# ---
-# RotherOSS
-# ---
-        if ( !$GetParam{DescriptionShort} ) {
-            $Error{'DescriptionShortServerError'} = 'ServerError';
-        }
-# ---
 
         if ( !%Error ) {
 
@@ -249,6 +256,7 @@ sub Run {
                 }
             }
 
+# Rother OSS / ServiceCatalog
             # set customer user service member
             $ServiceObject->CustomerUserServiceMemberAdd(
                 CustomerUserLogin => '<DEFAULT>',
@@ -256,6 +264,7 @@ sub Run {
                 Active            => $GetParam{CustomerDefaultService},
                 UserID            => $Self->{UserID},
             );
+# EO ServiceCatalog
 
             if ( !%Error ) {
 
@@ -317,30 +326,32 @@ sub Run {
                     UserID     => $Self->{UserID},
                 );
 
-                # Lookup old inline attachments (initially loaded to AdminService.pm screen)
-                # and push to Attachments array if they still exist in the form.
-                ATTACHMENT:
-                for my $Attachment (@ExistingAttachments) {
-                    if (
-                        $ServiceData{DescriptionLong}
-                        =~ m{ Action=AgentITSMServiceZoom;Subaction=DownloadAttachment;ServiceID=$GetParam{ServiceID};FileID=$Attachment->{FileID} }msx
-                        )
-                    {
-                        # Get the existing inline attachment data.
-                        my %File = $ServiceObject->AttachmentGet(
-                            ServiceID => $GetParam{ServiceID},
-                            FileID    => $Attachment->{FileID},
-                            UserID    => $Self->{UserID},
-                        );
+                for my $LanguageID ( @{ $GetParam{LanguageID} } ) {
+                    # Lookup old inline attachments (initially loaded to AdminService.pm screen)
+                    # and push to Attachments array if they still exist in the form.
+                    ATTACHMENT:
+                    for my $Attachment (@ExistingAttachments) {
+                        if (
+                            $GetParam{Descriptions}->{$LanguageID}->{DescriptionLong}
+                            =~ m{ Action=AgentITSMServiceZoom;Subaction=DownloadAttachment;ServiceID=$GetParam{ServiceID};FileID=$Attachment->{FileID} }msx
+                            )
+                        {
+                            # Get the existing inline attachment data.
+                            my %File = $ServiceObject->AttachmentGet(
+                                ServiceID => $GetParam{ServiceID},
+                                FileID    => $Attachment->{FileID},
+                                UserID    => $Self->{UserID},
+                            );
 
-                        push @Attachments, {
-                            Content     => $File{Content},
-                            ContentType => $File{ContentType},
-                            Filename    => $File{Filename},
-                            Filesize    => $File{Filesize},
-                            Disposition => 'inline',
-                            FileID      => $Attachment->{FileID},
-                        };
+                            push @Attachments, {
+                                Content     => $File{Content},
+                                ContentType => $File{ContentType},
+                                Filename    => $File{Filename},
+                                Filesize    => $File{Filesize},
+                                Disposition => 'inline',
+                                FileID      => $Attachment->{FileID},
+                            };
+                        }
                     }
                 }
 
@@ -446,19 +457,19 @@ sub Run {
                         next DYNAMICFIELD;
                     }
                 }
-# Rother OSS / ServiceCatalog
-        # Create Acl if config is enabled
-        # We create one Acl per Ticket-Type
-        if ( $ConfigObject->Get('ServiceCatalog::CreateTypeServiceRelatedAcls') ) {
-            for my $TicketType ( @{ $GetParam{TicketTypeIDs} } ) {
-                    my $Success = $ServiceObject->UpdateTypServiceACL(
-                        TicketTypeID => $TicketType,
-                        ServiceID   => $GetParam{ServiceID},
-                        ServiceValid => $GetParam{ValidID},
-                        UserID => 1,
-                    );
+# Rother OSS / ServiceCatalog 
+                # Create Acl if config is enabled
+                # We create one Acl per Ticket-Type
+                if ( $ConfigObject->Get('ServiceCatalog::CreateTypeServiceRelatedAcls') ) {
+                    for my $TicketType ( @{ $GetParam{TicketTypeIDs} } ) {
+                        my $Success = $ServiceObject->UpdateTypServiceACL(
+                            TicketTypeID => $TicketType,
+                            ServiceID    => $GetParam{ServiceID},
+                            ServiceValid => $GetParam{ValidID},
+                            UserID       => 1,
+                        );
+                    }
                 }
-            }
 # EO Rother OSS
 # ---
 
@@ -607,16 +618,20 @@ sub _MaskNew {
             ServiceID => $ServiceData{ServiceID},
             UserID    => $Self->{UserID},
         );
-    }
+
+# Rother OSS / ServiceCatalog
+        $Param{Descriptions} = $ServiceData{Descriptions};
+# EO ServiceCatalog
+    } 
 
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
-    # ---
-    # RotherOSS
-    # ---
+# ---
+# RotherOSS
+# ---
     $Param{FormID} = $Self->{FormID};
 
     my $HTMLUtilsObject = $Kernel::OM->Get('Kernel::System::HTMLUtils');
-    # ---
+# ---
 
     # output overview
     $LayoutObject->Block(
@@ -628,15 +643,12 @@ sub _MaskNew {
         },
     );
 
-    # ---
-    # RotherOSS
-    # ---
-
+# Rother OSS / ServiceCatalog
     # output service option reference
     $LayoutObject->Block(
         Name => 'ServiceReference',
     );
-    # ---
+# EO ServiceCatalog
 
     $LayoutObject->Block( Name => 'ActionList' );
     $LayoutObject->Block( Name => 'ActionOverview' );
@@ -681,6 +693,7 @@ sub _MaskNew {
         Class        => 'Modernize',
     );
 
+# Rother OSS / ServiceCatalog
     # Move Ticket to queue
     my %TicketQueueList = $Kernel::OM->Get('Kernel::System::Queue')->GetAllQueues(
         Valid => 1,
@@ -715,26 +728,6 @@ sub _MaskNew {
         }
     }
 # EO Rother OSS
-    # add rich text editor
-    if ( $LayoutObject->{BrowserRichText} ) {
-
-        # reformat from plain to html
-        if ( $Param{ContentType} && $Param{ContentType} =~ /text\/plain/i ) {
-            $Param{DescriptionLong} = $HTMLUtilsObject->ToHTML(
-                String => $Param{DescriptionLong},
-            );
-        }
-    }
-    else {
-
-        # reformat from html to plain
-        if ( $Param{ContentType} && $Param{ContentType} =~ /text\/html/i ) {
-            $Param{DescriptionLong} = $HTMLUtilsObject->ToAscii(
-                String => $Param{DescriptionLong},
-            );
-        }
-    }
-
     # add rich text editor
     if ( $LayoutObject->{BrowserRichText} ) {
 
@@ -827,6 +820,146 @@ sub _MaskNew {
         );
     }
 # ---
+
+# ---
+# Rother OSS
+# Load languages
+# ---
+
+    # get names of languages in English
+    my %DefaultUsedLanguages = %{ $ConfigObject->Get('DefaultUsedLanguages') || {} };
+
+    # get native names of languages
+    my %DefaultUsedLanguagesNative = %{ $ConfigObject->Get('DefaultUsedLanguagesNative') || {} };    
+
+    my %Languages;
+    LANGUAGEID:
+    for my $LanguageID ( sort keys %DefaultUsedLanguages ) {
+
+        # next language if there is not set any name for current language
+        if ( !$DefaultUsedLanguages{$LanguageID} && !$DefaultUsedLanguagesNative{$LanguageID} ) {
+            next LANGUAGEID;
+        }
+
+        # get texts in native and default language
+        my $Text        = $DefaultUsedLanguagesNative{$LanguageID} || '';
+        my $TextEnglish = $DefaultUsedLanguages{$LanguageID}       || '';
+
+        # translate to current user's language
+        my $TextTranslated =
+            $Kernel::OM->Get('Kernel::Output::HTML::Layout')->{LanguageObject}->Translate($TextEnglish);
+
+        if ( $TextTranslated && $TextTranslated ne $Text ) {
+            $Text .= ' - ' . $TextTranslated;
+        }
+
+        # next language if there is not set English nor native name of language.
+        next LANGUAGEID if !$Text;
+
+        $Languages{$LanguageID} = $Text;
+    }
+
+    # copy original list of languages which will be used for rebuilding language selection
+    my %OriginalDefaultUsedLanguages = %Languages;
+
+    # get language ids from Descriptions parameter, use English if no Descriptions is given
+    # make sure English is the first language
+    my @LanguageIDs;
+    if ( IsHashRefWithData( $Param{Descriptions} ) ) {
+        if ( $Param{Descriptions}->{en} ) {
+            push @LanguageIDs, 'en';
+        }
+        LANGUAGEID:
+        for my $LanguageID ( sort keys %{ $Param{Descriptions} } ) {
+            next LANGUAGEID if $LanguageID eq 'en';
+            push @LanguageIDs, $LanguageID;
+        }
+    }
+    elsif ( $DefaultUsedLanguages{en} ) {
+        push @LanguageIDs, 'en';
+    }
+    else {
+        push @LanguageIDs, ( sort keys %DefaultUsedLanguages )[0];
+    }
+
+    for my $LanguageID (@LanguageIDs) {
+        # format the content according to the content type
+        if ( $LayoutObject->{BrowserRichText} ) {
+
+            # make sure DescriptionLong is rich text (if DescriptionLong is based on config)
+            if (
+                $Param{Descriptions}->{$LanguageID}->{ContentType}
+                && $Param{Descriptions}->{$LanguageID}->{ContentType} =~ m{text\/plain}xmsi
+                )
+            {
+                $Param{Descriptions}->{$LanguageID}->{DescriptionLong} = $HTMLUtilsObject->ToHTML(
+                    String => $Param{Descriptions}->{$LanguageID}->{DescriptionLong},
+                );
+            }
+        }
+        else {
+
+            # reformat from HTML to plain
+            if (
+                $Param{Descriptions}->{$LanguageID}->{ContentType}
+                && $Param{Descriptions}->{$LanguageID}->{ContentType} =~ m{text\/html}xmsi
+                && $Param{Descriptions}->{$LanguageID}->{DescriptionLong}
+                )
+            {
+                $Param{Descriptions}->{$LanguageID}->{DescriptionLong} = $HTMLUtilsObject->ToAscii(
+                    String => $Param{Descriptions}->{$LanguageID}->{DescriptionLong},
+                );
+            }
+        }
+
+        # show the descriptions for this language
+        $LayoutObject->Block(
+            Name => 'ServiceLanguage',
+            Data => {
+                %Param,
+                DescriptionShort            => $Param{Descriptions}->{$LanguageID}->{DescriptionShort} || '',
+                DescriptionLong             => $Param{Descriptions}->{$LanguageID}->{DescriptionLong}  || '',
+                LanguageID                  => $LanguageID,
+                Language                    => $Languages{$LanguageID},
+                DescriptionShortServerError => $Param{ $LanguageID . '_DescriptionShortServerError' } || ''
+            },
+        );
+
+        $LayoutObject->Block(
+            Name => 'ServiceLanguageRemoveButton',
+            Data => {
+                %Param,
+                LanguageID => $LanguageID,
+            },
+        );
+
+        # delete language from drop-down list because it is already shown
+        delete $Languages{$LanguageID};
+    }
+
+    $Param{LanguageStrg} = $LayoutObject->BuildSelection(
+        Data         => \%Languages,
+        Name         => 'Language',
+        Class        => 'Modernize W50pc LanguageAdd',
+        Translation  => 1,
+        PossibleNone => 1,
+        HTMLQuote    => 0,
+    );
+
+    $Param{LanguageOrigStrg} = $LayoutObject->BuildSelection(
+        Data         => \%OriginalDefaultUsedLanguages,
+        Name         => 'LanguageOrig',
+        Translation  => 1,
+        PossibleNone => 1,
+        HTMLQuote    => 0,
+    );
+
+    $LayoutObject->Block(
+        Name => 'LanguageOptions',
+        Data => \%Param,
+    );
+
+# ---    
 
     # show each preferences setting
     my %Preferences = ();

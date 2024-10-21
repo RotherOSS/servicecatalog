@@ -1,7 +1,7 @@
 /* OTOBO is a web-based ticketing system for service organisations.
 
 Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.de/
+Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -117,6 +117,7 @@ div.InputField_InputContainer {
     fieldset.TableLike .Row > .FieldCell > .Field > select.Modernize,
     fieldset.TableLike .Row > .FieldCell > .Field > input.W75pc,
     fieldset.TableLike .Row > .FieldCell > .Field > input.W50pc,
+    fieldset.TableLike .Row > .FieldCell > .Field > input[type="text"],
     fieldset.TableLike .FieldCell > .Field > div.InputField_Container > div.InputField_InputContainer > .InputField_Search,
     fieldset.TableLike .FieldCell > .Field > div.InputField_Container > div.InputField_InputContainer > .InputField_Autocomplete {
         min-width: 300px;
@@ -174,7 +175,7 @@ div.InputField_InputContainer {
     min-width: 65px;
 }
 
-.InputField_Search[disabled="disabled"] {
+.InputField_Search[disabled] {
     color: #aaa;
 }
 
@@ -192,7 +193,12 @@ fieldset.TableLike > .Row.MultiColumn > .FieldCell > .Field > input.W75pc,
 fieldset.TableLike > .Row.MultiColumn > .FieldCell > .Field > input.W50pc,
 fieldset.TableLike > .Row.MultiColumn > .FieldCell .InputField_InputContainer > input {
     min-width: 0 !important;
-    width: calc( 100% - 7px ) !important;
+    width: calc( 100% - 7px );
+}
+
+.DynamicFieldDB {
+    width: calc(100% - 12px) !important;
+    box-sizing: border-box;
 }
 
 fieldset.TableLike > .Row.MultiColumn > .FieldCell .InputField_Container,
@@ -414,7 +420,7 @@ div.InputField_ToolbarContainer ul li a:hover {
     cursor: default;
 }
 
-.InputField_FiltersList input[disabled="disabled"] + span {
+.InputField_FiltersList input[disabled] + span {
     font-style: italic;
     color: var(--colTextLight);
 }

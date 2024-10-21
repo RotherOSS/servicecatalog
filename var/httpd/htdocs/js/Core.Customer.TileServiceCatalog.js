@@ -119,9 +119,11 @@ Core.Customer.TileServiceCatalog = (function (TargetNS) {
             $l('.Dialog .oooServiceWrapper').find('.oooServiceContainer').each(function() {
                 var ServiceName = $(this).find('.oooServiceName').text();
                 var Description = $(this).find('.oooDescriptionShort').text();
+                var Keywords    = $(this).find('.oooKeywords').text();
                 if (
                     (ServiceName.toLowerCase().indexOf(SearchString.toLowerCase()) > -1) ||
-                    (Description.toLowerCase().indexOf(SearchString.toLowerCase()) > -1)
+                    (Description.toLowerCase().indexOf(SearchString.toLowerCase()) > -1) ||
+                    (Keywords.toLowerCase().indexOf(SearchString.toLowerCase()) > -1)
                 ) {
                     $(this).removeClass('oooHidden');
                 } else {
@@ -208,6 +210,7 @@ Core.Customer.TileServiceCatalog = (function (TargetNS) {
             Baselink: Baselink,
             NotSelectable: Service.NotSelectable,
             Class: Class,
+            Keywords: Service.Keywords
         });
 
         return Container;
@@ -276,8 +279,6 @@ Core.Customer.TileServiceCatalog = (function (TargetNS) {
 
         $l('.Dialog').addClass('oooDetailedView');
         $l('.oooServiceResult').addClass('oooHidden');
-        // $('.oooServiceBreadcrumb').removeClass('oooHidden').appendTo('.Dialog > .Header');
-        // $('.Dialog > .Content .oooDetailedTicketTypeList').appendTo('.Dialog > .Header');
     }
 
     TargetNS.CreateBreadcrumb = function(ServiceID) {
@@ -285,13 +286,12 @@ Core.Customer.TileServiceCatalog = (function (TargetNS) {
         var SelectedService = Service[ServiceID];
 
         if (SelectedService) {
-            $l('.oooServiceResult').text(Core.Language.Translate('results for %s', SelectedService.NameShort));
+            $l('.oooServiceResult').text(Core.Language.Translate('Results for %s', SelectedService.NameShort));
         } else {
-            $l('.oooServiceResult').text(Core.Language.Translate('results'));
+            $l('.oooServiceResult').text(Core.Language.Translate('Results'));
         }
 
         var LiString = '';
-        // var LiString = '<i class="oooScrollLeft ooofo-arrow_l"></i>';
 
         // Add the current service to the list.
         if (ServiceID != 'All') {
@@ -309,18 +309,6 @@ Core.Customer.TileServiceCatalog = (function (TargetNS) {
 
             LiString += '<li data-service-id="' + ServiceIDLoop + '" class="oooServiceIDAvailable">' + Service[ServiceIDLoop].NameShort + '</li>';
         }
-
-        // LiString += '<i class="oooScrollRight ooofo-arrow_r"></i>';
-
-        // var LiString = '<li data-service-id="' + SelectedService.ServiceID + '" class="oooServiceIDAvailable">' + SelectedService.NameShort + '</li>';
-        // Limit the number of shown parents.
-        // for (var i = 0; i < 10; i++) {
-        //     var ParentID = SelectedService.ParentID;
-        //     if (!ParentID) break;
-
-        //     SelectedService = Service[ParentID];
-        //     LiString = '<li data-service-id="' + SelectedService.ServiceID + '" class="oooServiceIDAvailable">' + SelectedService.NameShort + '</li><i class="ooofo ooofo-arrow_r"></i>' + LiString;
-        // }
 
         $l('.oooBreadcrumbServiceList').html(LiString);
 
