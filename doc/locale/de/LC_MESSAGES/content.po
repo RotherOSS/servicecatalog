@@ -4,27 +4,30 @@
 # Guide package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-16 10:28+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2025-01-10 12:21+0000\n"
+"Last-Translator: Markus Hlinka <mah@rother-oss.com>\n"
+"Language-Team: German <http://translate.otobo.org/projects/"
+"manual-servicecatalog/master/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.4\n"
 "Generated-By: Babel 2.4.0\n"
 
 #: ../../content/index.rst:16
 msgid "Sacrifice to Sphinx"
-msgstr ""
+msgstr "Sacrifice to Sphinx"
 
 #: ../../content/index.rst:19
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: ../../content/index.rst:20
 msgid "A detailed service catalog."
@@ -36,15 +39,15 @@ msgstr ""
 
 #: ../../content/index.rst:26
 msgid "Framework"
-msgstr ""
+msgstr "Framework"
 
 #: ../../content/index.rst:27
 msgid "OTOBO 11.0.x"
-msgstr ""
+msgstr "OTOBO 11.0.x"
 
 #: ../../content/index.rst:30
 msgid "Packages"
-msgstr ""
+msgstr "Pakete"
 
 #: ../../content/index.rst:34
 msgid "Third-party software"
@@ -64,7 +67,7 @@ msgstr ""
 
 #: ../../content/index.rst:44
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls"
-msgstr ""
+msgstr "ServiceCatalog::CreateTypeServiceRelatedAcls"
 
 #: ../../content/index.rst:45
 msgid ""
@@ -75,7 +78,7 @@ msgstr ""
 
 #: ../../content/index.rst:48
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
-msgstr ""
+msgstr "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
 
 #: ../../content/index.rst:49
 msgid ""
@@ -87,11 +90,11 @@ msgstr ""
 
 #: ../../content/index.rst:52
 msgid "Core::DynamicFields::ObjectTypeRegistration"
-msgstr ""
+msgstr "Core::DynamicFields::ObjectTypeRegistration"
 
 #: ../../content/index.rst:55
 msgid "DynamicFields::ObjectType###Service"
-msgstr ""
+msgstr "DynamicFields::ObjectType###Service"
 
 #: ../../content/index.rst:56
 msgid "DynamicField object registration."
@@ -99,7 +102,7 @@ msgstr ""
 
 #: ../../content/index.rst:59
 msgid "Core::Event::Ticket"
-msgstr ""
+msgstr "Core::Event::Ticket"
 
 #: ../../content/index.rst:62
 msgid "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
@@ -223,11 +226,11 @@ msgstr ""
 
 #: ../../content/index.rst:121
 msgid "About"
-msgstr ""
+msgstr "Über"
 
 #: ../../content/index.rst:124
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: ../../content/index.rst:125
 msgid "Rother OSS GmbH"
@@ -239,7 +242,7 @@ msgstr ""
 
 #: ../../content/index.rst:127
 msgid "Web: https://otobo.de"
-msgstr ""
+msgstr "Web: https://otobo.de"
 
 #: ../../content/index.rst:130
 msgid "Version"
@@ -250,4 +253,3 @@ msgid ""
 "Author: |doc-vendor| / Version: |doc-version| / Date of release: |doc-"
 "datestamp|"
 msgstr ""
-
