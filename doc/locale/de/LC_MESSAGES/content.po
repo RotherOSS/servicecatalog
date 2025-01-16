@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-16 10:28+0200\n"
-"PO-Revision-Date: 2025-01-13 15:21+0000\n"
+"PO-Revision-Date: 2025-01-16 11:21+0000\n"
 "Last-Translator: Markus Hlinka <mah@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/"
 "manual-servicecatalog/master/de/>\n"
@@ -31,7 +31,7 @@ msgstr "Beschreibung"
 
 #: ../../content/index.rst:20
 msgid "A detailed service catalog."
-msgstr ""
+msgstr "Ein detaillierter Servicekatalog."
 
 #: ../../content/index.rst:23
 msgid "System requirements"
@@ -63,7 +63,7 @@ msgstr "Konfigurationsreferenz"
 
 #: ../../content/index.rst:41
 msgid "Core::Acl"
-msgstr ""
+msgstr "Core::Acl"
 
 #: ../../content/index.rst:44
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls"
@@ -75,6 +75,9 @@ msgid ""
 "interfaces when creating services. Services will then only be displayed "
 "if the ticket type stored in the service has been selected."
 msgstr ""
+"Mit dieser Option können Sie bei der Erstellung von Diensten automatisch "
+"ACLs für verschiedene Schnittstellen erzeugen. Dienste werden dann nur "
+"angezeigt, wenn der im Dienst gespeicherte Ticket-Typ ausgewählt wurde."
 
 #: ../../content/index.rst:48
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
@@ -87,6 +90,10 @@ msgid ""
 "ConfigChange please use Possible or PossibleAdd. DeployNewACL deploy the "
 "changed acl Immediately."
 msgstr ""
+"ACL Konfiguration für Type - Service Einschränkungen. Bitte aktivieren Sie "
+"vorher ServiceCatalog::CreateTypeServiceRelatedAcls. Für den Schlüssel "
+"ConfigChange verwenden Sie bitte Possible oder PossibleAdd. DeployNewACL "
+"setzt die geänderte ACL sofort ein."
 
 #: ../../content/index.rst:52
 msgid "Core::DynamicFields::ObjectTypeRegistration"
@@ -98,7 +105,7 @@ msgstr "DynamicFields::ObjectType###Service"
 
 #: ../../content/index.rst:56
 msgid "DynamicField object registration."
-msgstr ""
+msgstr "Registrierung des DynamicField-Objekts."
 
 #: ../../content/index.rst:59
 msgid "Core::Event::Ticket"
@@ -106,7 +113,7 @@ msgstr "Core::Event::Ticket"
 
 #: ../../content/index.rst:62
 msgid "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
-msgstr ""
+msgstr "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
 
 #: ../../content/index.rst:63
 msgid ""
@@ -117,6 +124,13 @@ msgid ""
 "activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix "
 "to set the priority in the next step based an Criticality and Impact."
 msgstr ""
+"Registrierung des Ereignismoduls. Derzeit kann die Kritikalität des Dienstes "
+"auch im Dienst gesetzt werden, was aber keine Auswirkung hat. Deshalb wurde "
+"dieses Eventmodul implementiert, das automatisch das DynamicField "
+"Kritikalität in einem Ticket aktualisiert, sobald ein Dienst zugewiesen "
+"wurde. Bitte aktivieren Sie die SysConfig-Option "
+"SetPriorityFromCriticalityAndImpactMatrix, um im nächsten Schritt die "
+"Priorität anhand von Kritikalität und Auswirkung zu setzen."
 
 #: ../../content/index.rst:66
 msgid "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix"
