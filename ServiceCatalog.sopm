@@ -10,7 +10,6 @@
     <Description Lang="de">Ein ausführlicher Leistungskatalog.</Description>
     <Description Lang="en">A detailed service catalog.</Description>
     <Description Lang="es">Catálogo de Servicios detallado.</Description>
-    <ChangeLog Date="2024-05-10 12:00:00" Version="10.1.15">Add multilanguage support for service descriptions, Keywords field for service filtering.</ChangeLog>    
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Modules/AdminService.pm" />
         <File Permission="660" Location="Custom/Kernel/Modules/AgentITSMServiceZoom.pm" />
@@ -122,7 +121,7 @@
                 </IndexColumn>
             </Index>
         </TableCreate>
-        <TableCreate Name="service_description" Version="10.1.15">
+        <TableCreate Name="service_description" Version="11.0.3">
             <Column AutoIncrement="true" Name="id" PrimaryKey="true" Required="true" Type="BIGINT"></Column>
             <Column Name="service_id" Required="true" Size="11" Type="INTEGER"></Column>
             <Column Name="description_short" Required="true" Size="191" Type="VARCHAR"></Column>
@@ -138,7 +137,7 @@
                 </IndexColumn>
             </Index>
         </TableCreate>
-        <TableAlter Name="service" Version="10.1.15">
+        <TableAlter Name="service" Version="11.0.3">
             <ColumnAdd Name="dest_queueid" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
             <ColumnAdd Name="keywords" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
             <ColumnChange Name="description_short" NameNew="description_short" Required="false" Size="255" Type="VARCHAR"></ColumnChange>
@@ -158,11 +157,11 @@
             <ColumnDrop Name="keywords"></ColumnDrop>
         </TableAlter>
     </DatabaseUninstall>
-    <CodeUpgrade Version="10.1.15"><![CDATA[
+    <CodeUpgrade Version="11.0.3"><![CDATA[
     # create the package name
     my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
       
-    $Kernel::OM->Get($CodeModule)->CodeUpgradeFromLowerThan_10_1_14();
+    $Kernel::OM->Get($CodeModule)->CodeUpgradeFromLowerThan_11_0_3();
 ]]></CodeUpgrade>    
     <IntroInstall Lang="en" Title="Install Information" Type="pre">
         &lt;br&gt;

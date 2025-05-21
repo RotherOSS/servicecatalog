@@ -114,15 +114,15 @@ sub CodeUpgrade {
     return 1;
 }
 
-=head2 CodeUpgradeFromLowerThan_10_1_14()
+=head2 CodeUpgradeFromLowerThan_11_0_3()
 
-This function is only executed if the installed module version is smaller than 10.1.14.
+This function is only executed if the installed module version is smaller than 11.0.3.
 
-my $Result = $CodeObject->CodeUpgradeFromLowerThan_10_1_14();
+my $Result = $CodeObject->CodeUpgradeFromLowerThan_11_0_3();
 
 =cut
 
-sub CodeUpgradeFromLowerThan_10_1_14 {    ## no critic qw(OTOBO::RequireCamelCase)
+sub CodeUpgradeFromLowerThan_11_0_3 {    ## no critic qw(OTOBO::RequireCamelCase)
     my ( $Self, %Param ) = @_;
 
     # get database object
@@ -131,6 +131,14 @@ sub CodeUpgradeFromLowerThan_10_1_14 {    ## no critic qw(OTOBO::RequireCamelCas
 
     my $Language     = $ConfigObject->Get('DefaultLanguage') || 'en';
     my $ContentType  = $ConfigObject->Get('Frontend::RichText') ? 'text/html' : 'text/plain';
+
+    # this should only be executed if we come from 11.0.1 or a 10.1 version below 10.1.15
+    my ( $PreviouslyMigrated ) = $DBObject->SelectRowArray(
+        SQL   => 'SELECT id FROM service_description';
+        Limit => 1,
+    );
+
+    return 1 if $PreviouslyMigrated;
 
     my $Success = $DBObject->Do(
         SQL => "INSERT INTO service_description (service_id, description_short, description_long, content_type, language) 
