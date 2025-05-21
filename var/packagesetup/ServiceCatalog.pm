@@ -134,7 +134,7 @@ sub CodeUpgradeFromLowerThan_11_0_3 {    ## no critic qw(OTOBO::RequireCamelCase
 
     # this should only be executed if we come from 11.0.1 or a 10.1 version below 10.1.15
     my ( $PreviouslyMigrated ) = $DBObject->SelectRowArray(
-        SQL   => 'SELECT id FROM service_description';
+        SQL   => 'SELECT id FROM service_description',
         Limit => 1,
     );
 
@@ -147,7 +147,7 @@ sub CodeUpgradeFromLowerThan_11_0_3 {    ## no critic qw(OTOBO::RequireCamelCase
 
     if ( $Success ) {
         $Kernel::OM->Get('Kernel::System::Log')->Log( 
-            Priority 	=> 'error',
+            Priority 	=> 'notice',
             Message 	=> 'Service catalog descriptions migrated successfully to the Service description table!'
         );
     } else {
