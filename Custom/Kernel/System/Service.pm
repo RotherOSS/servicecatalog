@@ -31,13 +31,9 @@ our @ObjectDependencies = (
 # ---
 # ITSMCore
 # ---
-    'Kernel::System::ACL::DB::ACL',
     'Kernel::System::DynamicField',
-    'Kernel::System::Encode',
     'Kernel::System::GeneralCatalog',
     'Kernel::System::LinkObject',
-    'Kernel::System::Service',
-    'Kernel::System::Type',
 # ---
     'Kernel::System::Log',
     'Kernel::System::Main',
@@ -270,9 +266,7 @@ return a list of services with the complete list of attributes for each service
             CurInciState     => 'Operational',
             CurInciStateType => 'operational',
 # ---
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
             Descriptions => {
                 en => {
                     DescriptionShort  => 'Service A',
@@ -348,12 +342,9 @@ sub ServiceListGet {
 # ---
         . ", type_id, criticality "
 # ---
-# ---
-# RotherOSS
-# ---
+# RotherOSS / ServiceCatalog
         . ", keywords "
-# ---
-
+# EO ServiceCatalog
         . 'FROM service';
 
     if ( $Param{Valid} ) {
@@ -390,11 +381,9 @@ sub ServiceListGet {
         $ServiceData{TypeID}      = $Row[8];
         $ServiceData{Criticality} = $Row[9] || '';
 # ---
-# ---
-# RotherOSS
-# ---
-         $ServiceData{Keywords}         = $Row[10];
-# ---
+# RotherOSS / ServiceCatalog
+        $ServiceData{Keywords}         = $Row[10];
+# EO ServiceCatalog
         # add service data to service list
         push @ServiceList, \%ServiceData;
 
@@ -422,9 +411,7 @@ sub ServiceListGet {
             %{$ServiceData} = ( %{$ServiceData}, %Preferences );
         }
 
-# ---
-# RotherOSS
-# ---
+# RotherOSS / ServiceCatalog
         # Get all linked ticket type IDs.
         $DBObject->Prepare(
             SQL =>
@@ -437,7 +424,7 @@ sub ServiceListGet {
             push @TicketTypeIDs, $Row[0];
         }
         $ServiceData->{TicketTypeIDs} = \@TicketTypeIDs;
-# ---
+# EO ServiceCatalog
 
 # ---
 # ITSMCore
@@ -451,9 +438,7 @@ sub ServiceListGet {
         $ServiceData = \%NewServiceData;
 # ---
 
-# ---
-# RotherOSS
-# ---
+# RotherOSS / ServiceCatalog
 
         # get service descriptions data
         $DBObject->Prepare(
@@ -478,7 +463,7 @@ sub ServiceListGet {
 
         $ServiceData->{Descriptions} = \%Descriptions;
 
-# ---
+# EO ServiceCatalog
     }
 
     if (@ServiceList) {
@@ -510,9 +495,7 @@ Return
     $ServiceData{CreateBy}
     $ServiceData{ChangeTime}
     $ServiceData{ChangeBy}
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
     Descriptions => {
         en => {
             DescriptionShort  => 'Service A',
@@ -528,7 +511,7 @@ Return
     $ServiceData{TicketTypeIDs}
     $ServiceData{DestQueueID}
     $ServiceData{Keywords}
-# ---
+# EO ServiceCatalog
 # ---
 # ITSMCore
 # ---
@@ -622,11 +605,9 @@ sub ServiceGet {
 # ---
             . ", type_id, criticality "
 # ---
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
             . ", dest_queueid, keywords "
-# ---
+# EO ServiceCatalog
             . 'FROM service WHERE id = ?',
         Bind  => [ \$Param{ServiceID} ],
         Limit => 1,
@@ -649,18 +630,13 @@ sub ServiceGet {
         $ServiceData{TypeID}      = $Row[8];
         $ServiceData{Criticality} = $Row[9] || '';
 # ---
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
         $ServiceData{DestQueueID}      = $Row[10];
         $ServiceData{Keywords}         = $Row[11];
-# ---
+# EO ServiceCatalog
     }
 
-# ---
-# RotherOSS
-# ---
-
+# Rother OSS / ServiceCatalog
     # get service descriptions data
     $DBObject->Prepare(
         SQL => '
@@ -680,11 +656,6 @@ sub ServiceGet {
         };
     }
 
-# ---
-
-# ---
-# RotherOSS
-# ---
     # Get all linked ticket type IDs.
     $DBObject->Prepare(
         SQL =>
@@ -697,7 +668,7 @@ sub ServiceGet {
         push @TicketTypeIDs, $Row[0];
     }
     $ServiceData{TicketTypeIDs} = \@TicketTypeIDs;
-# ---
+# EO ServiceCatalog
 
     # check service
     if ( !$ServiceData{ServiceID} ) {
@@ -867,9 +838,7 @@ add a service
         TypeID      => 2,
         Criticality => '3 normal',
 # ---
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
         Descriptions => {
             en => {
                 DescriptionShort  => 'Service A',
@@ -884,7 +853,7 @@ add a service
         },
         TicketTypeIDs    => [ 1, 2, 3 ],
         Keywords         => 'service hints for filter',
-# ---
+# EO ServiceCatalog
     );
 
 =cut
@@ -893,17 +862,15 @@ sub ServiceAdd {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-# ---
-# ITSMCore
-# ---
-#    for my $Argument (qw(Name ValidID UserID)) {
-    # for my $Argument (qw(Name ValidID UserID TypeID Criticality)) {
-# ---
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
+## ---
+## ITSMCore
+## ---
+##    for my $Argument (qw(Name ValidID UserID)) {
+#     for my $Argument (qw(Name ValidID UserID TypeID Criticality)) {
+## ---
     for my $Argument (qw(Name ValidID UserID Descriptions Criticality)) {
-# ---
+# EO ServiceCatalog
         if ( !$Param{$Argument} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
@@ -938,10 +905,7 @@ sub ServiceAdd {
         return;
     }
 
-# ---
-# RotherOSS
-# ---
-
+# Rother OSS / ServiceCatalog
     # check service descriptions parameter
     if ( !IsHashRefWithData( $Param{Descriptions} ) ) {
         $Kernel::OM->Get('Kernel::System::Log')->Log(
@@ -970,7 +934,7 @@ sub ServiceAdd {
             $Param{Descriptions}->{$Language}->{DescriptionLong} =~ s/(\n\r|\r\r\n|\r\n|\r)/\n/g;
         }
     }
-# ---
+# EO ServiceCatalog
 
     # create full name
     $Param{FullName} = $Param{Name};
@@ -1010,28 +974,26 @@ sub ServiceAdd {
     }
 
     return if !$DBObject->Do(
-# ---
-# ITSMCore
-# ---
-#        SQL => 'INSERT INTO service '
-#            . '(name, valid_id, comments, create_time, create_by, change_time, change_by) '
-#            . 'VALUES (?, ?, ?, current_timestamp, ?, current_timestamp, ?)',
-#        Bind => [
-#            \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
-#            \$Param{UserID}, \$Param{UserID},
-#        ],
-        # SQL => 'INSERT INTO service '
-        #     . '(name, valid_id, comments, create_time, create_by, change_time, change_by, '
-        #     . 'type_id, criticality) '
-        #     . 'VALUES (?, ?, ?, current_timestamp, ?, current_timestamp, ?, ?, ?)',
-        # Bind => [
-        #     \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
-        #     \$Param{UserID}, \$Param{UserID}, \$Param{TypeID}, \$Param{Criticality},
-        # ],
-# ---
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
+## ---
+## ITSMCore
+## ---
+##        SQL => 'INSERT INTO service '
+##            . '(name, valid_id, comments, create_time, create_by, change_time, change_by) '
+##            . 'VALUES (?, ?, ?, current_timestamp, ?, current_timestamp, ?)',
+##        Bind => [
+##            \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
+##            \$Param{UserID}, \$Param{UserID},
+##        ],
+#         SQL => 'INSERT INTO service '
+#             . '(name, valid_id, comments, create_time, create_by, change_time, change_by, '
+#             . 'type_id, criticality) '
+#             . 'VALUES (?, ?, ?, current_timestamp, ?, current_timestamp, ?, ?, ?)',
+#         Bind => [
+#             \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
+#             \$Param{UserID}, \$Param{UserID}, \$Param{TypeID}, \$Param{Criticality},
+#         ],
+## ---
         SQL => 'INSERT INTO service '
             . '(name, valid_id, comments, create_time, create_by, change_time, change_by, '
             . 'type_id, criticality, dest_queueid, keywords) '
@@ -1041,7 +1003,7 @@ sub ServiceAdd {
             \$Param{UserID}, \$Param{UserID}, \$Param{TypeID}, \$Param{Criticality},
             \$Param{DestQueueID}, \$Param{Keywords},
         ],
-# ---
+# EO ServiceCatalog
     );
 
     # get service id
@@ -1055,9 +1017,7 @@ sub ServiceAdd {
         $ServiceID = $Row[0];
     }
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
     # Insert new ticket type relations.
     TICKETTYPEID:
     for my $TicketTypeID ( @{ $Param{TicketTypeIDs} } ) {
@@ -1090,7 +1050,7 @@ sub ServiceAdd {
             ],
         );
     }
-# ---
+# EO ServiceCatalog
 
     # reset cache
     $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
@@ -1126,9 +1086,7 @@ update an existing service
         TypeID      => 2,
         Criticality => '3 normal',
 # ---
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
         Descriptions => {
             en => {
                 DescriptionShort  => 'Service A',
@@ -1143,7 +1101,7 @@ update an existing service
         },
         TicketTypeIDs    => [ 1, 2, 3 ],
         Keyword          => 'service hints for filter',
-# ---
+# EO ServiceCatalog
     );
 
 =cut
@@ -1152,17 +1110,15 @@ sub ServiceUpdate {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-# ---
-# ITSMCore
-# ---
-#    for my $Argument (qw(ServiceID Name ValidID UserID)) {
-    # for my $Argument (qw(ServiceID Name ValidID UserID TypeID Criticality)) {
-# ---
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
+## ---
+## ITSMCore
+## ---
+##    for my $Argument (qw(ServiceID Name ValidID UserID)) {
+#    for my $Argument (qw(ServiceID Name ValidID UserID TypeID Criticality)) {
+## ---
     for my $Argument (qw(ServiceID Name Descriptions ValidID UserID Criticality)) {
-# ---
+# EO ServiceCatalog
         if ( !$Param{$Argument} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
@@ -1210,10 +1166,7 @@ sub ServiceUpdate {
         return;
     }
 
-# ---
-# RotherOSS
-# ---
-
+# Rother OSS / ServiceCatalog
     # check service descriptions parameter
     if ( !IsHashRefWithData( $Param{Descriptions} ) ) {
         $Kernel::OM->Get('Kernel::System::Log')->Log(
@@ -1242,8 +1195,7 @@ sub ServiceUpdate {
             $Param{Descriptions}->{$Language}->{DescriptionLong} =~ s/(\n\r|\r\r\n|\r\n|\r)/\n/g;
         }
     }    
-
-# ---
+# EO ServiceCatalog
 
     # create full name
     $Param{FullName} = $Param{Name};
@@ -1296,38 +1248,34 @@ sub ServiceUpdate {
 
     }
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
     # Delete existing ticket type relations.
     return if !$DBObject->Do(
         SQL  => 'DELETE FROM service_type WHERE service_id = ?;',
         Bind => [ \$Param{ServiceID}, ],
     );
-# ---
+# EO ServiceCatalog
 
     # update service
     return if !$DBObject->Do(
-# ---
-# ITSMCore
-# ---
+# Rother OSS / ServiceCatalog
+## ---
+## ITSMCore
+## ---
+##        SQL => 'UPDATE service SET name = ?, valid_id = ?, comments = ?, '
+##            . ' change_time = current_timestamp, change_by = ? WHERE id = ?',
+##        Bind => [
+##            \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
+##            \$Param{UserID}, \$Param{ServiceID},
+##        ],
 #        SQL => 'UPDATE service SET name = ?, valid_id = ?, comments = ?, '
-#            . ' change_time = current_timestamp, change_by = ? WHERE id = ?',
+#            . ' change_time = current_timestamp, change_by = ?, type_id = ?, criticality = ?'
+#            . ' WHERE id = ?',
 #        Bind => [
 #            \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
-#            \$Param{UserID}, \$Param{ServiceID},
+#            \$Param{UserID}, \$Param{TypeID}, \$Param{Criticality}, \$Param{ServiceID},
 #        ],
-        # SQL => 'UPDATE service SET name = ?, valid_id = ?, comments = ?, '
-        #     . ' change_time = current_timestamp, change_by = ?, type_id = ?, criticality = ?'
-        #     . ' WHERE id = ?',
-        # Bind => [
-        #     \$Param{FullName}, \$Param{ValidID}, \$Param{Comment},
-        #     \$Param{UserID}, \$Param{TypeID}, \$Param{Criticality}, \$Param{ServiceID},
-        # ],
-# ---
-# ---
-# RotherOSS
-# ---
+## ---
         SQL => 'UPDATE service SET name = ?, valid_id = ?, comments = ?, '
             . ' change_time = current_timestamp, change_by = ?, criticality = ?, '
             . ' dest_queueid = ?, keywords = ?'
@@ -1337,12 +1285,10 @@ sub ServiceUpdate {
             \$Param{UserID}, \$Param{Criticality},
             \$Param{DestQueueID}, \$Param{Keywords}, \$Param{ServiceID},
         ],
-# ---
+# EO ServiceCatalog
     );
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
     # Insert new ticket type relations.
     TICKETTYPEID:
     for my $TicketTypeID ( @{ $Param{TicketTypeIDs} } ) {
@@ -1354,7 +1300,7 @@ sub ServiceUpdate {
             Bind => [ \$Param{ServiceID}, \$TicketTypeID, \$Param{UserID} ]
         );
     }
-# ---
+# EO ServiceCatalog
 
     my $LikeService = $DBObject->Quote( $OldServiceName, 'Like' ) . '::%';
 
@@ -1381,10 +1327,7 @@ sub ServiceUpdate {
         );
     }
 
-# ---
-# RotherOSS
-# ---
-
+# Rother OSS / ServiceCatalog
     # Delete existing service descriptions data.
     $DBObject->Do(
         SQL  => 'DELETE FROM service_description WHERE service_id = ?',
@@ -1410,7 +1353,7 @@ sub ServiceUpdate {
             ],
         );
     }    
-# ---
+# EO ServiceCatalog
 
     # reset cache
     $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
@@ -1995,9 +1938,11 @@ sub _ServiceGetCurrentIncidentState {
     my $ServiceTypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
         Class => 'ITSM::Service::Type',
     );
+# Rother OSS / ServiceCatalog
     if ( $ServiceData{TypeID} ) {
         $ServiceData{Type} = $ServiceTypeList->{ $ServiceData{TypeID} } || '';
     }
+# EO ServiceCatalog
 
     # set default incident state type
     $ServiceData{CurInciStateType} = 'operational';
@@ -2171,7 +2116,7 @@ sub _ServiceGetCurrentIncidentState {
     );
 
     $ServiceData{CurInciState}     = $InciState->{Name};
-    $ServiceData{CurInciStateType} = $InciState->{Functionality};
+    $ServiceData{CurInciStateType} = $InciState->{Functionality}[0] // '';
 
     %ServiceData = (%ServiceData, %Preferences);
 
@@ -2181,9 +2126,7 @@ sub _ServiceGetCurrentIncidentState {
 # ---
 
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
 =head2 AttachmentAdd()
 
 add article attachments, returns the attachment id
@@ -2446,7 +2389,6 @@ sub AttachmentGet {
 
     return %File;
 }
-# ---
 
 =head2 AttachmentIndex()
 return an attachment index of an service id
@@ -2822,5 +2764,6 @@ sub UpdateTypServiceACL {
 
     return 1;
 }
+# EO ServiceCatalog
 
 1;

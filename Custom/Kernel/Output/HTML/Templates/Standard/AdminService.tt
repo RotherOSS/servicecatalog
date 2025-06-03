@@ -196,6 +196,21 @@
                         </div>
                         <div class="Clear"></div>
 # Rother OSS / ServiceCatalog
+## ---
+## ITSMCore
+## ---
+#                        <label for="TypeID">[% Translate("Type") | html %]: </label>
+#                        <div class="Field">
+#                            [% Data.TypeOptionStrg %]
+#                        </div>
+#                        <div class="Clear"></div>
+#
+#                        <label for="Criticality">[% Translate("Criticality") | html %]: </label>
+#                        <div class="Field">
+#                            [% Data.CriticalityOptionStrg %]
+#                        </div>
+#                        <div class="Clear"></div>
+## ---
                         <label for="TicketTypeIDs">[% Translate("Service depends on the following ticket types") | html %]: </label>
                         <div class="Field">
                             [% Data.TicketTypeOptionStrg %]

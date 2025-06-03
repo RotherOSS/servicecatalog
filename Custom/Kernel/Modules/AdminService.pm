@@ -44,9 +44,7 @@ sub new {
 
     $Self->{IncludeInvalid} = $Preferences{ $Self->{PrefKeyIncludeInvalid} };
 
-    # ---
-    # Rother OSS / ServiceCatalog
-    # ---
+# Rother OSS / ServiceCatalog
     # get form id
     $Self->{FormID} = $Kernel::OM->Get('Kernel::System::Web::Request')->GetParam( Param => 'FormID' );
 
@@ -58,7 +56,7 @@ sub new {
     $Self->{DynamicFieldLookup} = $Kernel::OM->Get('Kernel::System::DynamicField')->DynamicFieldListGet(
         ObjectType => 'Service',
     );
-    # ---
+# EO ServiceCatalog
 
     return $Self;
 }
@@ -83,11 +81,9 @@ sub Run {
         $Self->{IncludeInvalid} = $Param{IncludeInvalid};
     }
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
     my $UploadCacheObject = $Kernel::OM->Get('Kernel::System::Web::UploadCache');
-# ---
+# EO ServiceCatalog
 
 # ---
 # ITSMCore
@@ -145,29 +141,27 @@ sub Run {
 
         # get params
         my %GetParam;
-# ---
-# ITSMCore
-# ---
-#        for (qw(ServiceID ParentID Name ValidID Comment)) {
+
+# Rother OSS / ServiceCatalog
+## ---
+## ITSMCore
+## ---
+##        for (qw(ServiceID ParentID Name ValidID Comment)) {
 #        for (qw(ServiceID ParentID Name ValidID Comment TypeID Criticality)) {
-# ---
+## ---
 
-# ---
-# RotherOSS
-# ---
         @{ $GetParam{TicketTypeIDs} } = $ParamObject->GetArray( Param => 'TicketTypeIDs' );
-        @{ $GetParam{LanguageID} }   = $ParamObject->GetArray( Param => 'LanguageID' );
+        @{ $GetParam{LanguageID} }    = $ParamObject->GetArray( Param => 'LanguageID' );
 
-        for (qw(ServiceID ParentID Name Criticality ValidID Comment CustomerDefaultService DestQueueID Keywords)) {
-# ---
+        for (qw(ServiceID ParentID Name ValidID Comment Criticality CustomerDefaultService DestQueueID Keywords)) {
+# EO ServiceCatalog
             $GetParam{$_} = $ParamObject->GetParam( Param => $_ ) || '';
         }
 
         my %Error;
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
+
         # get composed content type
         $GetParam{ContentType} = 'text/plain';
         if ( $LayoutObject->{BrowserRichText} ) {
@@ -203,7 +197,7 @@ sub Run {
                 LayoutObject       => $LayoutObject,
             );
         }
-# ---
+# EO ServiceCatalog
 
         if ( !$GetParam{Name} ) {
             $Error{'NameInvalid'} = 'ServerError';
@@ -311,9 +305,8 @@ sub Run {
                     }
                 }
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
+
                 # get all attachments
                 my @Attachments = $UploadCacheObject->FormIDGetAllFilesData(
                     FormID => $Self->{FormID},
@@ -457,7 +450,7 @@ sub Run {
                         next DYNAMICFIELD;
                     }
                 }
-# Rother OSS / ServiceCatalog 
+
                 # Create Acl if config is enabled
                 # We create one Acl per Ticket-Type
                 if ( $ConfigObject->Get('ServiceCatalog::CreateTypeServiceRelatedAcls') ) {
@@ -470,8 +463,7 @@ sub Run {
                         );
                     }
                 }
-# EO Rother OSS
-# ---
+# EO ServiceCatalog
 
                 # if the user would like to continue editing the service, just redirect to the edit screen
                 if (
@@ -625,13 +617,12 @@ sub _MaskNew {
     } 
 
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
-# ---
-# RotherOSS
-# ---
+
+# Rother OSS / ServiceCatalog
     $Param{FormID} = $Self->{FormID};
 
     my $HTMLUtilsObject = $Kernel::OM->Get('Kernel::System::HTMLUtils');
-# ---
+# EO ServiceCatalog
 
     # output overview
     $LayoutObject->Block(
@@ -676,9 +667,23 @@ sub _MaskNew {
         Class          => 'Modernize',
     );
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
+## ---
+## ITSMCore
+## ---
+#    # generate TypeOptionStrg
+#    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+#        Class => 'ITSM::Service::Type',
+#    );
+#
+#    # build the type dropdown
+#    $ServiceData{TypeOptionStrg} = $LayoutObject->BuildSelection(
+#        Data       => $TypeList,
+#        Name       => 'TypeID',
+#        SelectedID => $Param{TypeID} || $ServiceData{TypeID},
+#        Class      => 'Modernize',
+#    );
+
     my %TicketTypeList = $Kernel::OM->Get('Kernel::System::Type')->TypeList(
         Valid => 1,
     );
@@ -693,7 +698,6 @@ sub _MaskNew {
         Class        => 'Modernize',
     );
 
-# Rother OSS / ServiceCatalog
     # Move Ticket to queue
     my %TicketQueueList = $Kernel::OM->Get('Kernel::System::Queue')->GetAllQueues(
         Valid => 1,
@@ -710,7 +714,6 @@ sub _MaskNew {
         Class        => 'Modernize',
     );
 
-# Rother OSS: Default Customer Service
     my %DefaultServices = $ServiceObject->CustomerUserServiceMemberList(
         CustomerUserLogin => '<DEFAULT>',
         Result            => 'HASH',
@@ -727,7 +730,7 @@ sub _MaskNew {
             last DEFAULTSERVICE;
         }
     }
-# EO Rother OSS
+
     # add rich text editor
     if ( $LayoutObject->{BrowserRichText} ) {
 
@@ -736,23 +739,7 @@ sub _MaskNew {
             Data => \%Param,
         );
     }
-# ---
-
-# ---
-# ITSMCore
-# ---
-#    # generate TypeOptionStrg
-#    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
-#        Class => 'ITSM::Service::Type',
-#    );
-
-#    # build the type dropdown
-#    $ServiceData{TypeOptionStrg} = $LayoutObject->BuildSelection(
-#        Data       => $TypeList,
-#        Name       => 'TypeID',
-#        SelectedID => $Param{TypeID} || $ServiceData{TypeID},
-#        Class      => 'Modernize',
-#    );
+# EO ServiceCatalog
 
     # build the criticality dropdown
     $ServiceData{CriticalityOptionStrg} = $LayoutObject->BuildSelection(
@@ -780,9 +767,7 @@ sub _MaskNew {
         Data => { %Param, %ServiceData, },
     );
 
-# ---
-# RotherOSS
-# ---
+# Rother OSS / ServiceCatalog
     # Get dynamic field backend object.
     my $DynamicFieldBackendObject = $Kernel::OM->Get('Kernel::System::DynamicField::Backend');
     my $ParamObject               = $Kernel::OM->Get('Kernel::System::Web::Request');
@@ -819,12 +804,6 @@ sub _MaskNew {
             },
         );
     }
-# ---
-
-# ---
-# Rother OSS
-# Load languages
-# ---
 
     # get names of languages in English
     my %DefaultUsedLanguages = %{ $ConfigObject->Get('DefaultUsedLanguages') || {} };
@@ -958,8 +937,7 @@ sub _MaskNew {
         Name => 'LanguageOptions',
         Data => \%Param,
     );
-
-# ---    
+# EO ServiceCatalog
 
     # show each preferences setting
     my %Preferences = ();
