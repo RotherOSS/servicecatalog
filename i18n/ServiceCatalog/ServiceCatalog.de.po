@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
 "POT-Creation-Date: 2024-05-16 08:28+0000\n"
-"PO-Revision-Date: 2025-01-10 11:21+0000\n"
-"Last-Translator: Markus Hlinka <mah@rother-oss.com>\n"
-"Language-Team: German <http://weblate.otobo.org/projects/opm-packages/"
+"PO-Revision-Date: 2025-06-06 14:47+0000\n"
+"Last-Translator: Stefan Rother <sr@rother-oss.com>\n"
+"Language-Team: German <http://translate.otobo.org/projects/opm-packages/"
 "servicecatalog/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -15,39 +15,39 @@ msgstr ""
 
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
-msgstr ""
+msgstr "Zeige die Details von diesem Service."
 
 #. Template: AdminService
 msgid "Service depends on the following ticket types"
-msgstr ""
+msgstr "Der Service wird für folgende Ticket-Typen angezeigt"
 
 #. Template: AdminService
 msgid "Ticket destination queue"
-msgstr ""
+msgstr "Ticket Ziel-Queue"
 
 #. Template: AdminService
 msgid "Customer default service"
-msgstr ""
+msgstr "Service für alle Kunden anzeigen"
 
 #. Template: AdminService
 msgid "Criticality"
-msgstr ""
+msgstr "Kritikalität"
 
 #. Template: AdminService
 msgid "Service Type"
-msgstr ""
+msgstr "Service-Typ"
 
 #. Template: AdminService
 msgid "Option Reference"
-msgstr ""
+msgstr "Konfigurationsreferenz"
 
 #. Template: AdminService
 msgid "You can use the following options"
-msgstr ""
+msgstr "Die folgenden Optionen können verwendet werden"
 
 #. Template: AdminService
 msgid "Show services for the following ticket types"
-msgstr ""
+msgstr "Zeige Services für die folgenden Ticket-Typen"
 
 #. Template: AdminService
 msgid "Within the ServiceCatalogue tile in the customer dashboard, it is possible to show ticket types for preconfigured ticket creation inside the service description. Furthermore, it is possible to restrict the services for other screens using the ticket types set here. If you wish to do this, please activate the options \"ServiceCatalog::CreateTypeServiceRelatedAcls\" and \"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" in the OTOBO system configuration. The restriction is made via automatically generated ACLs, which can be viewed under \"Admin -> Access Control Lists (ACL)\". If necessary, please adjust the option \"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" according to your requirements."
@@ -68,6 +68,8 @@ msgstr ""
 #. Template: AdminService
 msgid "Short summary of the service, mainly used in the CustomerDashboard."
 msgstr ""
+"Kurzbeschreibung des Service, vor allem verwendet im Dialog "
+"CustomerDashboard."
 
 #. Template: AdminService
 msgid "Description of the service. Screenshots and tables are also allowed. Please ensure the correct width of the image for screenshots. This can be adjusted in the ckeditor after uploading the screenshot. A width of 600px has proven to be useful or you can configure a \"max-width\" of 95% under Advanced."
