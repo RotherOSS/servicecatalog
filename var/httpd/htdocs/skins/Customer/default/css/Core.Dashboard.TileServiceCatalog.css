@@ -13,11 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* General settings */
-/* #Overlay {
-    background: rgba(0, 2, 60, 0.2);
-} */
-
 .oooNewBox {
     width: 38px;
     height: 22px;
@@ -37,21 +32,6 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
     font-weight: 600;
     font-size: 13px;
     text-transform: uppercase;
-}
-
-.oooTile_ServiceCatalog {
-    /* width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px !important;
-    gap: 32px;
-    isolation: isolate; */
-    /* position: absolute; */
-    /* height: 185px;
-    left: 484px;
-    top: 192px;
-    border-radius: 24px; */
 }
 
 .oooTile_ServiceCatalog > h2 {
@@ -126,11 +106,6 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
     width: 75px;
     height: 18px;
 }
-
-/* .oooBreadcrumbServiceList > li {
-    display: inline-block;
-    cursor: pointer;
-} */
 
 ul.oooChildServiceList > li:not(:first-child) {
     margin-left: 12px;
@@ -232,28 +207,8 @@ ul.oooBreadcrumbServiceList > li:first-child {
     margin-left: 10px;
 }
 
-/* .oooBreadcrumbServiceList > li {
-    font-size: 11px;
-    line-height: 13px;
-    color: var(--colTextLight);
-} */
-
 .oooServiceBreadcrumbField .ooofo.ooofo-arrow_r::before {
     font-weight: bold;
-}
-
-.oooServiceWrapper {
-    /* width: calc( 100% + 32px ); */
-    /* display: flex; */
-    /* gap: 24px; */
-    /* flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    width: 1005px;
-    height: 280px;
-    flex: none; */
-    /* order: 0;
-    flex-grow: 0; */
 }
 
 .Dialog.oooServiceCatalogModal {
@@ -268,26 +223,6 @@ ul.oooBreadcrumbServiceList > li:first-child {
 
 .Dialog.oooServiceCatalogModal:not(:last-child) {
     background: #ffffff;
-}
-
-/* 1. Hide all the elements */
-.Dialog.oooServiceCatalogModal {
-    /* display: none; */
-    /* top: 50px !important;
-    left: 150px !important; */
-}
-
-/* 2. Display the last element */
-.Dialog.oooServiceCatalogModal:last-child {
-    /* display: block; */
-}
-
-/* 3. Apply a special rule to the forelast element */
-.Dialog.oooServiceCatalogModal:nth-last-child(2) {
-    /* display: block;
-    background-color: #fff; */
-    /* top: 95px !important; */
-    /* left: 90px !important; */
 }
 
 .Dialog.oooServiceCatalogModal:nth-last-child(2) > .Header,
@@ -838,7 +773,6 @@ ul.oooBreadcrumbServiceList > li:first-child {
 
 .Dialog.oooServiceCatalogModal > .Content {
     padding: 20px 48px 16px 100px;
-    /* padding: 20px 48px 16px 48px; */
 }
 
 .Dialog > .Header {
@@ -874,11 +808,8 @@ ul.oooBreadcrumbServiceList > li:first-child {
 
 .Dialog > .Header .oooServiceFieldSearch > input {
     border-radius: 30px;
-    /* background: transparent; */
     background: #ffffff;
-    /* border-radius: 0px 30px 30px 0px; */
     height: 60px;
-    /* box-shadow: 0px 29px 49px 8px rgb(0 0 0 / 4%); */
     padding-left: 40px;
 }
 
@@ -1106,10 +1037,6 @@ ul.oooBreadcrumbServiceList > li:first-child {
         top: 50px !important;
     }
 
-    /* .oooServiceBreadcrumbField {
-        width: 320px;
-    } */
-
     .oooDetailedDescriptionLong > * {
         width: 80vw;
     }
@@ -1123,7 +1050,6 @@ ul.oooBreadcrumbServiceList > li:first-child {
 
     .Dialog.oooServiceCatalogModal {
         height: 100%;
-        /* background: #ffffff; */
     }
 
     .Dialog.oooServiceCatalogModal > .Content {
@@ -1203,7 +1129,6 @@ ul.oooBreadcrumbServiceList > li:first-child {
     }
 
     .oooDetailedTicketTypeList, .oooDetailedAccordionList {
-        /* width: 100%; */
         margin-top: 30px;
     }
 }
