@@ -75,6 +75,11 @@ sub Run {
     # ---------------------------------------------------------- #
     if ( $Self->{Subaction} eq 'HTMLView' ) {
 
+        $Service{DescriptionLong} = $Service{Descriptions}{$LayoutObject->{UserLanguage}}{DescriptionLong} ||
+                $Service{Descriptions}{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}{DescriptionLong} ||
+                $Service{Descriptions}{'en'}{DescriptionLong} ||
+                $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
+
         my %HTMLFile = $LayoutObject->RichTextDocumentServe(
             Data => {
                 Content     => $Service{DescriptionLong},
@@ -129,6 +134,11 @@ sub Run {
             return $LayoutObject->ErrorScreen();
         }
     }
+
+    $Service{DescriptionShort} = $Service{Descriptions}{$LayoutObject->{UserLanguage}}{DescriptionShort} ||
+            $Service{Descriptions}{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}{DescriptionShort} ||
+            $Service{Descriptions}{'en'}{DescriptionShort} ||
+            $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
 
     # build dynamic fields.
     my @DynamicFieldList;
