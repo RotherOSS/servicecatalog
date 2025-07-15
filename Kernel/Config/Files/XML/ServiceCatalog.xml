@@ -221,4 +221,13 @@
             </Hash>
         </Value>
     </Setting>
+    <Setting Name="AutoloadPerlPackages###002-ServiceImportExport" Required="0" Valid="1">
+        <Description Translatable="1">Autoload configuration for Service import and export functions.</Description>
+        <Navigation>Core::Autoload</Navigation>
+        <Value>
+            <Array>
+                <Item ValueType="String">Kernel::Autoload::ServiceImportExport</Item>
+            </Array>
+        </Value>
+    </Setting>
 </otobo_config>

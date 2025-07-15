@@ -176,6 +176,7 @@ sub Run {
 
             $Data{Services} = $ServiceObject->ExportServices(
                 Services => \@Services,
+                UserID   => $Self->{UserID},
             );
         }
 
