@@ -33,7 +33,6 @@ use utf8;
 use Kernel::System::VariableCheck qw(IsArrayRefWithData IsHashRefWithData);
 
 our @ObjectDependencies = (
-    'Kernel::Config',
     'Kernel::System::Queue',
     'Kernel::System::Service',
     'Kernel::System::Type',
@@ -87,7 +86,7 @@ sub ExportServices {
                 $ServiceData{Parent} = $ParentService;
                 delete $ServiceData{ParentID};
             }
-            if ( $Attribute eq 'ValidID' ) {
+            elsif ( $Attribute eq 'ValidID' ) {
                 my $Valid = $ValidObject->ValidLookup(
                     ValidID => $ServiceData{ValidID},
                 );
