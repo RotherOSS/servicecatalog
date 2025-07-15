@@ -80,6 +80,13 @@ sub ExportServices {
 
             next ATTRIBUTE unless $Attribute =~ /ID/;
 
+            if ( $Attribute eq 'ParentID' ) {
+                my $ParentService = $ServiceObject->ServiceLookup(
+                    ServiceID => $ServiceData{ParentID},
+                );
+                $ServiceData{Parent} = $ParentService;
+                delete $ServiceData{ParentID};
+            }
             if ( $Attribute eq 'ValidID' ) {
                 my $Valid = $ValidObject->ValidLookup(
                     ValidID => $ServiceData{ValidID},
@@ -132,11 +139,7 @@ sub ImportServices {
     my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
     my $TypeObject    = $Kernel::OM->Get('Kernel::System::Type');
     my $ValidObject   = $Kernel::OM->Get('Kernel::System::Valid');
-    my %QueueList     = $QueueObject->QueueList(
-        Valid => 0,
-    );
-    my %QueueLookup = reverse %QueueList;
-    my %ServiceList = $ServiceObject->ServiceList(
+    my %ServiceList   = $ServiceObject->ServiceList(
         Valid  => 0,
         UserID => $UserID,
     );
@@ -146,20 +149,29 @@ sub ImportServices {
     for my $ServiceName ( keys $Param{Services}->%* ) {
         my $ServiceData = $Param{Services}{$ServiceName};
 
+        # skip if parent attribute present but no corresponding service
+        if ( $ServiceData->{Parent} ) {
+            my $ParentServiceID = $ServiceObject->ServiceLookup(
+                Name => $ServiceData->{Parent},
+            );
+
+            next SERVICENAME unless $ParentServiceID;
+
+            $ServiceData->{ParentID} = $ParentServiceID;
+        }
+
         # in case of child service, check if all parent services are present
         #   either in the system or in the import data
         my @NameElements = split( /::/, $ServiceData->{Name} );
-
-        # TODO build check relying on ParentID
         if ( scalar @NameElements > 1 ) {
             my $NameStrg = '';
             for my $Index ( 0 .. $#NameElements - 1 ) {
                 $NameStrg .= $NameElements[$Index];
 
-                if ( !$QueueLookup{$NameStrg} && !$Param{Queues}{$NameStrg} ) {
+                if ( !$ServiceLookup{$NameStrg} && !$Param{Services}{$NameStrg} ) {
 
                     # parent element not found, skipping
-                    next QUEUENAME;
+                    next SERVICENAME;
                 }
             }
         }
@@ -190,6 +202,7 @@ sub ImportServices {
 
             my $Success = $ServiceObject->ServiceUpdate(
                 $ServiceData->%*,
+                Name      => $ServiceData->{NameShort},
                 ServiceID => $ServiceID,
                 UserID    => $UserID,
             );
@@ -198,6 +211,7 @@ sub ImportServices {
         else {
             my $ServiceID = $ServiceObject->ServiceAdd(
                 $ServiceData->%*,
+                Name   => $ServiceData->{NameShort},
                 UserID => $UserID,
             );
             return unless $ServiceID;
