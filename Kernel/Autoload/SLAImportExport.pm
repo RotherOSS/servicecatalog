@@ -124,7 +124,8 @@ sub ImportSLAs {
     my $SLAObject            = $Kernel::OM->Get('Kernel::System::SLA');
     my $ValidObject          = $Kernel::OM->Get('Kernel::System::Valid');
     my %SLAList              = $SLAObject->SLAList(
-        Valid => 0,
+        Valid  => 0,
+        UserID => $UserID,
     );
     my %SLALookup   = reverse %SLAList;
     my $SLATypeList = $GeneralCatalogObject->ItemList(
@@ -146,9 +147,9 @@ sub ImportSLAs {
         $SLAData->{TypeID} = $SLATypeLookup{ $SLAData->{Type} };
         if ( IsArrayRefWithData( $SLAData->{Services} ) ) {
             my @ServiceIDs;
-            for my $Service ( $SLAData->{SLAs}->@* ) {
+            for my $Service ( $SLAData->{Services}->@* ) {
                 push @ServiceIDs, $ServiceObject->ServiceLookup(
-                    Type => $Service,
+                    Name => $Service,
                 );
             }
             $SLAData->{ServiceIDs} = \@ServiceIDs;
