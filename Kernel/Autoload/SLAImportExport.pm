@@ -16,9 +16,9 @@
 
 ## no critic (Modules::RequireExplicitPackage)
 
-use Kernel::System::Service ();    ## no perlimports
+use Kernel::System::SLA ();    ## no perlimports
 
-package Kernel::System::Service;   ## no critic (Modules::RequireFilenameMatchesPackage)
+package Kernel::System::SLA;   ## no critic (Modules::RequireFilenameMatchesPackage)
 
 use strict;
 use warnings;
@@ -33,188 +33,145 @@ use utf8;
 use Kernel::System::VariableCheck qw(IsArrayRefWithData IsHashRefWithData);
 
 our @ObjectDependencies = (
-    'Kernel::Config',
-    'Kernel::System::Queue',
+    'Kernel::System::GeneralCatalog',
+    'Kernel::System::SLA',
     'Kernel::System::Service',
-    'Kernel::System::Type',
     'Kernel::System::Valid',
 );
 
-sub ExportServices {
+sub ExportSLAs {
     my ( $Self, %Param ) = @_;
 
     my $UserID = $Self->{UserID} || $Param{UserID};
 
-    my %ServiceFilter;
-    if ( IsArrayRefWithData( $Param{Services} ) ) {
-        %ServiceFilter = map { $_ => 1 } $Param{Services}->@*;
+    my %SLAFilter;
+    if ( IsArrayRefWithData( $Param{SLAs} ) ) {
+        %SLAFilter = map { $_ => 1 } $Param{SLAs}->@*;
     }
 
-    my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
+    my $SLAObject = $Kernel::OM->Get('Kernel::System::SLA');
 
-    my %ServiceList = $ServiceObject->ServiceList(
+    my %SLAList = $SLAObject->SLAList(
         Valid  => 0,
         UserID => $UserID,
     );
 
     my %ExportData;
-    SERVICEID:
-    for my $ServiceID ( sort keys %ServiceList ) {
+    SLAID:
+    for my $SLAID ( sort keys %SLAList ) {
 
-        my %ServiceData = $ServiceObject->ServiceGet(
-            ServiceID => $ServiceID,
-            UserID    => $UserID,
+        my %SLAData = $SLAObject->SLAGet(
+            SLAID  => $SLAID,
+            UserID => $UserID,
         );
 
-        if (%ServiceFilter) {
-            next SERVICEID unless $ServiceFilter{ $ServiceData{Name} };
+        if (%SLAFilter) {
+            next SLAID unless $SLAFilter{ $SLAData{Name} };
         }
 
         # translate IDs into names or name-like identifiers
-        my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
-        my $TypeObject  = $Kernel::OM->Get('Kernel::System::Type');
-        my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
+        my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
+        my $ValidObject   = $Kernel::OM->Get('Kernel::System::Valid');
 
         ATTRIBUTE:
-        for my $Attribute ( keys %ServiceData ) {
+        for my $Attribute ( keys %SLAData ) {
 
             next ATTRIBUTE unless $Attribute =~ /ID/;
 
-            if ( $Attribute eq 'ParentID' ) {
-                my $ParentService = $ServiceObject->ServiceLookup(
-                    ServiceID => $ServiceData{ParentID},
-                );
-                $ServiceData{Parent} = $ParentService;
-                delete $ServiceData{ParentID};
-            }
             if ( $Attribute eq 'ValidID' ) {
                 my $Valid = $ValidObject->ValidLookup(
-                    ValidID => $ServiceData{ValidID},
+                    ValidID => $SLAData{ValidID},
                 );
-                $ServiceData{Valid} = $Valid;
-                delete $ServiceData{ValidID};
+                $SLAData{Valid} = $Valid;
+                delete $SLAData{ValidID};
             }
-            elsif ( $Attribute eq 'DestQueueID' ) {
-                my $Queue = $QueueObject->QueueLookup(
-                    QueueID => $ServiceData{DestQueueID},
-                );
-                $ServiceData{DestQueue} = $Queue;
-                delete $ServiceData{DestQueueID};
-            }
-            elsif ( $Attribute eq 'TicketTypeIDs' ) {
-                if ( IsArrayRefWithData( $ServiceData{TicketTypeIDs} ) ) {
-                    my @TicketTypes;
-                    for my $TicketTypeID ( $ServiceData{TicketTypeIDs}->@* ) {
-                        push @TicketTypes, $TypeObject->TypeLookup(
-                            TypeID => $TicketTypeID,
+            elsif ( $Attribute eq 'ServiceIDs' ) {
+                if ( IsArrayRefWithData( $SLAData{ServiceIDs} ) ) {
+                    my @Services;
+                    for my $ServiceID ( $SLAData{ServiceIDs}->@* ) {
+                        push @Services, $ServiceObject->ServiceLookup(
+                            ServiceID => $ServiceID,
                         );
                     }
-                    $ServiceData{TicketTypes} = \@TicketTypes;
-                    delete $ServiceData{TicketTypeIDs};
+                    $SLAData{Services} = \@Services;
+                    delete $SLAData{ServiceIDs};
                 }
             }
         }
 
-        delete $ServiceData{ChangeBy};
-        delete $ServiceData{ChangeTime};
-        delete $ServiceData{CreateBy};
-        delete $ServiceData{CreateTime};
-        delete $ServiceData{ServiceID};
+        # observation showed that Type and TypeID both are usually present
+        delete $SLAData{TypeID};
 
-        # unhandled attribute, related to ITSMCore and GeneralCatalog
-        delete $ServiceData{TypeID};
+        delete $SLAData{ChangeBy};
+        delete $SLAData{ChangeTime};
+        delete $SLAData{CreateBy};
+        delete $SLAData{CreateTime};
+        delete $SLAData{SLAID};
 
-        $ExportData{ $ServiceData{Name} } = \%ServiceData;
+        $ExportData{ $SLAData{Name} } = \%SLAData;
     }
 
     return \%ExportData;
 }
 
-sub ImportServices {
+sub ImportSLAs {
     my ( $Self, %Param ) = @_;
 
     my $UserID = $Self->{UserID} || $Param{UserID};
 
-    my $QueueObject   = $Kernel::OM->Get('Kernel::System::Queue');
-    my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
-    my $TypeObject    = $Kernel::OM->Get('Kernel::System::Type');
-    my $ValidObject   = $Kernel::OM->Get('Kernel::System::Valid');
-    my %ServiceList   = $ServiceObject->ServiceList(
-        Valid  => 0,
-        UserID => $UserID,
+    my $GeneralCatalogObject = $Kernel::OM->Get('Kernel::System::GeneralCatalog');
+    my $ServiceObject        = $Kernel::OM->Get('Kernel::System::Service');
+    my $SLAObject            = $Kernel::OM->Get('Kernel::System::SLA');
+    my $ValidObject          = $Kernel::OM->Get('Kernel::System::Valid');
+    my %SLAList              = $SLAObject->SLAList(
+        Valid => 0,
     );
-    my %ServiceLookup = reverse %ServiceList;
+    my %SLALookup   = reverse %SLAList;
+    my $SLATypeList = $GeneralCatalogObject->ItemList(
+        Class => 'ITSM::SLA::Type',
+        Valid => 0,
+    );
+    my %SLATypeLookup = reverse $SLATypeList->%*;
 
-    SERVICENAME:
-    for my $ServiceName ( keys $Param{Services}->%* ) {
-        my $ServiceData = $Param{Services}{$ServiceName};
+    SLANAME:
+    for my $SLAName ( keys $Param{SLAs}->%* ) {
+        my $SLAData = $Param{SLAs}{$SLAName};
 
-        # skip if parent attribute present but no corresponding service
-        if ( $ServiceData->{Parent} ) {
-            my $ParentServiceID = $ServiceObject->ServiceLookup(
-                Name => $ServiceData->{Parent},
-            );
+        my $SLAID = $SLALookup{ $SLAData->{Name} };
 
-            next SERVICENAME unless $ParentServiceID;
-
-            $ServiceData->{ParentID} = $ParentServiceID;
-        }
-
-        # in case of child service, check if all parent services are present
-        #   either in the system or in the import data
-        my @NameElements = split( /::/, $ServiceData->{Name} );
-        if ( scalar @NameElements > 1 ) {
-            my $NameStrg = '';
-            for my $Index ( 0 .. $#NameElements - 1 ) {
-                $NameStrg .= $NameElements[$Index];
-
-                if ( !$ServiceLookup{$NameStrg} && !$Param{Services}{$NameStrg} ) {
-
-                    # parent element not found, skipping
-                    next SERVICENAME;
-                }
-            }
-        }
-
-        my $ServiceID = $ServiceLookup{ $ServiceData->{Name} };
-
-        # skip if service with same name exists and overwrite is not set
-        next SERVICENAME if ( !$Param{OverwriteExistingEntities} && $ServiceID );
+        # skip if SLA with same name exists and overwrite is not set
+        next SLANAME if ( !$Param{OverwriteExistingEntities} && $SLAID );
 
         # translate named data back to IDs
-        $ServiceData->{DestQueueID} = $QueueObject->QueueLookup(
-            Queue => $ServiceData->{DestQueue},
-        );
-        if ( IsArrayRefWithData( $ServiceData->{TicketTypes} ) ) {
-            my @TicketTypeIDs;
-            for my $TicketType ( $ServiceData->{TicketTypes}->@* ) {
-                push @TicketTypeIDs, $TypeObject->TypeLookup(
-                    Type => $TicketType,
+        $SLAData->{TypeID} = $SLATypeLookup{ $SLAData->{Type} };
+        if ( IsArrayRefWithData( $SLAData->{Services} ) ) {
+            my @ServiceIDs;
+            for my $Service ( $SLAData->{SLAs}->@* ) {
+                push @ServiceIDs, $ServiceObject->ServiceLookup(
+                    Type => $Service,
                 );
             }
-            $ServiceData->{TicketTypeIDs} = \@TicketTypeIDs;
+            $SLAData->{ServiceIDs} = \@ServiceIDs;
         }
-        $ServiceData->{ValidID} = $ValidObject->ValidLookup(
-            Valid => $ServiceData->{Valid},
+        $SLAData->{ValidID} = $ValidObject->ValidLookup(
+            Valid => $SLAData->{Valid},
         );
 
-        if ($ServiceID) {
+        if ($SLAID) {
 
-            my $Success = $ServiceObject->ServiceUpdate(
-                $ServiceData->%*,
-                Name      => $ServiceData->{NameShort},
-                ServiceID => $ServiceID,
-                UserID    => $UserID,
+            my $Success = $SLAObject->SLAUpdate(
+                $SLAData->%*,
+                SLAID  => $SLAID,
+                UserID => $UserID,
             );
             return unless $Success;
         }
         else {
-            my $ServiceID = $ServiceObject->ServiceAdd(
-                $ServiceData->%*,
-                Name   => $ServiceData->{NameShort},
+            my $SLAID = $SLAObject->SLAAdd(
+                $SLAData->%*,
                 UserID => $UserID,
             );
-            return unless $ServiceID;
+            return unless $SLAID;
         }
     }
 
