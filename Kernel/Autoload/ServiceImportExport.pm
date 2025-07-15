@@ -87,27 +87,35 @@ sub ExportServices {
                 $ServiceData{Valid} = $Valid;
                 delete $ServiceData{ValidID};
             }
-            elsif ( $Attribute eq 'QueueID' ) {
+            elsif ( $Attribute eq 'DestQueueID' ) {
                 my $Queue = $QueueObject->QueueLookup(
-                    QueueID => $ServiceData{QueueID},
+                    QueueID => $ServiceData{DestQueueID},
                 );
-                $ServiceData{Queue} = $Queue;
-                delete $ServiceData{QueueID};
+                $ServiceData{DestQueue} = $Queue;
+                delete $ServiceData{DestQueueID};
             }
-            elsif ( $Attribute eq 'TypeID' ) {
-                my $Type = $TypeObject->TypeLookup(
-                    TypeID => $ServiceData{TypeID},
-                );
-                $ServiceData{Type} = $Type;
-                delete $ServiceData{TypeID};
+            elsif ( $Attribute eq 'TicketTypeIDs' ) {
+                if ( IsArrayRefWithData( $ServiceData{TicketTypeIDs} ) ) {
+                    my @TicketTypes;
+                    for my $TicketTypeID ( $ServiceData{TicketTypeIDs}->@* ) {
+                        push @TicketTypes, $TypeObject->TypeLookup(
+                            TypeID => $TicketTypeID,
+                        );
+                    }
+                    $ServiceData{TicketTypes} = \@TicketTypes;
+                    delete $ServiceData{TicketTypeIDs};
+                }
             }
         }
 
+        delete $ServiceData{ChangeBy};
         delete $ServiceData{ChangeTime};
+        delete $ServiceData{CreateBy};
         delete $ServiceData{CreateTime};
-        delete $ServiceData{Email};
-        delete $ServiceData{QueueID};
-        delete $ServiceData{Realname};
+        delete $ServiceData{ServiceID};
+
+        # unhandled attribute, related to ITSMCore and GeneralCatalog
+        delete $ServiceData{TypeID};
 
         $ExportData{ $ServiceData{Name} } = \%ServiceData;
     }
@@ -142,13 +150,7 @@ sub ImportServices {
         #   either in the system or in the import data
         my @NameElements = split( /::/, $ServiceData->{Name} );
 
-        # TODO likely not needed, check
-        # # check if service levels conform to system configuration
-        # my $MaxQueueLevel = $Kernel::OM->Get('Kernel::Config')->Get('Ticket::Frontend::MaxQueueLevel');
-        # if ( scalar @NameElements > $MaxQueueLevel ) {
-        #     next QUEUENAME;
-        # }
-
+        # TODO build check relying on ParentID
         if ( scalar @NameElements > 1 ) {
             my $NameStrg = '';
             for my $Index ( 0 .. $#NameElements - 1 ) {
@@ -168,12 +170,18 @@ sub ImportServices {
         next SERVICENAME if ( !$Param{OverwriteExistingEntities} && $ServiceID );
 
         # translate named data back to IDs
-        $ServiceData->{QueueID} = $QueueObject->QueueLookup(
-            Queue => $ServiceData->{Queue},
+        $ServiceData->{DestQueueID} = $QueueObject->QueueLookup(
+            Queue => $ServiceData->{DestQueue},
         );
-        $ServiceData->{TypeID} = $TypeObject->TypeLookup(
-            Type => $ServiceData->{Type},
-        );
+        if ( IsArrayRefWithData( $ServiceData->{TicketTypes} ) ) {
+            my @TicketTypeIDs;
+            for my $TicketType ( $ServiceData->{TicketTypes}->@* ) {
+                push @TicketTypeIDs, $TypeObject->TypeLookup(
+                    Type => $TicketType,
+                );
+            }
+            $ServiceData->{TicketTypeIDs} = \@TicketTypeIDs;
+        }
         $ServiceData->{ValidID} = $ValidObject->ValidLookup(
             Valid => $ServiceData->{Valid},
         );
