@@ -22,8 +22,10 @@
         <File Permission="660" Location="Kernel/Language/de_ServiceCatalog.pm" />
         <File Permission="660" Location="Kernel/Language/es_ServiceCatalog.pm" />
         <File Permission="660" Location="Kernel/Language/es_CO_ServiceCatalog.pm" />
+        <File Permission="660" Location="Kernel/Modules/AdminServiceImportExport.pm" />
         <File Permission="660" Location="Kernel/Modules/CustomerTileServiceCatalog.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/CustomerDashboard/TileServiceCatalog.pm" />
+        <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AdminServiceImportExport.tt" />
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/Dashboard/TileServiceCatalog.tt" />
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/Dashboard/TileServiceCatalogDynamicFields.tt" />
         <File Permission="660" Location="Kernel/Output/JavaScript/Templates/Standard/Customer/TileServiceCatalogContainer.html.tmpl" />
@@ -41,6 +43,7 @@
         <File Permission="660" Location="var/httpd/htdocs/js/Core.UI.Dialog.js" />
         <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.ITSMServiceZoom.js" />
         <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.Admin.Service.js" />
+        <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.Admin.ServiceImportExport.js" />
         <File Permission="660" Location="var/packagesetup/ServiceCatalog.pm" />
     </Filelist>    
     <DatabaseInstall Type="post">
