@@ -14,7 +14,7 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 # --
 
-package Kernel::Modules::AdminServiceImportExport;
+package Kernel::Modules::AdminSLAImportExport;
 
 use strict;
 use warnings;
@@ -30,7 +30,7 @@ use Kernel::System::VariableCheck qw(:all);
 our @ObjectDependencies = (
     'Kernel::Output::HTML::Layout',
     'Kernel::System::Cache',
-    'Kernel::System::Service',
+    'Kernel::System::SLA',
     'Kernel::System::Valid',
     'Kernel::System::Web::Request',
     'Kernel::System::YAML',
@@ -49,11 +49,11 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     # get objects
-    my $LayoutObject  = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
-    my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
-    my $ParamObject   = $Kernel::OM->Get('Kernel::System::Web::Request');
-    my $YAMLObject    = $Kernel::OM->Get('Kernel::System::YAML');
-    my $CacheObject   = $Kernel::OM->Get('Kernel::System::Cache');
+    my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
+    my $SLAObject    = $Kernel::OM->Get('Kernel::System::SLA');
+    my $ParamObject  = $Kernel::OM->Get('Kernel::System::Web::Request');
+    my $YAMLObject   = $Kernel::OM->Get('Kernel::System::YAML');
+    my $CacheObject  = $Kernel::OM->Get('Kernel::System::Cache');
 
     $Self->{Subaction} = $ParamObject->GetParam( Param => 'Subaction' ) || '';
 
@@ -76,8 +76,8 @@ sub Run {
         );
 
         $CacheObject->Set(
-            Type  => 'AdminServiceImportExport',
-            Key   => 'AdminServiceImportExport::' . $Self->{UserID},
+            Type  => 'AdminSLAImportExport',
+            Key   => 'AdminSLAImportExport::' . $Self->{UserID},
             Value => $PerlStructure,
             TTL   => 60 * 60,
         );
@@ -95,56 +95,56 @@ sub Run {
     elsif ( $Self->{Subaction} eq 'ImportAction' ) {
 
         my $ImportData = $CacheObject->Get(
-            Type => 'AdminServiceImportExport',
-            Key  => 'AdminServiceImportExport::' . $Self->{UserID},
+            Type => 'AdminSLAImportExport',
+            Key  => 'AdminSLAImportExport::' . $Self->{UserID},
         );
 
         if ( !IsHashRefWithData($ImportData) ) {
 
-            # redirect to AdminService
+            # redirect to AdminSLA
             my $HTML = $LayoutObject->Redirect(
-                OP => "Action=AdminService"
+                OP => "Action=AdminSLA"
             );
 
             return $HTML;
         }
 
         # check required parameters
-        my @ServicesSelected          = $ParamObject->GetArray( Param => 'Services' );
+        my @SLAsSelected              = $ParamObject->GetArray( Param => 'SLAs' );
         my $OverwriteExistingEntities = $ParamObject->GetParam( Param => 'OverwriteExistingEntities' ) || 0;
 
         $CacheObject->Delete(
-            Type => 'AdminServiceImportExport',
-            Key  => 'AdminServiceImportExport::' . $Self->{UserID},
+            Type => 'AdminSLAImportExport',
+            Key  => 'AdminSLAImportExport::' . $Self->{UserID},
         );
 
         # ------------------------------------------------------------ #
-        # Import Services
+        # Import SLAs
         # ------------------------------------------------------------ #
-        if ( IsHashRefWithData( $ImportData->{Services} ) ) {
+        if ( IsHashRefWithData( $ImportData->{SLAs} ) ) {
 
-            my %ServicesImport;
-            SERVICENAME:
-            for my $ServiceName ( keys $ImportData->{Services}->%* ) {
+            my %SLAImport;
+            SLANAME:
+            for my $SLAName ( keys $ImportData->{SLAs}->%* ) {
 
-                my $Selected = grep { $ServiceName eq $_ } @ServicesSelected;
-                next SERVICENAME if !$Selected;
+                my $Selected = grep { $SLAName eq $_ } @SLAsSelected;
+                next SLANAME if !$Selected;
 
-                next SERVICENAME if !IsHashRefWithData( $ImportData->{Services}{$ServiceName} );
+                next SLANAME if !IsHashRefWithData( $ImportData->{SLAs}{$SLAName} );
 
-                $ServicesImport{$ServiceName} = $ImportData->{Services}{$ServiceName};
+                $SLAImport{$SLAName} = $ImportData->{SLAs}{$SLAName};
             }
 
-            $ServiceObject->ImportServices(
-                Services                  => \%ServicesImport,
+            $SLAObject->ImportSLAs(
+                SLAs                      => \%SLAImport,
                 OverwriteExistingEntities => $OverwriteExistingEntities,
                 UserID                    => $Self->{UserID},
             );
         }
 
-        # redirect to AdminService
+        # redirect to AdminSLA
         my $HTML = $LayoutObject->Redirect(
-            OP => "Action=AdminService"
+            OP => "Action=AdminSLA"
         );
 
         return $HTML;
@@ -168,30 +168,30 @@ sub Run {
     elsif ( $Self->{Subaction} eq 'ExportAction' ) {
 
         # check required parameters
-        my @Services = $ParamObject->GetArray( Param => 'Services' );
+        my @SLAs = $ParamObject->GetArray( Param => 'SLAs' );
 
         my %Data;
         my $HTML;
 
-        if (@Services) {
+        if (@SLAs) {
 
-            $Data{Services} = $ServiceObject->ExportServices(
-                Services => \@Services,
-                UserID   => $Self->{UserID},
+            $Data{SLAs} = $SLAObject->ExportSLAs(
+                SLAs   => \@SLAs,
+                UserID => $Self->{UserID},
             );
         }
 
         if ( !%Data ) {
 
-            # redirect to AdminServiceImportExport
+            # redirect to AdminSLAImportExport
             $HTML .= $LayoutObject->Redirect(
-                OP => "Action=AdminServiceImportExport;Subaction=Export",
+                OP => "Action=AdminSLAImportExport;Subaction=Export",
             );
             return $HTML;
         }
 
-        # convert the service data hash to string
-        my $ServiceDataYAML = $YAMLObject->Dump( Data => \%Data );
+        # convert the SLA data hash to string
+        my $SLADataYAML = $YAMLObject->Dump( Data => \%Data );
 
         # Get the current time formatted like '2016-01-31 14:05:45'.
         # Hoping that nobody has registered object params for Kernel::System::DateTime
@@ -200,9 +200,9 @@ sub Run {
         # send the result to the browser
         $HTML = $LayoutObject->Attachment(
             ContentType => 'text/html; charset=' . $LayoutObject->{Charset},
-            Content     => $ServiceDataYAML,
+            Content     => $SLADataYAML,
             Type        => 'attachment',
-            Filename    => "Export_Services_$TimeStamp.yml",
+            Filename    => "Export_SLAs_$TimeStamp.yml",
             NoCache     => 1,
         );
 
@@ -214,9 +214,9 @@ sub Run {
     # ------------------------------------------------------------ #
     else {
 
-        # redirect to AdminService
+        # redirect to AdminSLA
         my $HTML = $LayoutObject->Redirect(
-            OP => "Action=AdminService"
+            OP => "Action=AdminSLA"
         );
 
         return $HTML;
@@ -228,8 +228,8 @@ sub Run {
 sub _Mask {
     my ( $Self, %Param ) = @_;
 
-    my $LayoutObject  = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
-    my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
+    my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
+    my $SLAObject    = $Kernel::OM->Get('Kernel::System::SLA');
 
     $LayoutObject->Block( Name => 'ActionOverview' );
 
@@ -243,37 +243,37 @@ sub _Mask {
 
     if ( !$Param{Data} ) {
 
-        $Param{Data}{Services} = {};
+        $Param{Data}{SLAs} = {};
 
-        # TODO change to ServiceListGet()
+        # TODO change to SLAListGet()
         # export
-        my %Services = $ServiceObject->ServiceList(
+        my %SLAs = $SLAObject->SLAList(
             Valid  => 0,
             UserID => $Self->{UserID},
         );
 
-        # get service data
-        for my $ServiceID ( keys %Services ) {
-            my %ServiceData = $ServiceObject->ServiceGet(
-                ServiceID => $ServiceID,
-                UserID    => $Self->{UserID},
+        # get SLA data
+        for my $SLAID ( keys %SLAs ) {
+            my %SLAData = $SLAObject->SLAGet(
+                SLAID  => $SLAID,
+                UserID => $Self->{UserID},
             );
 
-            $Param{Data}{Services}{ $ServiceData{Name} } = \%ServiceData;
+            $Param{Data}{SLAs}{ $SLAData{Name} } = \%SLAData;
         }
     }
 
     my $Output = $LayoutObject->Header();
     $Output .= $LayoutObject->NavigationBar();
 
-    # print the list of services
-    $Self->_ServiceShow(
+    # print the list of SLAs
+    $Self->_SLAShow(
         %Param,
     );
 
     # output header
     $Output .= $LayoutObject->Output(
-        TemplateFile => 'AdminServiceImportExport',
+        TemplateFile => 'AdminSLAImportExport',
         Data         => {
             %Param,
         },
@@ -283,43 +283,43 @@ sub _Mask {
     return $Output;
 }
 
-sub _ServiceShow {
+sub _SLAShow {
     my ( $Self, %Param ) = @_;
 
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
     my $ValidObject  = $Kernel::OM->Get('Kernel::System::Valid');
 
     # check if at least 1 dynamic field is registered in the system
-    if ( IsHashRefWithData( $Param{Data}{Services} ) ) {
+    if ( IsHashRefWithData( $Param{Data}{SLAs} ) ) {
 
-        my @ServicesAlreadyUsed;
+        my @SLAsAlreadyUsed;
 
-        SERVICENAME:
-        for my $ServiceName ( keys $Param{Data}{Services}->%* ) {
+        SLANAME:
+        for my $SLAName ( keys $Param{Data}{SLAs}->%* ) {
 
-            my $ServiceData = $Param{Data}{Services}{$ServiceName};
+            my $SLAData = $Param{Data}{SLAs}{$SLAName};
 
-            push @ServicesAlreadyUsed, $ServiceData->{Name};
+            push @SLAsAlreadyUsed, $SLAData->{Name};
 
-            next SERVICENAME if !IsHashRefWithData($ServiceData);
+            next SLANAME if !IsHashRefWithData($SLAData);
 
             # convert ValidID to Validity string
-            my $Valid = $ServiceData->{Valid} || $ValidObject->ValidLookup(
-                ValidID => $ServiceData->{ValidID},
+            my $Valid = $SLAData->{Valid} || $ValidObject->ValidLookup(
+                ValidID => $SLAData->{ValidID},
             );
 
-            my %ServiceData = (
-                %{$ServiceData},
+            my %SLAData = (
+                %{$SLAData},
                 Valid => $Valid,
             );
 
-            for my $Blocks ( 'ServicesRow', 'ServiceCheckbox', $Param{Type} ) {
+            for my $Blocks ( 'SLAsRow', 'SLACheckbox', $Param{Type} ) {
 
-                # print each service row
+                # print each SLA row
                 $LayoutObject->Block(
                     Name => $Blocks,
                     Data => {
-                        %ServiceData,
+                        %SLAData,
                     },
                 );
             }
