@@ -138,6 +138,7 @@ sub Run {
             $ServiceObject->ImportServices(
                 Services                  => \%ServicesImport,
                 OverwriteExistingEntities => $OverwriteExistingEntities,
+                UserID                    => $Self->{UserID},
             );
         }
 
