@@ -201,7 +201,7 @@ sub Run {
             ContentType => 'text/html; charset=' . $LayoutObject->{Charset},
             Content     => $ServiceDataYAML,
             Type        => 'attachment',
-            Filename    => "Export_Queues_$TimeStamp.yml",
+            Filename    => "Export_Services_$TimeStamp.yml",
             NoCache     => 1,
         );
 
