@@ -14,7 +14,7 @@
 # --
 
 <div id="oooTile[% Data.TileID | html %]" class="oooTile oooTile_ServiceCatalog">
-    <h2><div class="oooNewBox"><span>[% Translate('New') | html %]</span></div>[% Translate(Data.HeaderText) | html %]</h2>
+    <h2>[% Translate(Data.HeaderText) | html %]</h2>
     <div class="oooServiceCatalogWrapper">
         <ul class="oooParentServiceList">
 [% RenderBlockStart("ParentService") %]
