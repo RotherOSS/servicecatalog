@@ -541,6 +541,9 @@ sub Run {
             },
         );
         $LayoutObject->Block( Name => 'Filter' );
+# Rother OSS / ServiceCatalog
+        $LayoutObject->Block( Name => 'ImportExportWidget' );
+# EO ServiceCatalog
 
         # output overview result
         $LayoutObject->Block(
