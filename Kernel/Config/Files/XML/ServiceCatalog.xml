@@ -35,6 +35,41 @@
             </Hash>
         </Value>
     </Setting>
+    <Setting Name="Frontend::Module###AdminSLAImportExport" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the admin interface.</Description>
+        <Navigation>Frontend::Admin::ModuleRegistration</Navigation>
+        <Value>
+            <Item ValueType="FrontendRegistration">
+                <Hash>
+                    <Item Key="GroupRo">
+                        <Array>
+                        </Array>
+                    </Item>
+                    <Item Key="Group">
+                        <Array>
+                            <Item>admin</Item>
+                        </Array>
+                    </Item>
+                    <Item Key="Description">SLA Import Export</Item>
+                    <Item Key="Title">SLAImportExport</Item>
+                    <Item Key="NavBarName">Admin</Item>
+                </Hash>
+            </Item>
+        </Value>
+    </Setting>
+    <Setting Name="Loader::Module::AdminSLAImportExport###002-ServiceCatalog" Required="0" Valid="1">
+        <Description Translatable="1">Loader module registration for the agent interface.</Description>
+        <Navigation>Frontend::Admin::ModuleRegistration::Loader</Navigation>
+        <Value>
+            <Hash>
+                <Item Key="JavaScript">
+                    <Array>
+                        <Item>Core.Agent.Admin.SLAImportExport.js</Item>
+                    </Array>
+                </Item>
+            </Hash>
+        </Value>
+    </Setting>
     <Setting Name="CustomerDashboard::Tiles###ServiceCatalog-01" Required="0" Valid="0">
         <Description Translatable="1">Tile registration for the CustomerDashboard. Module is required.</Description>
         <Navigation>Frontend::Customer::View::Dashboard::Tiles</Navigation>
@@ -227,6 +262,15 @@
         <Value>
             <Array>
                 <Item ValueType="String">Kernel::Autoload::ServiceImportExport</Item>
+            </Array>
+        </Value>
+    </Setting>
+    <Setting Name="AutoloadPerlPackages###002-SLAImportExport" Required="0" Valid="1">
+        <Description Translatable="1">Autoload configuration for SLA import and export functions.</Description>
+        <Navigation>Core::Autoload</Navigation>
+        <Value>
+            <Array>
+                <Item ValueType="String">Kernel::Autoload::SLAImportExport</Item>
             </Array>
         </Value>
     </Setting>
