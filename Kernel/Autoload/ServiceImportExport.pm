@@ -181,9 +181,11 @@ sub ImportServices {
         next SERVICENAME if ( !$Param{OverwriteExistingEntities} && $ServiceID );
 
         # translate named data back to IDs
-        $ServiceData->{DestQueueID} = $QueueObject->QueueLookup(
-            Queue => $ServiceData->{DestQueue},
-        );
+        if ( $ServiceData->{DestQueue} ) {
+            $ServiceData->{DestQueueID} = $QueueObject->QueueLookup(
+                Queue => $ServiceData->{DestQueue},
+            );
+        }
         if ( IsArrayRefWithData( $ServiceData->{TicketTypes} ) ) {
             my @TicketTypeIDs;
             for my $TicketType ( $ServiceData->{TicketTypes}->@* ) {
