@@ -144,8 +144,31 @@ sub ImportServices {
     );
     my %ServiceLookup = reverse %ServiceList;
 
-    SERVICENAME:
+    # sort services by parent attribute
+    my @FirstLevelServices;
+    my @ChildServices;
     for my $ServiceName ( keys $Param{Services}->%* ) {
+        if ( $Param{Services}{$ServiceName}{Parent} ) {
+            push @ChildServices, $ServiceName;
+        }
+        else {
+            push @FirstLevelServices, $ServiceName;
+        }
+    }
+    my @ChildServicesSorted = sort {
+        if ( ( $Param{Services}{$a}{Parent} // '' ) eq $Param{Services}{$b}{Name} ) {
+            return 1;
+        }
+        elsif ( ( $Param{Services}{$b}{Parent} // '' ) eq $Param{Services}{$a}{Name} ) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    } @ChildServices;
+
+    SERVICENAME:
+    for my $ServiceName ( @FirstLevelServices, @ChildServicesSorted ) {
         my $ServiceData = $Param{Services}{$ServiceName};
 
         # skip if parent attribute present but no corresponding service
