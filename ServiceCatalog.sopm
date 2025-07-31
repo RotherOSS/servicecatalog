@@ -201,5 +201,37 @@
         https://otobo.de &lt;br&gt;
         &lt;br&gt;
     </IntroInstall>    
+    <IntroInstall Lang="en" Title="Install Information" Type="post">
+        &lt;br&gt;
+        NOTE:&lt;br&gt;
+        &lt;br&gt;
+        To show the service catalog to your customers you have to enable the dashboard tile 'CustomerDashboard::Tiles###ServiceCatalog-01'.&lt;br&gt;
+        If you don't want to spend time setting your customer dashboard, and just have a look,
+        we suggest to temporarily disable your other tile with order 7, which is on a standard installation '###InfoTile-01'.&lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>
+    <IntroInstall Lang="de" Title="Installationsinformationen" Type="post">
+        &lt;br&gt;
+        BEACHTE:&lt;br&gt;
+        &lt;br&gt;
+        Um den Service Catalog Ihren Kunden zugänglich zu machen, ist es nötig die Dashboard-Kachel 'CustomerDashboard::Tiles###ServiceCatalog-01' zu aktivieren.&lt;br&gt;
+        Um diese einfach erst einmal anzusehen, ohne das gesamte Dashboard neu setzen zu müssen,
+        empfehlen wir vorübergehend die andere Kachel mit "order" 7 zu deaktivieren, auf einer Standart-Installation ist dies '###InfoTile-01'.&lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>
+    <IntroUpgrade Lang="en" Title="Upgrade Information" Type="post">
+        &lt;br&gt;
+        NOTE:&lt;br&gt;
+        &lt;br&gt;
+        When upgrading from version 11.0.2 or lower, please check that 'CustomerDashboard::Tiles###ServiceCatalog-01' is still enabled.&lt;br&gt;
+        &lt;br&gt;
+    </IntroUpgrade>
+    <IntroUpgrade Lang="de" Title="Upgrade-Informationen" Type="post">
+        &lt;br&gt;
+        BEACHTE:&lt;br&gt;
+        &lt;br&gt;
+        Wenn Sie von Version 11.0.2 oder niedriger updaten, prüfen Sie bitte, ob 'CustomerDashboard::Tiles###ServiceCatalog-01' noch aktiviert ist.&lt;br&gt;
+        &lt;br&gt;
+    </IntroUpgrade>
     <PackageMerge Name="RotherOSS-ServiceCatalog" TargetVersion="10.0.4"></PackageMerge>
 </otobo_package>
