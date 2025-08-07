@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
 "POT-Creation-Date: 2024-05-16 08:28+0000\n"
-"PO-Revision-Date: 2025-06-06 14:47+0000\n"
-"Last-Translator: Stefan Rother <sr@rother-oss.com>\n"
+"PO-Revision-Date: 2025-08-07 12:53+0000\n"
+"Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/opm-packages/"
 "servicecatalog/de/>\n"
 "Language: de\n"
@@ -121,7 +121,7 @@ msgstr ""
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Create %s"
-msgstr ""
+msgstr "%s erstellen"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Show %s sub-service(s)"
@@ -141,7 +141,7 @@ msgstr ""
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Create a new ticket of type %s."
-msgstr ""
+msgstr "Ein neues Ticket vom Typ %s erstellen."
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "FAQ article on this topic"
