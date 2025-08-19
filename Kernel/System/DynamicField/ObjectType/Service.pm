@@ -193,14 +193,14 @@ sub ObjectDataGet {
         return;
     }
 
-    my %UserData = $Kernel::OM->Get('Kernel::System::CustomerUser')->CustomerUserDataGet(
+    my %ServiceData = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
         User  => $UserID,
         Valid => 1,
     );
 
     return (
         ObjectID => $ObjectID,
-        Data     => \%UserData,
+        Data     => \%ServiceData,
     );
 
 }
