@@ -295,7 +295,7 @@ sub _ServiceShow {
         my @ServicesAlreadyUsed;
 
         SERVICENAME:
-        for my $ServiceName ( keys $Param{Data}{Services}->%* ) {
+        for my $ServiceName ( sort keys $Param{Data}{Services}->%* ) {
 
             my $ServiceData = $Param{Data}{Services}{$ServiceName};
 

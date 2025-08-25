@@ -295,7 +295,7 @@ sub _SLAShow {
         my @SLAsAlreadyUsed;
 
         SLANAME:
-        for my $SLAName ( keys $Param{Data}{SLAs}->%* ) {
+        for my $SLAName ( sort keys $Param{Data}{SLAs}->%* ) {
 
             my $SLAData = $Param{Data}{SLAs}{$SLAName};
 
