@@ -188,7 +188,12 @@ sub ImportServices {
         if ( scalar @NameElements > 1 ) {
             my $NameStrg = '';
             for my $Index ( 0 .. $#NameElements - 1 ) {
-                $NameStrg .= $NameElements[$Index];
+                if ($NameStrg) {
+                    $NameStrg .= '::' . $NameElements[$Index];
+                }
+                else {
+                    $NameStrg .= $NameElements[$Index];
+                }
 
                 if ( !$ServiceLookup{$NameStrg} && !$Param{Services}{$NameStrg} ) {
 
