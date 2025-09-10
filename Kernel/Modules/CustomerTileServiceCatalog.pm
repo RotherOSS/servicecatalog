@@ -74,6 +74,13 @@ sub Run {
             return $LayoutObject->CustomerNoPermission( WithHeader => 'yes' );
         }
 
+        # Add _blank target to Links in Long Description
+        for my $ServiceDescriptionLang (keys %{$Service{Descriptions}}) {
+            $Service{Descriptions}{$ServiceDescriptionLang}{DescriptionLong} = $LayoutObject->HTMLLinkQuote(
+                String => $Service{Descriptions}{$ServiceDescriptionLang}{DescriptionLong},
+            );
+        }
+
         # rewrite handle and action for
         $Service{DescriptionLong} = $Service{Descriptions}{$LayoutObject->{UserLanguage}}{DescriptionLong} || 
                 $Service{Descriptions}{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}{DescriptionLong} || 
