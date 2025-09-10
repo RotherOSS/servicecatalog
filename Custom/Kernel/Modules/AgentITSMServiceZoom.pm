@@ -68,6 +68,13 @@ sub Run {
         );
     }
 
+    # Add _blank target to Links in Long Description
+    for my $ServiceDescriptionLang (keys %{$Service{Descriptions}}) {
+        $Service{Descriptions}{$ServiceDescriptionLang}{DescriptionLong} = $LayoutObject->HTMLLinkQuote(
+            String => $Service{Descriptions}{$ServiceDescriptionLang}{DescriptionLong},
+        );
+    }
+
     # get config object
     my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
 
