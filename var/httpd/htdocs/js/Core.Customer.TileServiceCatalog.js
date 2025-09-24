@@ -210,7 +210,8 @@ Core.Customer.TileServiceCatalog = (function (TargetNS) {
             Baselink: Baselink,
             NotSelectable: Service.NotSelectable,
             Class: Class,
-            Keywords: Service.Keywords
+            Keywords: Service.Keywords,
+            ServiceIconClass: Service.ServiceIconClass
         });
 
         return Container;

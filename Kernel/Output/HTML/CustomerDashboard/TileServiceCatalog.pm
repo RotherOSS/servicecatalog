@@ -204,13 +204,30 @@ sub Run {
                         }
                     }
                 } elsif ( $Needed eq 'Descriptions' ) {
-                    $Service{DescriptionShort} = $ServiceRef->{$Needed}->{$LayoutObject->{UserLanguage}}->{DescriptionShort} || 
-                        $ServiceRef->{$Needed}->{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}->{DescriptionShort} || 
-                            $ServiceRef->{$Needed}->{'en'}->{DescriptionShort} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
+                    $Service{DescriptionShort} = $ServiceRef->{$Needed}->{$LayoutObject->{UserLanguage}}->{DescriptionShort} ||
+                        $ServiceRef->{$Needed}->{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}->{DescriptionShort} ||
+                        $ServiceRef->{$Needed}->{'en'}->{DescriptionShort} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
 
-                    $Service{DescriptionLong} = $ServiceRef->{$Needed}->{$LayoutObject->{UserLanguage}}->{DescriptionLong} || 
-                        $ServiceRef->{$Needed}->{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}->{DescriptionLong} || 
-                            $ServiceRef->{$Needed}->{'en'}->{DescriptionLong} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
+                    my $DynamicFieldBackendObject = $Kernel::OM->Get('Kernel::System::DynamicField::Backend');
+
+                    my $IconFieldConfig = $Kernel::OM->Get('Kernel::System::DynamicField')->DynamicFieldGet(
+                        Name => 'ServiceIcon',
+                    );
+
+                    if ($IconFieldConfig) {
+                        my $IconValue = $DynamicFieldBackendObject->ValueGet(
+                            DynamicFieldConfig => $IconFieldConfig,
+                            ObjectID           => $Service{ServiceID},
+                        );
+
+                        if ($IconValue) {
+                            $Service{ServiceIconClass} = $IconValue;
+                        }
+                    }
+
+                    $Service{DescriptionLong} = $ServiceRef->{$Needed}->{$LayoutObject->{UserLanguage}}->{DescriptionLong} ||
+                        $ServiceRef->{$Needed}->{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}->{DescriptionLong} ||
+                        $ServiceRef->{$Needed}->{'en'}->{DescriptionLong} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
                 }
                 else {
                     $Service{$Needed} = $ServiceRef->{$Needed};
@@ -447,6 +464,24 @@ sub Run {
             }
 
             $Service{NotSelectable}             = 1;
+
+            my $DynamicFieldBackendObject = $Kernel::OM->Get('Kernel::System::DynamicField::Backend');
+
+            my $IconFieldConfig = $Kernel::OM->Get('Kernel::System::DynamicField')->DynamicFieldGet(
+                Name => 'ServiceIcon',
+            );
+
+            if ($IconFieldConfig) {
+                my $IconValue = $DynamicFieldBackendObject->ValueGet(
+                    DynamicFieldConfig => $IconFieldConfig,
+                    ObjectID           => $Service{ServiceID},
+                );
+
+                if ($IconValue) {
+                    $Service{ServiceIconClass} = $IconValue;
+                }
+            }
+
             $ServiceList{ $Service{ServiceID} } = \%Service;
             $ParentID                           = $Service{ParentID};
 

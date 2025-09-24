@@ -161,6 +161,51 @@ sub CodeUpgradeFromLowerThan_11_0_3 {    ## no critic qw(OTOBO::RequireCamelCase
     return 1;
 }
 
+sub CreateServiceIconField() {
+    my ( $Self, %Param ) = @_;
+
+    my $DynamicFieldObject = $Kernel::OM->Get('Kernel::System::DynamicField');
+
+    my $ServiceIconField = $DynamicFieldObject->DynamicFieldGet(
+        Name => 'ServiceIcon',
+    );
+
+    # Only create the field if it doesn't exist
+    if ( !$ServiceIconField->{ID} ) {
+        my $FieldID = $DynamicFieldObject->DynamicFieldAdd(
+            Name       => 'ServiceIcon',
+            Label      => 'Service Icon Class String',
+            FieldType  => 'Text',
+            ObjectType => 'Service',
+            Config     => {
+                DefaultValue => '',
+                Tooltip      => 'Define a FontAwesome v4 icon class to be used for this service. Example value: fa-bug',
+            },
+            ValidID => 1,
+            UserID  => 1,
+            FieldOrder => 410,
+        );
+
+        if ( !$FieldID ) {
+            $Kernel::OM->Get('Kernel::System::Log')->Log(
+                Priority 	=> 'error',
+                Message 	=> 'Could not create ServiceIcon dynamic field!'
+            );
+            return 0;
+        }
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority 	=> 'notice',
+            Message 	=> 'Created ServiceIcon dynamic field successfully.'
+        );
+        return 1;
+    } else {
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority 	=> 'notice',
+            Message 	=> 'ServiceIcon dynamic field already exists.'
+        );
+    }
+    return 1;
+}
 
 =head2 CodeUninstall()
 
