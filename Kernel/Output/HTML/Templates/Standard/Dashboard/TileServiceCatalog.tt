@@ -17,15 +17,20 @@
     <h2>[% Translate(Data.HeaderText) | html %]</h2>
     <div class="oooServiceCatalogWrapper">
         <ul class="oooParentServiceList">
-[% RenderBlockStart("ParentService") %]
-            <li title="[% Translate('Show details of this service.') | html %]" data-service-id="[% Data.ServiceID | html %]" class="oooServiceIDAvailable">[% Translate(Data.NameShort) | html %]</li>
-[% RenderBlockEnd("ParentService") %]
-[% RenderBlockStart("ParentServiceMore") %]
+        [% RenderBlockStart("ParentService") %]
+            <li title="[% Translate('Show details of this service.') | html %]" data-service-id="[% Data.ServiceID | html %]" class="oooServiceIDAvailable">
+                <span style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+                    <i class="fa [% Data.ServiceIconClass %]"  style="font-size: 43pt;"></i>
+                    [% Translate(Data.NameShort) | html %]
+                </span>
+            </li>
+        [% RenderBlockEnd("ParentService") %]
+        [% RenderBlockStart("ParentServiceMore") %]
             <li class="oooServiceMore oooServiceIDAvailable" data-service-id="All">
                 <div class="oooServiceMoreSearch"><i class="ooofo ooofo-search"></i><span>[% Translate('Search') | html %]</span></div>
                 <div class="oooServiceMoreInfo">+ [% Data.NumberOfServices | html %]</div>
             </li>
-[% RenderBlockEnd("ParentServiceMore") %]
+        [% RenderBlockEnd("ParentServiceMore") %]
         </ul>
     </div>
 </div>

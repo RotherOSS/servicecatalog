@@ -42,7 +42,8 @@
         <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.ITSMServiceZoom.js" />
         <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.Admin.Service.js" />
         <File Permission="660" Location="var/packagesetup/ServiceCatalog.pm" />
-    </Filelist>    
+    </Filelist>
+    
     <DatabaseInstall Type="post">
         <TableCreate Name="service_description">
             <Column AutoIncrement="true" Name="id" PrimaryKey="true" Required="true" Type="BIGINT"></Column>
@@ -156,12 +157,33 @@
             <ColumnDrop Name="keywords"></ColumnDrop>
         </TableAlter>
     </DatabaseUninstall>
+    <CodeInstall Type="post"><![CDATA[
+    my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
+
+    $Kernel::OM->Get($CodeModule)->CreateServiceIconField();
+]]></CodeInstall>
+    <CodeUpgrade Version="11.0.5"><![CDATA[
+    my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
+
+    $Kernel::OM->Get($CodeModule)->CreateServiceIconField();
+]]></CodeUpgrade>
     <CodeUpgrade Version="11.0.3"><![CDATA[
     # create the package name
     my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
-      
+
     $Kernel::OM->Get($CodeModule)->CodeUpgradeFromLowerThan_11_0_3();
-]]></CodeUpgrade>    
+]]></CodeUpgrade>
+
+    <CodeInstall Type="post"><![CDATA[
+    my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
+
+    $Kernel::OM->Get($CodeModule)->CreateServiceIconField();
+]]></CodeInstall>
+    <CodeUpgrade Version="11.0.5"><![CDATA[
+    my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
+
+    $Kernel::OM->Get($CodeModule)->CreateServiceIconField();
+]]></CodeUpgrade>
     <IntroInstall Lang="en" Title="Install Information" Type="pre">
         &lt;br&gt;
         WELCOME!&lt;br&gt;

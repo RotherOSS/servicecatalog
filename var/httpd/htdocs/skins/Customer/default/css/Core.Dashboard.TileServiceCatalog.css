@@ -27,8 +27,9 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
     word-wrap: anywhere;
     box-sizing: border-box;
     display: flex;
+    justify-content: center;
     align-items: flex-start;
-    padding: 56px 32px 32px;
+    padding: 16px;
     gap: 8px;
     width: 200px;
     height: 128px;
@@ -240,7 +241,7 @@ ul.oooBreadcrumbServiceList > li:first-child {
 }
 
 .oooServiceContainer {
-    gap: 16px 16px;
+    gap: 6px 6px;
     margin: 8px;
     float: left;
     display: flex;
@@ -384,12 +385,12 @@ ul.oooBreadcrumbServiceList > li:first-child {
 }
 
 .oooDescriptionBody { 
-    overflow: hidden; */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    padding: 16px 24px;
+    align-items: center;
+    padding: 0 24px;
     gap: 4px;
     flex: none;
     order: 1;
@@ -398,6 +399,7 @@ ul.oooBreadcrumbServiceList > li:first-child {
     z-index: 1;
     font-size: 12px;
     color: var(--colTextLight);
+    text-align: center;
 }
 
 .oooServiceBottom {
@@ -1037,7 +1039,7 @@ ul.oooBreadcrumbServiceList > li:first-child {
 
     .Dialog > .Header {
         padding: 0;
-    overflow: hidden;
+        overflow: hidden;
     }
 
     .Dialog > .Header .Close {
