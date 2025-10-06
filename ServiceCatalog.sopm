@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <otobo_package version="1.1">
     <Name>ServiceCatalog</Name>
-    <Version>11.0.0</Version>
+    <Version>0.0.0</Version>
     <Framework>11.0.x</Framework>
     <PackageRequired Version="11.0.6">ITSMCore</PackageRequired>
     <Vendor>Rother OSS GmbH</Vendor>
@@ -42,7 +42,7 @@
         <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.ITSMServiceZoom.js" />
         <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.Admin.Service.js" />
         <File Permission="660" Location="var/packagesetup/ServiceCatalog.pm" />
-    </Filelist>    
+    </Filelist>
     <DatabaseInstall Type="post">
         <TableCreate Name="service_description">
             <Column AutoIncrement="true" Name="id" PrimaryKey="true" Required="true" Type="BIGINT"></Column>
@@ -139,7 +139,7 @@
         <TableAlter Name="service" Version="11.0.3">
             <ColumnAdd Name="dest_queueid" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
             <ColumnAdd Name="keywords" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
-            <ColumnChange Name="description_short" NameNew="description_short" Required="false" Size="255" Type="VARCHAR"></ColumnChange>
+            <ColumnChange NameOld="description_short" NameNew="description_short" Required="false" Size="255" Type="VARCHAR"></ColumnChange>
         </TableAlter>
     </DatabaseUpgrade>
     <DatabaseUninstall Type="pre">
@@ -148,7 +148,7 @@
         <TableDrop Name="service_attachment">
         </TableDrop>
         <TableDrop Name="service_description">
-        </TableDrop>        
+        </TableDrop>
         <TableAlter Name="service">
             <ColumnDrop Name="description_short"></ColumnDrop>
             <ColumnDrop Name="description_long"></ColumnDrop>
@@ -159,9 +159,9 @@
     <CodeUpgrade Version="11.0.3"><![CDATA[
     # create the package name
     my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
-      
+
     $Kernel::OM->Get($CodeModule)->CodeUpgradeFromLowerThan_11_0_3();
-]]></CodeUpgrade>    
+]]></CodeUpgrade>
     <IntroInstall Lang="en" Title="Install Information" Type="pre">
         &lt;br&gt;
         WELCOME!&lt;br&gt;
@@ -200,7 +200,7 @@
         &lt;br&gt;
         https://otobo.de &lt;br&gt;
         &lt;br&gt;
-    </IntroInstall>    
+    </IntroInstall>
     <IntroInstall Lang="en" Title="Install Information" Type="post">
         &lt;br&gt;
         NOTE:&lt;br&gt;
