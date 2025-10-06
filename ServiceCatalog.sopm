@@ -137,7 +137,6 @@
             </Index>
         </TableCreate>
         <TableAlter Name="service" Version="11.0.3">
-            <ColumnAdd Name="dest_queueid" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
             <ColumnAdd Name="keywords" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
             <ColumnChange NameOld="description_short" NameNew="description_short" Required="false" Size="255" Type="VARCHAR"></ColumnChange>
         </TableAlter>
