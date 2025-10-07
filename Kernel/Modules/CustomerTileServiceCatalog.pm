@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -37,11 +37,10 @@ sub new {
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    my $ConfigObject    = $Kernel::OM->Get('Kernel::Config');
-    my $HTMLUtilsObject = $Kernel::OM->Get('Kernel::System::HTMLUtils');
-    my $LayoutObject    = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
-    my $ParamObject     = $Kernel::OM->Get('Kernel::System::Web::Request');
-    my $ServiceObject   = $Kernel::OM->Get('Kernel::System::Service');
+    my $ConfigObject  = $Kernel::OM->Get('Kernel::Config');
+    my $LayoutObject  = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
+    my $ParamObject   = $Kernel::OM->Get('Kernel::System::Web::Request');
+    my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
 
     # get params
     my $ServiceID = $ParamObject->GetParam( Param => "ServiceID" );
@@ -76,11 +75,11 @@ sub Run {
 
         # Add _blank target to Links in Long Description
         $Service{DescriptionLong} = $LayoutObject->HTMLLinkQuote(
-            String => $Service{Descriptions}{$LayoutObject->{UserLanguage}}{DescriptionLong}
-                || $Service{Descriptions}{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}{DescriptionLong}
-                || $Service{Descriptions}{'en'}{DescriptionLong} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' ),
+            String => $Service{Descriptions}{ $LayoutObject->{UserLanguage} }{DescriptionLong}
+                || $Service{Descriptions}{ $Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage') }{DescriptionLong}
+                || $Service{Descriptions}{'en'}{DescriptionLong} || $LayoutObject->{LanguageObject}->Translate('Description not available.'),
         );
-        
+
         $Service{DescriptionLong}
             =~ s{ index[.]pl [?] Action=AgentITSMServiceZoom }{customer.pl?Action=CustomerTileServiceCatalog}gxms;
 
@@ -92,17 +91,6 @@ sub Run {
                 (Action=CustomerTileServiceCatalog;Subaction=DownloadAttachment;ServiceID=\d+;FileID=\d+)
             }{$1$SessionID}gmsx;
         }
-
-        my %HTMLFile = $LayoutObject->RichTextDocumentServe(
-            Data => {
-                Content     => $Service{DescriptionLong},
-                ContentType => 'text/html; charset="utf-8"',
-            },
-            URL                => 'Action=CustomerTileServiceCatalog;Subaction=HTMLView;ServiceID=' . $ServiceID,
-            Attachments        => {},
-            LoadInlineContent  => 1,
-            LoadExternalImages => 1,
-        );
 
         # add needed HTML headers
         $Service{DescriptionLong} = $Kernel::OM->Get('Kernel::System::HTMLUtils')->DocumentComplete(

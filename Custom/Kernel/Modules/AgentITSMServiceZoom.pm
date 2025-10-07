@@ -84,17 +84,6 @@ sub Run {
                 || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' ),
         );
 
-        my %HTMLFile = $LayoutObject->RichTextDocumentServe(
-            Data => {
-                Content     => $Service{DescriptionLong},
-                ContentType => 'text/html; charset="utf-8"',
-            },
-            URL                => 'Action=AgentITSMServiceZoom;Subaction=HTMLView;ServiceID=' . $ServiceID,
-            Attachments        => {},
-            LoadInlineContent  => 1,
-            LoadExternalImages => 1,
-        );
-
         # add needed HTML headers
         $Service{DescriptionLong} = $Kernel::OM->Get('Kernel::System::HTMLUtils')->DocumentComplete(
             String  => $Service{DescriptionLong},
