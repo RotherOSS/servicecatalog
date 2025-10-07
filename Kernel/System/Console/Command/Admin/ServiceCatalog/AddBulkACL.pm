@@ -45,7 +45,7 @@ sub PreRun {
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    $Self->Print("<yellow>Adding a new service...</yellow>\n");
+    $Self->Print("<yellow>Adding new ACLs...</yellow>\n");
     my $TypeObject = $Kernel::OM->Get('Kernel::System::Type');
     my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
 
