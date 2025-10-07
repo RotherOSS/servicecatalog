@@ -68,13 +68,6 @@ sub Run {
         );
     }
 
-    # Add _blank target to Links in Long Description
-    for my $ServiceDescriptionLang (keys %{$Service{Descriptions}}) {
-        $Service{Descriptions}{$ServiceDescriptionLang}{DescriptionLong} = $LayoutObject->HTMLLinkQuote(
-            String => $Service{Descriptions}{$ServiceDescriptionLang}{DescriptionLong},
-        );
-    }
-
     # get config object
     my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
 
@@ -84,10 +77,12 @@ sub Run {
     # ---------------------------------------------------------- #
     if ( $Self->{Subaction} eq 'HTMLView' ) {
 
-        $Service{DescriptionLong} = $Service{Descriptions}{$LayoutObject->{UserLanguage}}{DescriptionLong} ||
-                $Service{Descriptions}{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}{DescriptionLong} ||
-                $Service{Descriptions}{'en'}{DescriptionLong} ||
-                $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
+        $Service{DescriptionLong} = $LayoutObject->HTMLLinkQuote(
+            String => $Service{Descriptions}{$LayoutObject->{UserLanguage}}{DescriptionLong}
+                || $Service{Descriptions}{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}{DescriptionLong}
+                || $Service{Descriptions}{'en'}{DescriptionLong}
+                || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' ),
+        );
 
         my %HTMLFile = $LayoutObject->RichTextDocumentServe(
             Data => {
