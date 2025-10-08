@@ -387,7 +387,7 @@
                         <a href="#" title="[% Translate("Toggle this widget") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
                     </div>
                     <h2>[% Translate("Service Description") | html %]</h2>
-                </div>                        
+                </div>
                 <div class="Content">
                     <div class ="ServiceLanguageContainer">
 [% RenderBlockStart("ServiceLanguage") %]
@@ -465,8 +465,7 @@
                                         </div>
                                         <div class="Clear"></div>
 
-                                        <label for="Template_DescriptionLong" id="Template_Label_DescriptionLong" class="Mandatory">
-                                            <span class="Marker">*</span>
+                                        <label for="Template_DescriptionLong" id="Template_Label_DescriptionLong">
                                             [% Translate("Description (long)") | html %]:
                                         </label>
                                         <div class="RichTextField">
@@ -563,12 +562,12 @@
                     <dt>[% Translate("Keywords") | html %]:</dt>
                     <dd>
                         [% Translate("Keywords to facilitate the search for services within the service catalog.") | html %]
-                    </dd>                    
+                    </dd>
 
                     <dt>[% Translate("Service Description") | html %]:</dt>
                     <dd>
                         [% Translate("Service descriptions (short & long) specified by User Language.") | html %]
-                    </dd>                    
+                    </dd>
 
                     <dt>[% Translate("Description (short)") | html %]:</dt>
                     <dd>
