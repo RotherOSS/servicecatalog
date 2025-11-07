@@ -224,6 +224,7 @@
 #                        <input type="hidden" name="ContinueAfterSave" id="ContinueAfterSave" value=""/>
 #                    [% END %]
         <form action="[% Env("CGIHandle") %]" method="post" class="Validate PreventMultipleSubmits">
+            <input type="hidden" name="FormID" value="[% Data.FormID | html %]"/>
             <input type="hidden" name="Action" value="[% Env("Action") %]"/>
             <input type="hidden" name="Subaction" value="ServiceSave"/>
             <input type="hidden" name="ServiceID" value="[% Data.ServiceID | html %]"/>
