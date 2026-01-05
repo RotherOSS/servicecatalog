@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -108,9 +108,9 @@
                             <p class="oooDetailedAccordionCaption oooDetailedSubtitle">{{ 'Service Information' | Translate }}</p>
                             {% for DFData in DynamicFieldList %}
                                 {% if DFData.Link %}
-                                <p class="ooo12"><span>{{ DFData.Label }}:</span> <a href="{{ DFData.Link }}" class="DynamicFieldLink" {% if DFData.LinkPreview %} data-trigger="floater" data-floater-url="{{ DFData.LinkPreview }}"{% endif %} target="_blank">{{ DFData.Value }}</a>
+                                <p class="ooo12"><span>{{ DFData.Label | Translate }}:</span> <a href="{{ DFData.Link }}" class="DynamicFieldLink" {% if DFData.LinkPreview %} data-trigger="floater" data-floater-url="{{ DFData.LinkPreview }}"{% endif %} target="_blank">{{ DFData.Value }}</a>
                                 {% else %}
-                                <p class="ooo12"><span>{{ DFData.Label }}:</span> {{ DFData.Value }}</p>
+                                <p class="ooo12"><span>{{ DFData.Label | Translate }}:</span> {{ DFData.Value }}</p>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
