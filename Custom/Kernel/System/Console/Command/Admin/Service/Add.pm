@@ -57,7 +57,7 @@ sub Configure {
 # Rother OSS / ServiceCatalog
     $Self->AddOption(
         Name        => 'description',
-        Description => "Description of the new service.",
+        Description => "Description of the new service. Note that the language of the description is the default language of the system and that the content is used as both short and long description.",
         Required    => 1,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
