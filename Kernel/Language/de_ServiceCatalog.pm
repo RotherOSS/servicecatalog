@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -23,22 +23,43 @@ use utf8;
 sub Data {
     my $Self = shift;
 
+    # Template: AdminSLAImportExport
+    $Self->{Translation}->{'Here you can export a configuration file of SLAs to import these on another system. The configuration file is exported in yml format.'} =
+        '';
+    $Self->{Translation}->{'SLAs List'} = '';
+
+    # Template: AdminServiceImportExport
+    $Self->{Translation}->{'Here you can export a configuration file of services to import these on another system. The configuration file is exported in yml format.'} =
+        '';
+    $Self->{Translation}->{'Services List'} = '';
+
     # Template: TileServiceCatalog
-    $Self->{Translation}->{'Show details of this service.'} = '';
+    $Self->{Translation}->{'Show details of this service.'} = 'Zeige die Details von diesem Service.';
+
+    # Template: AdminSLA
+    $Self->{Translation}->{'Here you can upload a configuration file to import SLAs to your system. The file needs to be in .yml format as exported by SLA management module.'} =
+        '';
+    $Self->{Translation}->{'SLAs Import'} = '';
+    $Self->{Translation}->{'SLAs Export'} = '';
+    $Self->{Translation}->{'Minimum Time Between Incidents'} = '';
 
     # Template: AdminService
-    $Self->{Translation}->{'Service depends on the following ticket types'} = '';
-    $Self->{Translation}->{'Ticket destination queue'} = '';
-    $Self->{Translation}->{'Customer default service'} = '';
-    $Self->{Translation}->{'Criticality'} = '';
+    $Self->{Translation}->{'Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by queue management module.'} =
+        '';
+    $Self->{Translation}->{'Services Import'} = '';
+    $Self->{Translation}->{'Services Export'} = '';
+    $Self->{Translation}->{'Criticality'} = 'Kritikalität';
+    $Self->{Translation}->{'Service depends on the following ticket types'} = 'Der Service wird für folgende Ticket-Typen angezeigt';
+    $Self->{Translation}->{'Ticket destination queue'} = 'Ticket Ziel-Queue';
+    $Self->{Translation}->{'Customer default service'} = 'Service für alle Kunden anzeigen';
     $Self->{Translation}->{'Keywords'} = '';
     $Self->{Translation}->{'Service Description'} = '';
     $Self->{Translation}->{'This language is not present or enabled on the system. This service description could be deleted if it is not needed anymore.'} =
         '';
     $Self->{Translation}->{'Remove Service Description Language'} = '';
     $Self->{Translation}->{'Add new service description language'} = '';
-    $Self->{Translation}->{'Option Reference'} = '';
-    $Self->{Translation}->{'You can use the following options'} = '';
+    $Self->{Translation}->{'Option Reference'} = 'Konfigurationsreferenz';
+    $Self->{Translation}->{'You can use the following options'} = 'Die folgenden Optionen können verwendet werden';
     $Self->{Translation}->{'Within the ServiceCatalogue tile in the customer dashboard, it is possible to show ticket types for preconfigured ticket creation inside the service description. Furthermore, it is possible to restrict the services for other screens using the ticket types set here. If you wish to do this, please activate the options "ServiceCatalog::CreateTypeServiceRelatedAcls" and "ServiceCatalog::CreateTypeServiceRelatedAcls::Options" in the OTOBO system configuration. The restriction is made via automatically generated ACLs, which can be viewed under "Admin -> Access Control Lists (ACL)". If necessary, please adjust the option "ServiceCatalog::CreateTypeServiceRelatedAcls::Options" according to your requirements.'} =
         '';
     $Self->{Translation}->{'If we work service-based, we do not want to offer the customer a choice of queues in the customer portal when creating a ticket, but decide on the basis of the service into which queue (or which team of agents) the ticket should be processed first. In order to use this option sensibly, please deactivate the option "Ticket::Frontend::CustomerTicketMessage###Queue" and set a sensible default queue in the option "Ticket::Frontend::CustomerTicketMessage###QueueDefault". As soon as you set a "Ticket destination queue" here in the service, the ticket will immediately be created in this queue. If the field remains empty, the default queue configured above will be used.'} =
@@ -47,8 +68,12 @@ sub Data {
         '';
     $Self->{Translation}->{'Here, there is the possibility to automatically calculate the correct ticket priority in the background based on the dynamic field "ITSMCriticality" and "ITSMImpact". Please activate the option "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService" and the option "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix". In the next step, you have the possibility using "Admin -> Criticality ↔ Impact ↔ Priority" to set the priority using a matrix.'} =
         '';
-    $Self->{Translation}->{'Short summary of the service, mainly used in the CustomerDashboard.'} =
+    $Self->{Translation}->{'Keywords to facilitate the search for services within the service catalog.'} =
         '';
+    $Self->{Translation}->{'Service descriptions (short & long) specified by User Language.'} =
+        '';
+    $Self->{Translation}->{'Short summary of the service, mainly used in the CustomerDashboard.'} =
+        'Kurzbeschreibung des Service, vor allem verwendet im Dialog CustomerDashboard.';
     $Self->{Translation}->{'Description of the service. Screenshots and tables are also allowed. Please ensure the correct width of the image for screenshots. This can be adjusted in the ckeditor after uploading the screenshot. A width of 600px has proven to be useful or you can configure a "max-width" of 95% under Advanced.'} =
         '';
     $Self->{Translation}->{'Add more service catalog fields'} = '';
@@ -59,7 +84,6 @@ sub Data {
     $Self->{Translation}->{'SLA Information'} = 'SLA-Informationen';
     $Self->{Translation}->{'Last changed'} = 'Zuletzt geändert';
     $Self->{Translation}->{'Last changed by'} = 'Zuletzt geändert von';
-    $Self->{Translation}->{'Minimum Time Between Incidents'} = '';
     $Self->{Translation}->{'Associated Services'} = '';
 
     # Template: AgentITSMServiceZoom
@@ -69,14 +93,14 @@ sub Data {
 
     # JS Template: TileServiceCatalogContainer
     $Self->{Translation}->{'Create a new ticket for this service.'} = '';
-    $Self->{Translation}->{'Create %s'} = '';
+    $Self->{Translation}->{'Create %s'} = '%s erstellen';
     $Self->{Translation}->{'Show %s sub-service(s)'} = '';
     $Self->{Translation}->{'More details'} = '';
     $Self->{Translation}->{'Sub-Service(s)'} = '';
 
     # JS Template: TileServiceCatalogDetailed
     $Self->{Translation}->{'sub-service(s) available'} = '';
-    $Self->{Translation}->{'Create a new ticket of type %s.'} = '';
+    $Self->{Translation}->{'Create a new ticket of type %s.'} = 'Ein neues Ticket vom Typ %s erstellen.';
     $Self->{Translation}->{'FAQ article on this topic'} = '';
     $Self->{Translation}->{'Additional information'} = '';
     $Self->{Translation}->{'Service hours'} = '';
@@ -89,7 +113,7 @@ sub Data {
 
     # Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
     $Self->{Translation}->{'Description not available.'} = '';
-    $Self->{Translation}->{'Need FileID!'} = '';
+    $Self->{Translation}->{'Need FileID!'} = 'Benötige FileID!';
 
     # Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
     $Self->{Translation}->{'No ServiceID is given!'} = '';
@@ -98,12 +122,18 @@ sub Data {
     $Self->{Translation}->{'warning'} = 'Warnung';
     $Self->{Translation}->{'incident'} = 'Vorfall';
 
+    # JS File: Core.Agent.Admin.Service
+    $Self->{Translation}->{'Do you really want to delete this service description language?'} =
+        '';
+
     # JS File: Core.Customer.TileServiceCatalog
-    $Self->{Translation}->{'results for %s'} = '';
-    $Self->{Translation}->{'results'} = '';
+    $Self->{Translation}->{'Results for %s'} = '';
 
     # SysConfig
     $Self->{Translation}->{'Additional settings for the service catalog.'} = '';
+    $Self->{Translation}->{'Autoload configuration for SLA import and export functions.'} = '';
+    $Self->{Translation}->{'Autoload configuration for Service import and export functions.'} =
+        '';
     $Self->{Translation}->{'CustomerTileServiceCatalog AJAX Module.'} = '';
     $Self->{Translation}->{'Dynamic fields shown in the service catalog screen of the customer interface.'} =
         '';
@@ -149,8 +179,6 @@ sub Data {
     'Sub-Service(s)',
     'hour(s)',
     'o\'clock',
-    'results',
-    'results for %s',
     'sub-service(s) available',
     );
 
