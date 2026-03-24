@@ -170,11 +170,18 @@
         </TableAlter>
     </DatabaseUninstall>
     <CodeUpgrade Version="11.0.3"><![CDATA[
-    # create the package name
-    my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
+        # create the package name
+        my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
 
-    $Kernel::OM->Get($CodeModule)->CodeUpgradeFromLowerThan_11_0_3();
-]]></CodeUpgrade>
+        $Kernel::OM->Get($CodeModule)->CodeUpgradeFromLowerThan_11_0_3();
+    ]]></CodeUpgrade>
+    <CodeUninstall Type="pre"><![CDATA[
+
+        # create the package name
+        my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
+
+        $Kernel::OM->Get($CodeModule)->CodeUninstall();
+    ]]></CodeUninstall>
     <IntroInstall Lang="en" Title="Install Information" Type="pre">
         &lt;br&gt;
         WELCOME!&lt;br&gt;
