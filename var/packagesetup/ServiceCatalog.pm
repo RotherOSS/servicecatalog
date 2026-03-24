@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -30,7 +30,7 @@ our @ObjectDependencies = (
 
 =head1 NAME
 
-var::packagesetup::Survey - code to execute during package installation
+var::packagesetup::ServiceCatalog - code to execute during package installation
 
 =head1 DESCRIPTION
 
@@ -118,7 +118,7 @@ sub CodeUpgrade {
 
 This function is only executed if the installed module version is smaller than 11.0.3.
 
-my $Result = $CodeObject->CodeUpgradeFromLowerThan_11_0_3();
+    my $Result = $CodeObject->CodeUpgradeFromLowerThan_11_0_3();
 
 =cut
 
@@ -129,11 +129,11 @@ sub CodeUpgradeFromLowerThan_11_0_3 {    ## no critic qw(OTOBO::RequireCamelCase
     my $DBObject     = $Kernel::OM->Get('Kernel::System::DB');
     my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
 
-    my $Language     = $ConfigObject->Get('DefaultLanguage') || 'en';
-    my $ContentType  = $ConfigObject->Get('Frontend::RichText') ? 'text/html' : 'text/plain';
+    my $Language    = $ConfigObject->Get('DefaultLanguage') || 'en';
+    my $ContentType = $ConfigObject->Get('Frontend::RichText') ? 'text/html' : 'text/plain';
 
     # this should only be executed if we come from 11.0.1 or a 10.1 version below 10.1.15
-    my ( $PreviouslyMigrated ) = $DBObject->SelectRowArray(
+    my ($PreviouslyMigrated) = $DBObject->SelectRowArray(
         SQL   => 'SELECT id FROM service_description',
         Limit => 1,
     );
@@ -141,26 +141,26 @@ sub CodeUpgradeFromLowerThan_11_0_3 {    ## no critic qw(OTOBO::RequireCamelCase
     return 1 if $PreviouslyMigrated;
 
     my $Success = $DBObject->Do(
-        SQL => "INSERT INTO service_description (service_id, description_short, description_long, content_type, language) 
+        SQL => "INSERT INTO service_description (service_id, description_short, description_long, content_type, language)
                 SELECT id, description_short, description_long, '$ContentType', '$Language' FROM service WHERE description_short <> '' ORDER BY id ASC"
     );
 
-    if ( $Success ) {
-        $Kernel::OM->Get('Kernel::System::Log')->Log( 
-            Priority 	=> 'notice',
-            Message 	=> 'Service catalog descriptions migrated successfully to the Service description table!'
+    if ($Success) {
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority => 'notice',
+            Message  => 'Service catalog descriptions migrated successfully to the Service description table!'
         );
-    } else {
-        $Kernel::OM->Get('Kernel::System::Log')->Log( 
-            Priority 	=> 'error',
-            Message 	=> 'There was a problem migrating service catalog descriptions from Service table. Please review error log.'
+    }
+    else {
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority => 'error',
+            Message  => 'There was a problem migrating service catalog descriptions from Service table. Please review error log.'
         );
         return;
     }
 
     return 1;
 }
-
 
 =head2 CodeUninstall()
 
