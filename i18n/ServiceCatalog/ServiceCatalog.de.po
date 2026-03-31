@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
 "POT-Creation-Date: 2026-03-05 14:12+0000\n"
-"PO-Revision-Date: 2026-03-31 11:00+0000\n"
+"PO-Revision-Date: 2026-03-31 13:00+0000\n"
 "Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/opm-packages/"
 "servicecatalog/de/>\n"
@@ -16,18 +16,24 @@ msgstr ""
 #. Template: AdminSLAImportExport
 msgid "Here you can export a configuration file of SLAs to import these on another system. The configuration file is exported in yml format."
 msgstr ""
+"Hier kann eine SLA-Konfigurationsdatei exportiert werden, die auf einem "
+"anderen System importiert werden kann. Die Konfigurationsdatei ist im YML-"
+"Format."
 
 #. Template: AdminSLAImportExport
 msgid "SLAs List"
-msgstr ""
+msgstr "SLA-Liste"
 
 #. Template: AdminServiceImportExport
 msgid "Here you can export a configuration file of services to import these on another system. The configuration file is exported in yml format."
 msgstr ""
+"Hier kann eine Service-Konfigurationsdatei exportiert werden, die auf einem "
+"anderen System importiert werden kann. Die Konfigurationsdatei ist im YML-"
+"Format."
 
 #. Template: AdminServiceImportExport
 msgid "Services List"
-msgstr ""
+msgstr "Service-Liste"
 
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
@@ -36,14 +42,17 @@ msgstr "Zeige die Details von diesem Service."
 #. Template: AdminSLA
 msgid "Here you can upload a configuration file to import SLAs to your system. The file needs to be in .yml format as exported by SLA management module."
 msgstr ""
+"Hier kann eine Konfigurationsdatei hochgeladen werden, um SLAs in das System "
+"zu importieren. Diese Datei muss im YML-Format sein, so wie sie durch das "
+"SLA-Verwaltungsmodul exportiert wird."
 
 #. Template: AdminSLA
 msgid "SLAs Import"
-msgstr ""
+msgstr "SLAs importieren"
 
 #. Template: AdminSLA
 msgid "SLAs Export"
-msgstr ""
+msgstr "SLAs exportieren"
 
 #. Template: AdminSLA
 msgid "Minimum Time Between Incidents"
@@ -55,11 +64,11 @@ msgstr ""
 
 #. Template: AdminService
 msgid "Services Import"
-msgstr ""
+msgstr "Services importieren"
 
 #. Template: AdminService
 msgid "Services Export"
-msgstr ""
+msgstr "Services exportieren"
 
 #. Template: AdminService
 msgid "Criticality"
@@ -79,23 +88,25 @@ msgstr "Service für alle Kunden anzeigen"
 
 #. Template: AdminService
 msgid "Keywords"
-msgstr ""
+msgstr "Schlüsselwörter"
 
 #. Template: AdminService
 msgid "Service Description"
-msgstr ""
+msgstr "Service-Beschreibung"
 
 #. Template: AdminService
 msgid "This language is not present or enabled on the system. This service description could be deleted if it is not needed anymore."
 msgstr ""
+"Diese Sprache ist nicht verfügbar oder auf dem System aktiviert. Die Service-"
+"Beschreibung kann gelöscht werden, sofern sie nicht mehr benötigt wird."
 
 #. Template: AdminService
 msgid "Remove Service Description Language"
-msgstr ""
+msgstr "Sprache der Service-Beschreibung entfernen"
 
 #. Template: AdminService
 msgid "Add new service description language"
-msgstr ""
+msgstr "Neue Sprache der Service-Beschreibung hinzufügen"
 
 #. Template: AdminService
 msgid "Option Reference"
@@ -162,10 +173,13 @@ msgstr ""
 #. Template: AdminService
 msgid "Keywords to facilitate the search for services within the service catalog."
 msgstr ""
+"Schlüsselwörter um die Suche nach Services innerhalb des Servicekatalogs zu "
+"erleichtern."
 
 #. Template: AdminService
 msgid "Service descriptions (short & long) specified by User Language."
 msgstr ""
+"Service-Beschreibung (kurz und lang), festgelegt durch die Anwendersprache."
 
 #. Template: AdminService
 msgid "Short summary of the service, mainly used in the CustomerDashboard."
@@ -182,7 +196,7 @@ msgstr ""
 
 #. Template: AdminService
 msgid "Add more service catalog fields"
-msgstr ""
+msgstr "Weitere Servicekatalog-Felder hinzufügen"
 
 #. Template: AdminService
 msgid "You have the option of adding further fields here in the service catalog at any time. To do this, please go to \"Admin -> DynamicFields\" and create the new field of the object type \"Service\". You can then activate the field for the customer dashboard under \"Admin -> DynamicField Screens\" by assigning it under \"CustomerDashboardTile ServiceCatalog\"."
@@ -202,7 +216,7 @@ msgstr "Zuletzt geändert von"
 
 #. Template: AgentITSMSLAZoom
 msgid "Associated Services"
-msgstr ""
+msgstr "Zugehörige Services"
 
 #. Template: AgentITSMServiceZoom
 msgid "Service Information"
@@ -210,15 +224,15 @@ msgstr "Service-Informationen"
 
 #. Template: AgentITSMServiceZoom
 msgid "Current incident state"
-msgstr ""
+msgstr "Aktueller Vorfallstatus"
 
 #. Template: AgentITSMServiceZoom
 msgid "Associated SLAs"
-msgstr ""
+msgstr "Zugehörige SLAs"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Create a new ticket for this service."
-msgstr ""
+msgstr "Neues Ticket für diesen Service hinzufügen."
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Create %s"
@@ -226,19 +240,19 @@ msgstr "%s erstellen"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Show %s sub-service(s)"
-msgstr ""
+msgstr "Zeige %s Unter-Service(s)"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "More details"
-msgstr ""
+msgstr "Weitere Details"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Sub-Service(s)"
-msgstr ""
+msgstr "Unter-Service(s)"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "sub-service(s) available"
-msgstr ""
+msgstr "verfügbare(r) Unterservice(s)"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Create a new ticket of type %s."
@@ -246,35 +260,35 @@ msgstr "Ein neues Ticket vom Typ %s erstellen."
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "FAQ article on this topic"
-msgstr ""
+msgstr "FAQ-Artikel zu diesem Thema"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Additional information"
-msgstr ""
+msgstr "Zusätzliche Informationen"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Service hours"
-msgstr ""
+msgstr "Service-Zeiten"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "o'clock"
-msgstr ""
+msgstr "Uhr"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "No additional data are available."
-msgstr ""
+msgstr "Es sind keine weiteren Daten verfügbar."
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Further information"
-msgstr ""
+msgstr "Weitere Informationen"
 
 #. JS Template: TileServiceCatalogModal
 msgid "Search catalog"
-msgstr ""
+msgstr "Suchkatalog"
 
 #. Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
 msgid "Description not available."
-msgstr ""
+msgstr "Beschreibung nicht verfügbar."
 
 #. Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
 msgid "Need FileID!"
@@ -282,11 +296,11 @@ msgstr "Benötige FileID!"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "No ServiceID is given!"
-msgstr ""
+msgstr "Keine ServiceID vorhanden!"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "ServiceID %s not found in database!"
-msgstr ""
+msgstr "ServiceID %s nicht in Datenbank gefunden!"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "operational"
@@ -302,15 +316,15 @@ msgstr "Vorfall"
 
 #. JS File: Core.Agent.Admin.Service
 msgid "Do you really want to delete this service description language?"
-msgstr ""
+msgstr "Soll diese Sprache der Service-Beschreibung wirklich gelöscht werden?"
 
 #. JS File: Core.Customer.TileServiceCatalog
 msgid "Results for %s"
-msgstr ""
+msgstr "Ergebnisse für %s"
 
 #. SysConfig
 msgid "Additional settings for the service catalog."
-msgstr ""
+msgstr "Zusätzliche Einstellungen für den Servicekatalog."
 
 #. SysConfig
 msgid "Autoload configuration for SLA import and export functions."
@@ -322,32 +336,64 @@ msgstr ""
 
 #. SysConfig
 msgid "CustomerTileServiceCatalog AJAX Module."
-msgstr ""
+msgstr "CustomerTileServiceCatalog AJAX Modul."
 
 #. SysConfig
 msgid "Dynamic fields shown in the service catalog screen of the customer interface."
 msgstr ""
+"Dynamische Felder, die in der Servicekatalog-Oberfläche des Kundenbereichs "
+"angezeigt werden."
 
 #. SysConfig
 msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the DynamicField Criticality in a ticket as soon as a service has been assigned. Please activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to set the priority in the next step based an Criticality and Impact."
 msgstr ""
+"Event-Modulregistrierung. Momentan kann die Kritikalität des Service auch im "
+"Service festgelegt werden, hat allerdings keine Wirkung. Daher wurde dieses "
+"Event-Modul implementiert, das automatisch das Dynamische Feld Kritikalität "
+"in einem Ticket aktualisiert, sobald ein Service zugeordnet wurde. Bitte die "
+"Systemkonfigurations-Einstellung "
+"\"SetPriorityFromCriticalityAndImpactMatrix\" aktivieren, um die Priorität "
+"auf Basis der Kritikalität und die Auswirkung im nächsten Schritt zu setzen."
 
 #. SysConfig
 msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket."
 msgstr ""
+"Event-Modulregistrierung. Momentan kann die Kritikalität des Service auch im "
+"Service festgelegt werden, hat allerdings keine Wirkung. Daher wurde dieses "
+"Event-Modul implementiert, das automatisch die Priorität und die Auswirkung "
+"in einem Ticket aktualisiert."
 
 #. SysConfig
 msgid "Show services with the following ticket type last."
-msgstr ""
+msgstr "Services mit dem folgenden Tickettypen zuletzt anzeigen."
 
 #. SysConfig
 msgid "The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...)."
 msgstr ""
+"Das FAQ-Feld, welches in der Beschreibung eines FAQ-Artikel in der "
+"Seitenleiste angezeigt werden soll (z.B. Field1, Field2, Field3, ...)."
 
 #. SysConfig
 msgid "This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected. The \"AddBulkACL\" console script can also be used to create ACLs for services that have already been create."
 msgstr ""
+"Diese Option ermöglicht es, dass bei der Service-Erstellung automatisch ACLs "
+"für verschiedene Oberflächen generiert werden. Services werden dann nur "
+"angezeigt, sobald der im Service gespeicherte Tickettyp ausgewählt wurde. "
+"Das Konsolenskript \"AddBulkACL\" kann auch für die ACL-Erstellung für die "
+"Services verwendet werden, die bereits vor dieser Aktivierung erstellt "
+"wurden."
 
 #. SysConfig
 msgid "This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the \"ServiceCatalog::CreateTypeServiceRelatedAcls\" option. \"GenerateInitalACLToDisableAllServices\" generates an ACL that initially hides all services. The value \"Possible\" or \"PossibleAdd\" can be set for the key \"ConfigChange\". The \"DeployNewACL\" key decides whether the changed ACL should also be deployed immediately. \"ACLValidID\" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid."
 msgstr ""
+"Diese Option ermöglicht es, die automatisch generierten ACLs "
+"vorzukonfigurieren. Das Ziel ist es, nur die Services einzublenden, die auch "
+"im Servicekatalog zugeordnet wurden. Um diese Funktion zu verwenden, muss "
+"zunächst die Einstellung \"ServiceCatalog::CreateTypeServiceRelatedAcls\" "
+"aktiviert werden. \"GenerateInitalACLToDisableAllServices\" erzeugt eine "
+"ACL, die initial alle Services ausblendet. Die Werte \"Possible\" (exklusiv "
+"einblenden) oder \"PossibleAdd\" (zusätzlich einblenden) können für den "
+"Schlüssel \"ConfigChange\" eingestellt werden. Der Schlüssel "
+"\"DeployNewACL\" entscheidet, ob die geänderte ACL sofort in Betrieb "
+"genommen werden soll. Die \"ACLValidID\" (1, 2, 3) setzt die Gültigkeit der "
+"ACL auf \"gültig\", \"ungültig\" oder \"ungültig temporär\"."
