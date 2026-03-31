@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # $origin: otobo - e44c18aea9abc125fddf9ceeed204db4fab290e0 - Kernel/Output/HTML/Templates/Standard/AdminService.tt
 # --
@@ -102,7 +102,7 @@
 
             <div class='Content'>
                 <p class='FieldExplanation'>
-                    [% Translate('Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by service management module.') | html %]
+                    [% Translate('Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by the service management module.') | html %]
                 </p>
                 <ul class='ActionList SpacingTop'>
                     <li>
