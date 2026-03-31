@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
 "POT-Creation-Date: 2026-03-05 14:12+0000\n"
-"PO-Revision-Date: 2026-03-31 09:10+0000\n"
+"PO-Revision-Date: 2026-03-31 11:00+0000\n"
 "Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/opm-packages/"
 "servicecatalog/de/>\n"
@@ -139,10 +139,25 @@ msgstr ""
 #. Template: AdminService
 msgid "If you do not assign services to customers or companies individually, but all services are initially offered to your customers for selection, the step of releasing each service as a \"default\" service under \"Admin -> Customer user <-> Service\" (or \"Customer <-> Service\") can be bypassed here. Of course, in the next step it is possible to restrict the services via ACLs."
 msgstr ""
+"Sofern den Kundenbenutzern oder Kunden (Firmen) keine Services individuell "
+"zugeordnet werden, aber alle Services den Kunden zur Auswahl angeboten "
+"werden, kann der Schritte alle Services als \"Standard\"-Service unter "
+"\"Admin -> Kundenbenutzer <-> Service\" (bzw. \"Admin -> Kunde <-> "
+"Service\") hier umgangen werden. Natürlich ist es im nächsten Schritt "
+"möglich, die Services via ACLs einzuschränken."
 
 #. Template: AdminService
 msgid "Here, there is the possibility to automatically calculate the correct ticket priority in the background based on the dynamic field \"ITSMCriticality\" and \"ITSMImpact\". Please activate the option \"Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService\" and the option \"Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix\". In the next step, you have the possibility using \"Admin -> Criticality ↔ Impact ↔ Priority\" to set the priority using a matrix."
 msgstr ""
+"Hier gibt es die Möglichkeit, die korrekte Ticket-Priorität basierend auf "
+"den Dynamischen Feldern \"ITSMCriticality\" und \"ITSMImpact\" im "
+"Hintergrund zu berechnen. Hierfür bitte die "
+"Einstellung\"Ticket::EventModulePost###9700-"
+"SetDynamicFieldCriticalityFromService\" und die Einstellung "
+"\"Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix\" "
+"aktivieren. Im nächsten Schritt gibt es die Möglichkeit die Priorität in "
+"einer Matrix unter \"Admin -> Kritikalität ↔ Auswirkung ↔ Priorität\" zu "
+"setzen."
 
 #. Template: AdminService
 msgid "Keywords to facilitate the search for services within the service catalog."
@@ -159,6 +174,11 @@ msgstr "Kurzbeschreibung des Service, vor allem verwendet im Dialog CustomerDash
 #. Template: AdminService
 msgid "Description of the service. Screenshots and tables are also allowed. Please ensure the correct width of the image for screenshots. This can be adjusted in the ckeditor after uploading the screenshot. A width of 600px has proven to be useful or you can configure a \"max-width\" of 95% under Advanced."
 msgstr ""
+"Beschreibung des Service. Screenshots und Tabellen sind auch erlaubt. Bitte "
+"sicherstellen, dass die korrekte Bildbreite für Screenshots verwendet wird.  "
+"Diese kann nach dem Hochladen des Screenshots im Editor angepasst werden. "
+"Eine Breite von 600px wurde als sinnvoll erachtet. Alternativ kann unter "
+"\"Erweitert\" eine Maximalbreite von 95% konfiguriert werden."
 
 #. Template: AdminService
 msgid "Add more service catalog fields"
@@ -331,4 +351,3 @@ msgstr ""
 #. SysConfig
 msgid "This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the \"ServiceCatalog::CreateTypeServiceRelatedAcls\" option. \"GenerateInitalACLToDisableAllServices\" generates an ACL that initially hides all services. The value \"Possible\" or \"PossibleAdd\" can be set for the key \"ConfigChange\". The \"DeployNewACL\" key decides whether the changed ACL should also be deployed immediately. \"ACLValidID\" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid."
 msgstr ""
-
