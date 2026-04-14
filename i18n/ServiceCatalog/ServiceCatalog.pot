@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
-"POT-Creation-Date: 2026-03-05 14:12+0000\n"
+"POT-Creation-Date: 2026-04-14 07:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgid "Minimum Time Between Incidents"
 msgstr ""
 
 #. Template: AdminService
-msgid "Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by queue management module."
+msgid "Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by the service management module."
 msgstr ""
 
 #. Template: AdminService

@@ -25,39 +25,39 @@ sub Data {
 
     # Template: AdminSLAImportExport
     $Self->{Translation}->{'Here you can export a configuration file of SLAs to import these on another system. The configuration file is exported in yml format.'} =
-        '';
-    $Self->{Translation}->{'SLAs List'} = '';
+        'Hier kann eine SLA-Konfigurationsdatei exportiert werden, die auf einem anderen System importiert werden kann. Die Konfigurationsdatei ist im YML-Format.';
+    $Self->{Translation}->{'SLAs List'} = 'SLA-Liste';
 
     # Template: AdminServiceImportExport
     $Self->{Translation}->{'Here you can export a configuration file of services to import these on another system. The configuration file is exported in yml format.'} =
-        '';
-    $Self->{Translation}->{'Services List'} = '';
+        'Hier kann eine Service-Konfigurationsdatei exportiert werden, die auf einem anderen System importiert werden kann. Die Konfigurationsdatei ist im YML-Format.';
+    $Self->{Translation}->{'Services List'} = 'Service-Liste';
 
     # Template: TileServiceCatalog
     $Self->{Translation}->{'Show details of this service.'} = 'Zeige die Details von diesem Service.';
 
     # Template: AdminSLA
     $Self->{Translation}->{'Here you can upload a configuration file to import SLAs to your system. The file needs to be in .yml format as exported by SLA management module.'} =
-        '';
-    $Self->{Translation}->{'SLAs Import'} = '';
-    $Self->{Translation}->{'SLAs Export'} = '';
+        'Hier kann eine Konfigurationsdatei hochgeladen werden, um SLAs in das System zu importieren. Diese Datei muss im YML-Format sein, so wie sie durch das SLA-Verwaltungsmodul exportiert wird.';
+    $Self->{Translation}->{'SLAs Import'} = 'SLAs importieren';
+    $Self->{Translation}->{'SLAs Export'} = 'SLAs exportieren';
     $Self->{Translation}->{'Minimum Time Between Incidents'} = '';
 
     # Template: AdminService
-    $Self->{Translation}->{'Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by queue management module.'} =
+    $Self->{Translation}->{'Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by the service management module.'} =
         '';
-    $Self->{Translation}->{'Services Import'} = '';
-    $Self->{Translation}->{'Services Export'} = '';
+    $Self->{Translation}->{'Services Import'} = 'Services importieren';
+    $Self->{Translation}->{'Services Export'} = 'Services exportieren';
     $Self->{Translation}->{'Criticality'} = 'Kritikalität';
     $Self->{Translation}->{'Service depends on the following ticket types'} = 'Der Service wird für folgende Ticket-Typen angezeigt';
     $Self->{Translation}->{'Ticket destination queue'} = 'Ticket Ziel-Queue';
     $Self->{Translation}->{'Customer default service'} = 'Service für alle Kunden anzeigen';
-    $Self->{Translation}->{'Keywords'} = '';
-    $Self->{Translation}->{'Service Description'} = '';
+    $Self->{Translation}->{'Keywords'} = 'Schlüsselwörter';
+    $Self->{Translation}->{'Service Description'} = 'Service-Beschreibung';
     $Self->{Translation}->{'This language is not present or enabled on the system. This service description could be deleted if it is not needed anymore.'} =
-        '';
-    $Self->{Translation}->{'Remove Service Description Language'} = '';
-    $Self->{Translation}->{'Add new service description language'} = '';
+        'Diese Sprache ist nicht verfügbar oder auf dem System aktiviert. Die Service-Beschreibung kann gelöscht werden, sofern sie nicht mehr benötigt wird.';
+    $Self->{Translation}->{'Remove Service Description Language'} = 'Sprache der Service-Beschreibung entfernen';
+    $Self->{Translation}->{'Add new service description language'} = 'Neue Sprache der Service-Beschreibung hinzufügen';
     $Self->{Translation}->{'Option Reference'} = 'Konfigurationsreferenz';
     $Self->{Translation}->{'You can use the following options'} = 'Die folgenden Optionen können verwendet werden';
     $Self->{Translation}->{'Within the ServiceCatalogue tile in the customer dashboard, it is possible to show ticket types for preconfigured ticket creation inside the service description. Furthermore, it is possible to restrict the services for other screens using the ticket types set here. If you wish to do this, please activate the options "ServiceCatalog::CreateTypeServiceRelatedAcls" and "ServiceCatalog::CreateTypeServiceRelatedAcls::Options" in the OTOBO system configuration. The restriction is made via automatically generated ACLs, which can be viewed under "Admin -> Access Control Lists (ACL)". If necessary, please adjust the option "ServiceCatalog::CreateTypeServiceRelatedAcls::Options" according to your requirements.'} =
@@ -65,18 +65,18 @@ sub Data {
     $Self->{Translation}->{'If we work service-based, we do not want to offer the customer a choice of queues in the customer portal when creating a ticket, but decide on the basis of the service into which queue (or which team of agents) the ticket should be processed first. In order to use this option sensibly, please deactivate the option "Ticket::Frontend::CustomerTicketMessage###Queue" and set a sensible default queue in the option "Ticket::Frontend::CustomerTicketMessage###QueueDefault". As soon as you set a "Ticket destination queue" here in the service, the ticket will immediately be created in this queue. If the field remains empty, the default queue configured above will be used.'} =
         'Sofern Serivce-basiert gearbeitet wird, soll dem Kunden im Kundenportal während der Ticketerstellung zwar eine Auswahl der Queues angezeigt werden, jedoch soll die Entscheidung , in welcher Queue (oder welchem Agenten-Team) das Ticket zunächst bearbeitet werden soll, auf Basis des Service getroffen werden. Um diese Option vernünftig zu verwenden, sollte die Einstellung "Ticket::Frontend::CustomerTicketMessage###Queue" deaktiviert werden und eine sinnvolle Standard-Queue in der Einstellung "Ticket::Frontend::CustomerTicketMessage###QueueDefault" gesetzt werden. Sobald hier im Service eine "Ticket Ziel-Queue" eingestellt wurde, wird das Ticket unmittelbar in dieser Queue erstellt. Sofern das Feld leer bleibt, wird die oben gesetzte Default-Queue verwendet.';
     $Self->{Translation}->{'If you do not assign services to customers or companies individually, but all services are initially offered to your customers for selection, the step of releasing each service as a "default" service under "Admin -> Customer user <-> Service" (or "Customer <-> Service") can be bypassed here. Of course, in the next step it is possible to restrict the services via ACLs.'} =
-        '';
+        'Sofern den Kundenbenutzern oder Kunden (Firmen) keine Services individuell zugeordnet werden, aber alle Services den Kunden zur Auswahl angeboten werden, kann der Schritte alle Services als "Standard"-Service unter "Admin -> Kundenbenutzer <-> Service" (bzw. "Admin -> Kunde <-> Service") hier umgangen werden. Natürlich ist es im nächsten Schritt möglich, die Services via ACLs einzuschränken.';
     $Self->{Translation}->{'Here, there is the possibility to automatically calculate the correct ticket priority in the background based on the dynamic field "ITSMCriticality" and "ITSMImpact". Please activate the option "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService" and the option "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix". In the next step, you have the possibility using "Admin -> Criticality ↔ Impact ↔ Priority" to set the priority using a matrix.'} =
-        '';
+        'Hier gibt es die Möglichkeit, die korrekte Ticket-Priorität basierend auf den Dynamischen Feldern "ITSMCriticality" und "ITSMImpact" im Hintergrund zu berechnen. Hierfür bitte die Einstellung"Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService" und die Einstellung "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix" aktivieren. Im nächsten Schritt gibt es die Möglichkeit die Priorität in einer Matrix unter "Admin -> Kritikalität ↔ Auswirkung ↔ Priorität" zu setzen.';
     $Self->{Translation}->{'Keywords to facilitate the search for services within the service catalog.'} =
-        '';
+        'Schlüsselwörter um die Suche nach Services innerhalb des Servicekatalogs zu erleichtern.';
     $Self->{Translation}->{'Service descriptions (short & long) specified by User Language.'} =
-        '';
+        'Service-Beschreibung (kurz und lang), festgelegt durch die Anwendersprache.';
     $Self->{Translation}->{'Short summary of the service, mainly used in the CustomerDashboard.'} =
         'Kurzbeschreibung des Service, vor allem verwendet im Dialog CustomerDashboard.';
     $Self->{Translation}->{'Description of the service. Screenshots and tables are also allowed. Please ensure the correct width of the image for screenshots. This can be adjusted in the ckeditor after uploading the screenshot. A width of 600px has proven to be useful or you can configure a "max-width" of 95% under Advanced.'} =
-        '';
-    $Self->{Translation}->{'Add more service catalog fields'} = '';
+        'Beschreibung des Service. Screenshots und Tabellen sind auch erlaubt. Bitte sicherstellen, dass die korrekte Bildbreite für Screenshots verwendet wird.  Diese kann nach dem Hochladen des Screenshots im Editor angepasst werden. Eine Breite von 600px wurde als sinnvoll erachtet. Alternativ kann unter "Erweitert" eine Maximalbreite von 95% konfiguriert werden.';
+    $Self->{Translation}->{'Add more service catalog fields'} = 'Weitere Servicekatalog-Felder hinzufügen';
     $Self->{Translation}->{'You have the option of adding further fields here in the service catalog at any time. To do this, please go to "Admin -> DynamicFields" and create the new field of the object type "Service". You can then activate the field for the customer dashboard under "Admin -> DynamicField Screens" by assigning it under "CustomerDashboardTile ServiceCatalog".'} =
         '';
 
@@ -84,70 +84,70 @@ sub Data {
     $Self->{Translation}->{'SLA Information'} = 'SLA-Informationen';
     $Self->{Translation}->{'Last changed'} = 'Zuletzt geändert';
     $Self->{Translation}->{'Last changed by'} = 'Zuletzt geändert von';
-    $Self->{Translation}->{'Associated Services'} = '';
+    $Self->{Translation}->{'Associated Services'} = 'Zugehörige Services';
 
     # Template: AgentITSMServiceZoom
     $Self->{Translation}->{'Service Information'} = 'Service-Informationen';
-    $Self->{Translation}->{'Current incident state'} = '';
-    $Self->{Translation}->{'Associated SLAs'} = '';
+    $Self->{Translation}->{'Current incident state'} = 'Aktueller Vorfallstatus';
+    $Self->{Translation}->{'Associated SLAs'} = 'Zugehörige SLAs';
 
     # JS Template: TileServiceCatalogContainer
-    $Self->{Translation}->{'Create a new ticket for this service.'} = '';
+    $Self->{Translation}->{'Create a new ticket for this service.'} = 'Neues Ticket für diesen Service hinzufügen.';
     $Self->{Translation}->{'Create %s'} = '%s erstellen';
-    $Self->{Translation}->{'Show %s sub-service(s)'} = '';
-    $Self->{Translation}->{'More details'} = '';
-    $Self->{Translation}->{'Sub-Service(s)'} = '';
+    $Self->{Translation}->{'Show %s sub-service(s)'} = 'Zeige %s Unter-Service(s)';
+    $Self->{Translation}->{'More details'} = 'Weitere Details';
+    $Self->{Translation}->{'Sub-Service(s)'} = 'Unter-Service(s)';
 
     # JS Template: TileServiceCatalogDetailed
-    $Self->{Translation}->{'sub-service(s) available'} = '';
+    $Self->{Translation}->{'sub-service(s) available'} = 'verfügbare(r) Unterservice(s)';
     $Self->{Translation}->{'Create a new ticket of type %s.'} = 'Ein neues Ticket vom Typ %s erstellen.';
-    $Self->{Translation}->{'FAQ article on this topic'} = '';
-    $Self->{Translation}->{'Additional information'} = '';
-    $Self->{Translation}->{'Service hours'} = '';
-    $Self->{Translation}->{'o\'clock'} = '';
-    $Self->{Translation}->{'No additional data are available.'} = '';
-    $Self->{Translation}->{'Further information'} = '';
+    $Self->{Translation}->{'FAQ article on this topic'} = 'FAQ-Artikel zu diesem Thema';
+    $Self->{Translation}->{'Additional information'} = 'Zusätzliche Informationen';
+    $Self->{Translation}->{'Service hours'} = 'Service-Zeiten';
+    $Self->{Translation}->{'o\'clock'} = 'Uhr';
+    $Self->{Translation}->{'No additional data are available.'} = 'Es sind keine weiteren Daten verfügbar.';
+    $Self->{Translation}->{'Further information'} = 'Weitere Informationen';
 
     # JS Template: TileServiceCatalogModal
-    $Self->{Translation}->{'Search catalog'} = '';
+    $Self->{Translation}->{'Search catalog'} = 'Suchkatalog';
 
     # Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
-    $Self->{Translation}->{'Description not available.'} = '';
+    $Self->{Translation}->{'Description not available.'} = 'Beschreibung nicht verfügbar.';
     $Self->{Translation}->{'Need FileID!'} = 'Benötige FileID!';
 
     # Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
-    $Self->{Translation}->{'No ServiceID is given!'} = '';
-    $Self->{Translation}->{'ServiceID %s not found in database!'} = '';
+    $Self->{Translation}->{'No ServiceID is given!'} = 'Keine ServiceID vorhanden!';
+    $Self->{Translation}->{'ServiceID %s not found in database!'} = 'ServiceID %s nicht in Datenbank gefunden!';
     $Self->{Translation}->{'operational'} = 'operativ';
     $Self->{Translation}->{'warning'} = 'Warnung';
     $Self->{Translation}->{'incident'} = 'Vorfall';
 
     # JS File: Core.Agent.Admin.Service
     $Self->{Translation}->{'Do you really want to delete this service description language?'} =
-        '';
+        'Soll diese Sprache der Service-Beschreibung wirklich gelöscht werden?';
 
     # JS File: Core.Customer.TileServiceCatalog
-    $Self->{Translation}->{'Results for %s'} = '';
+    $Self->{Translation}->{'Results for %s'} = 'Ergebnisse für %s';
 
     # SysConfig
-    $Self->{Translation}->{'Additional settings for the service catalog.'} = '';
+    $Self->{Translation}->{'Additional settings for the service catalog.'} = 'Zusätzliche Einstellungen für den Servicekatalog.';
     $Self->{Translation}->{'Autoload configuration for SLA import and export functions.'} = '';
     $Self->{Translation}->{'Autoload configuration for Service import and export functions.'} =
         '';
-    $Self->{Translation}->{'CustomerTileServiceCatalog AJAX Module.'} = '';
+    $Self->{Translation}->{'CustomerTileServiceCatalog AJAX Module.'} = 'CustomerTileServiceCatalog AJAX Modul.';
     $Self->{Translation}->{'Dynamic fields shown in the service catalog screen of the customer interface.'} =
-        '';
+        'Dynamische Felder, die in der Servicekatalog-Oberfläche des Kundenbereichs angezeigt werden.';
     $Self->{Translation}->{'Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the DynamicField Criticality in a ticket as soon as a service has been assigned. Please activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to set the priority in the next step based an Criticality and Impact.'} =
-        '';
+        'Event-Modulregistrierung. Momentan kann die Kritikalität des Service auch im Service festgelegt werden, hat allerdings keine Wirkung. Daher wurde dieses Event-Modul implementiert, das automatisch das Dynamische Feld Kritikalität in einem Ticket aktualisiert, sobald ein Service zugeordnet wurde. Bitte die Systemkonfigurations-Einstellung "SetPriorityFromCriticalityAndImpactMatrix" aktivieren, um die Priorität auf Basis der Kritikalität und die Auswirkung im nächsten Schritt zu setzen.';
     $Self->{Translation}->{'Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket.'} =
-        '';
-    $Self->{Translation}->{'Show services with the following ticket type last.'} = '';
+        'Event-Modulregistrierung. Momentan kann die Kritikalität des Service auch im Service festgelegt werden, hat allerdings keine Wirkung. Daher wurde dieses Event-Modul implementiert, das automatisch die Priorität und die Auswirkung in einem Ticket aktualisiert.';
+    $Self->{Translation}->{'Show services with the following ticket type last.'} = 'Services mit dem folgenden Tickettypen zuletzt anzeigen.';
     $Self->{Translation}->{'The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...).'} =
-        '';
+        'Das FAQ-Feld, welches in der Beschreibung eines FAQ-Artikel in der Seitenleiste angezeigt werden soll (z.B. Field1, Field2, Field3, ...).';
     $Self->{Translation}->{'This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected. The "AddBulkACL" console script can also be used to create ACLs for services that have already been create.'} =
-        '';
+        'Diese Option ermöglicht es, dass bei der Service-Erstellung automatisch ACLs für verschiedene Oberflächen generiert werden. Services werden dann nur angezeigt, sobald der im Service gespeicherte Tickettyp ausgewählt wurde. Das Konsolenskript "AddBulkACL" kann auch für die ACL-Erstellung für die Services verwendet werden, die bereits vor dieser Aktivierung erstellt wurden.';
     $Self->{Translation}->{'This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the "ServiceCatalog::CreateTypeServiceRelatedAcls" option. "GenerateInitalACLToDisableAllServices" generates an ACL that initially hides all services. The value "Possible" or "PossibleAdd" can be set for the key "ConfigChange". The "DeployNewACL" key decides whether the changed ACL should also be deployed immediately. "ACLValidID" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid.'} =
-        '';
+        'Diese Option ermöglicht es, die automatisch generierten ACLs vorzukonfigurieren. Das Ziel ist es, nur die Services einzublenden, die auch im Servicekatalog zugeordnet wurden. Um diese Funktion zu verwenden, muss zunächst die Einstellung "ServiceCatalog::CreateTypeServiceRelatedAcls" aktiviert werden. "GenerateInitalACLToDisableAllServices" erzeugt eine ACL, die initial alle Services ausblendet. Die Werte "Possible" (exklusiv einblenden) oder "PossibleAdd" (zusätzlich einblenden) können für den Schlüssel "ConfigChange" eingestellt werden. Der Schlüssel "DeployNewACL" entscheidet, ob die geänderte ACL sofort in Betrieb genommen werden soll. Die "ACLValidID" (1, 2, 3) setzt die Gültigkeit der ACL auf "gültig", "ungültig" oder "ungültig temporär".';
 
 
     push @{ $Self->{JavaScriptStrings} // [] }, (

@@ -44,7 +44,7 @@ sub Data {
     $Self->{Translation}->{'Minimum Time Between Incidents'} = '';
 
     # Template: AdminService
-    $Self->{Translation}->{'Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by queue management module.'} =
+    $Self->{Translation}->{'Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by the service management module.'} =
         '';
     $Self->{Translation}->{'Services Import'} = '';
     $Self->{Translation}->{'Services Export'} = '';
