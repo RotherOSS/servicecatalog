@@ -2,50 +2,58 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
 "POT-Creation-Date: 2026-03-05 14:12+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-05-22 18:00+0000\n"
+"Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
+"Language-Team: Hungarian <http://translate.otobo.org/projects/opm-packages/"
+"servicecatalog/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.16\n"
 
 #. Template: AdminSLAImportExport
 msgid "Here you can export a configuration file of SLAs to import these on another system. The configuration file is exported in yml format."
 msgstr ""
+"Itt exportálhatja az SLA-k beállítófájlját, hogy azokat egy másik rendszerbe "
+"importálhassa. A beállítófájl YAML formátumban kerül exportálásra."
 
 #. Template: AdminSLAImportExport
 msgid "SLAs List"
-msgstr ""
+msgstr "SLA-k listája"
 
 #. Template: AdminServiceImportExport
 msgid "Here you can export a configuration file of services to import these on another system. The configuration file is exported in yml format."
 msgstr ""
+"Itt exportálhatja a szolgáltatások beállítófájlját, hogy azokat egy másik "
+"rendszerbe importálhassa. A beállítófájl YAML formátumban kerül exportálásra."
 
 #. Template: AdminServiceImportExport
 msgid "Services List"
-msgstr ""
+msgstr "Szolgáltatások listája"
 
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
-msgstr ""
+msgstr "A szolgáltatás részleteinek megjelenítése."
 
 #. Template: AdminSLA
 msgid "Here you can upload a configuration file to import SLAs to your system. The file needs to be in .yml format as exported by SLA management module."
 msgstr ""
+"Itt tölthet fel egy beállítófájlt az SLA-k importálásához a rendszerre. A "
+"fájlnak .yml formátumban kell lennie, ahogy az SLA-kezelő modul exportálta."
 
 #. Template: AdminSLA
 msgid "SLAs Import"
-msgstr ""
+msgstr "SLA-k importálása"
 
 #. Template: AdminSLA
 msgid "SLAs Export"
-msgstr ""
+msgstr "SLA-k exportálása"
 
 #. Template: AdminSLA
 msgid "Minimum Time Between Incidents"
-msgstr ""
+msgstr "Az incidensek közti legkisebb idő"
 
 #. Template: AdminService
 msgid "Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by queue management module."
@@ -53,256 +61,347 @@ msgstr ""
 
 #. Template: AdminService
 msgid "Services Import"
-msgstr ""
+msgstr "Szolgáltatások importálása"
 
 #. Template: AdminService
 msgid "Services Export"
-msgstr ""
+msgstr "Szolgáltatások exportálása"
 
 #. Template: AdminService
 msgid "Criticality"
-msgstr ""
+msgstr "Kritikusság"
 
 #. Template: AdminService
 msgid "Service depends on the following ticket types"
-msgstr ""
+msgstr "A szolgáltatás a következő jegytípusoktól függ"
 
 #. Template: AdminService
 msgid "Ticket destination queue"
-msgstr ""
+msgstr "Jegy célvárólistája"
 
 #. Template: AdminService
 msgid "Customer default service"
-msgstr ""
+msgstr "Ügyfél alapértelmezett szolgáltatása"
 
 #. Template: AdminService
 msgid "Keywords"
-msgstr ""
+msgstr "Kulcsszavak"
 
 #. Template: AdminService
 msgid "Service Description"
-msgstr ""
+msgstr "Szolgáltatás leírása"
 
 #. Template: AdminService
 msgid "This language is not present or enabled on the system. This service description could be deleted if it is not needed anymore."
 msgstr ""
+"Ez a nyelv nincs jelen vagy nincs engedélyezve a rendszeren. Ez a "
+"szolgáltatásleírás törölhető, ha többé nincs rá szükség."
 
 #. Template: AdminService
 msgid "Remove Service Description Language"
-msgstr ""
+msgstr "Szolgáltatásleírás-nyelv eltávolítása"
 
 #. Template: AdminService
 msgid "Add new service description language"
-msgstr ""
+msgstr "Új szolgáltatásleírás-nyelv hozzáadása"
 
 #. Template: AdminService
 msgid "Option Reference"
-msgstr ""
+msgstr "Beállítások hivatkozása"
 
 #. Template: AdminService
 msgid "You can use the following options"
-msgstr ""
+msgstr "A következő beállításokat használhatja"
 
 #. Template: AdminService
 msgid "Within the ServiceCatalogue tile in the customer dashboard, it is possible to show ticket types for preconfigured ticket creation inside the service description. Furthermore, it is possible to restrict the services for other screens using the ticket types set here. If you wish to do this, please activate the options \"ServiceCatalog::CreateTypeServiceRelatedAcls\" and \"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" in the OTOBO system configuration. The restriction is made via automatically generated ACLs, which can be viewed under \"Admin -> Access Control Lists (ACL)\". If necessary, please adjust the option \"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" according to your requirements."
 msgstr ""
+"Az ügyfél vezérlőpultján lévő „ServiceCatalogue” csempén belül lehetőség van "
+"megjeleníteni a jegytípusokat az előre beállított jegylétrehozásához a "
+"szolgáltatás leírásán belül. Ezenfelül lehetőség van a szolgáltatások "
+"korlátozására más képernyőknél az itt beállított jegytípusok használatával. "
+"Ha ezt szeretné megtenni, akkor aktiválja a „"
+"ServiceCatalog::CreateTypeServiceRelatedAcls” és a „"
+"ServiceCatalog::CreateTypeServiceRelatedAcls::Options” beállításokat az "
+"OTOBO rendszerbeállításaiban. A korlátozás automatikusan előállított ACL-"
+"eken keresztül történik, amelyek az „Adminisztráció → Hozzáférés-vezérlési "
+"listák (ACL)” alatt tekinthetők meg. Ha szükséges, akkor állítsa be a „"
+"ServiceCatalog::CreateTypeServiceRelatedAcls::Options” beállítást az "
+"igényeinek megfelelően."
 
 #. Template: AdminService
 msgid "If we work service-based, we do not want to offer the customer a choice of queues in the customer portal when creating a ticket, but decide on the basis of the service into which queue (or which team of agents) the ticket should be processed first. In order to use this option sensibly, please deactivate the option \"Ticket::Frontend::CustomerTicketMessage###Queue\" and set a sensible default queue in the option \"Ticket::Frontend::CustomerTicketMessage###QueueDefault\". As soon as you set a \"Ticket destination queue\" here in the service, the ticket will immediately be created in this queue. If the field remains empty, the default queue configured above will be used."
 msgstr ""
+"Ha szolgáltatásalapú rendszerben dolgozunk, akkor nem szeretnénk felajánlani "
+"az ügyfélnek a várólisták közötti választást az ügyfélportálon a jegy "
+"létrehozásakor, hanem a szolgáltatás alapján szeretnénk eldönteni, hogy "
+"melyik várólistába (vagy melyik ügyintézői csapatnak) kell elsőként "
+"feldolgozni a jegyet. Ahhoz, hogy ezt a lehetőséget észszerűen lehessen "
+"használni, kapcsolja ki a „Ticket::Frontend::CustomerTicketMessage###Queue” "
+"beállítást, és állítson be észszerű alapértelmezett várólistát a „"
+"Ticket::Frontend::CustomerTicketMessage###QueueDefault” beállításban. Amint "
+"itt a szolgáltatásban beállít egy „Jegy célvárólistája” értéket, a jegy "
+"azonnal ebben a várólistában lesz létrehozva. Ha a mező üres marad, akkor a "
+"fent beállított alapértelmezett várólista lesz használva."
 
 #. Template: AdminService
 msgid "If you do not assign services to customers or companies individually, but all services are initially offered to your customers for selection, the step of releasing each service as a \"default\" service under \"Admin -> Customer user <-> Service\" (or \"Customer <-> Service\") can be bypassed here. Of course, in the next step it is possible to restrict the services via ACLs."
 msgstr ""
+"Ha nem rendel hozzá egyenként szolgáltatásokat az ügyfelekhez vagy a "
+"vállalatokhoz, hanem az összes szolgáltatást eleve felajánlja az ügyfeleinek "
+"választásra, akkor az „Adminisztráció → Ügyfél-felhasználó ↔ Szolgáltatás” "
+"(vagy „Ügyfél ↔ Szolgáltatás”) alatt az egyes szoláltatások „alapértelmezett"
+"” szolgáltatásként történő kiadásának lépése itt megkerülhető. Természetesen "
+"a következő lépésben lehetőség van a szolgáltatások ACL-eken keresztül "
+"történő korlátozására."
 
 #. Template: AdminService
 msgid "Here, there is the possibility to automatically calculate the correct ticket priority in the background based on the dynamic field \"ITSMCriticality\" and \"ITSMImpact\". Please activate the option \"Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService\" and the option \"Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix\". In the next step, you have the possibility using \"Admin -> Criticality ↔ Impact ↔ Priority\" to set the priority using a matrix."
 msgstr ""
+"Itt lehetőség van arra, hogy automatikusan kiszámítsa a megfelelő "
+"jegyprioritást a háttérben az „ITSMCriticality” és „ITSMImpact” dinamikus "
+"mezők alapján. Aktiválja a „Ticket::EventModulePost###9700-"
+"SetDynamicFieldCriticalityFromService” és a „Ticket::EventModulePost###9800-"
+"SetPriorityFromCriticalityAndImpactMatrix” beállításokat. A következő "
+"lépésben lehetősége van az „Adminisztráció → Kritikusság ↔ Hatás ↔ Prioritás"
+"” használatával egy mátrix segítségével beállítani a prioritást."
 
 #. Template: AdminService
 msgid "Keywords to facilitate the search for services within the service catalog."
 msgstr ""
+"Kulcsszavak a szolgáltatások keresésének megkönnyítéséhez a "
+"szolgáltatáskatalóguson belül."
 
 #. Template: AdminService
 msgid "Service descriptions (short & long) specified by User Language."
 msgstr ""
+"A felhasználó nyelve által megadott szolgáltatásleírások (rövid és hosszú)."
 
 #. Template: AdminService
 msgid "Short summary of the service, mainly used in the CustomerDashboard."
 msgstr ""
+"A szolgáltatás rövid összefoglalása, amely elsősorban az ügyfél "
+"vezérlőpultján van használva."
 
 #. Template: AdminService
 msgid "Description of the service. Screenshots and tables are also allowed. Please ensure the correct width of the image for screenshots. This can be adjusted in the ckeditor after uploading the screenshot. A width of 600px has proven to be useful or you can configure a \"max-width\" of 95% under Advanced."
 msgstr ""
+"A szolgáltatás leírása. Képernyőképek és táblázatok is megengedettek. "
+"Győződjön meg arról, hogy a képek szélessége megfelelő legyen a "
+"képernyőképeknél. Ez a CKEditor szerkesztőben állítható be a képernyőkép "
+"feltöltése után. A 600 képpontos szélesség jól bevált, vagy beállíthatja a „"
+"max-width” értéket 95%-ra a „Speciális” menüpont alatt."
 
 #. Template: AdminService
 msgid "Add more service catalog fields"
-msgstr ""
+msgstr "További szolgáltatáskatalógus mezők hozzáadása"
 
 #. Template: AdminService
 msgid "You have the option of adding further fields here in the service catalog at any time. To do this, please go to \"Admin -> DynamicFields\" and create the new field of the object type \"Service\". You can then activate the field for the customer dashboard under \"Admin -> DynamicField Screens\" by assigning it under \"CustomerDashboardTile ServiceCatalog\"."
 msgstr ""
+"Lehetősége van további mezőket hozzáadnia bármikor itt, a "
+"szolgáltatáskatalógusban. Ehhez menjen az „Adminisztráció → Dinamikus mezők” "
+"modulhoz, és hozza létre a „Szolgáltatás” objektumtípusú új mezőt. Ezután "
+"aktiválhatja a mezőt az ügyfél vezérlőpultjához az „Adminisztráció → "
+"Dinamikus mezők képernyői” alatt azáltal, hogy hozzárendeli a mezőt a „"
+"CustomerDashboardTile ServiceCatalog” alatt."
 
 #. Template: AgentITSMSLAZoom
 msgid "SLA Information"
-msgstr ""
+msgstr "SLA információk"
 
 #. Template: AgentITSMSLAZoom
 msgid "Last changed"
-msgstr ""
+msgstr "Utoljára módosítva"
 
 #. Template: AgentITSMSLAZoom
 msgid "Last changed by"
-msgstr ""
+msgstr "Utoljára módosította"
 
 #. Template: AgentITSMSLAZoom
 msgid "Associated Services"
-msgstr ""
+msgstr "Hozzárendelt szolgáltatások"
 
 #. Template: AgentITSMServiceZoom
 msgid "Service Information"
-msgstr ""
+msgstr "Szolgáltatásinformációk"
 
 #. Template: AgentITSMServiceZoom
 msgid "Current incident state"
-msgstr ""
+msgstr "Jelenlegi incidensállapot"
 
 #. Template: AgentITSMServiceZoom
 msgid "Associated SLAs"
-msgstr ""
+msgstr "Hozzárendelt SLA-k"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Create a new ticket for this service."
-msgstr ""
+msgstr "Új jegy létrehozása ehhez a szolgáltatáshoz."
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Create %s"
-msgstr ""
+msgstr "%s létrehozása"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Show %s sub-service(s)"
-msgstr ""
+msgstr "%s alszolgáltatásainak megjelenítése"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "More details"
-msgstr ""
+msgstr "További részletek"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Sub-Service(s)"
-msgstr ""
+msgstr "Alszolgáltatások"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "sub-service(s) available"
-msgstr ""
+msgstr "alszolgáltatás érhető el"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Create a new ticket of type %s."
-msgstr ""
+msgstr "Új %s típusú jegy létrehozása."
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "FAQ article on this topic"
-msgstr ""
+msgstr "GyIK bejegyzés ebben a témában"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Additional information"
-msgstr ""
+msgstr "További információk"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Service hours"
-msgstr ""
+msgstr "Szolgáltatási idő"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "o'clock"
-msgstr ""
+msgstr "óra"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "No additional data are available."
-msgstr ""
+msgstr "Nem érhetők el további adatok."
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Further information"
-msgstr ""
+msgstr "További információk"
 
 #. JS Template: TileServiceCatalogModal
 msgid "Search catalog"
-msgstr ""
+msgstr "Katalógus keresése"
 
 #. Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
 msgid "Description not available."
-msgstr ""
+msgstr "Leírás nem érhető el."
 
 #. Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
 msgid "Need FileID!"
-msgstr ""
+msgstr "Fájlazonosító szükséges!"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "No ServiceID is given!"
-msgstr ""
+msgstr "Nincs szolgáltatásazonosító megadva!"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "ServiceID %s not found in database!"
-msgstr ""
+msgstr "A(z) %s szolgáltatásazonosító nem található az adatbázisban!"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "operational"
-msgstr ""
+msgstr "üzemképes"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "warning"
-msgstr ""
+msgstr "figyelmeztetés"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "incident"
-msgstr ""
+msgstr "incidens"
 
 #. JS File: Core.Agent.Admin.Service
 msgid "Do you really want to delete this service description language?"
-msgstr ""
+msgstr "Valóban törölni szeretné ezt a szolgáltatásleírás-nyelvet?"
 
 #. JS File: Core.Customer.TileServiceCatalog
 msgid "Results for %s"
-msgstr ""
+msgstr "Találatok erre: %s"
 
 #. SysConfig
 msgid "Additional settings for the service catalog."
-msgstr ""
+msgstr "További beállítások a szolgáltatáskatalógushoz."
 
 #. SysConfig
 msgid "Autoload configuration for SLA import and export functions."
 msgstr ""
+"Automatikus betöltési beállítás az SLA importálása és exportálása "
+"funkciókhoz."
 
 #. SysConfig
 msgid "Autoload configuration for Service import and export functions."
 msgstr ""
+"Automatikus betöltési beállítás a szolgáltatás importálása és exportálása "
+"funkciókhoz."
 
 #. SysConfig
 msgid "CustomerTileServiceCatalog AJAX Module."
-msgstr ""
+msgstr "Ügyfélcsempe-szolgáltatáskatalógus AJAX-modul."
 
 #. SysConfig
 msgid "Dynamic fields shown in the service catalog screen of the customer interface."
 msgstr ""
+"Az ügyfélfelület szolgáltatáskatalógus képernyőjén megjelenített dinamikus "
+"mezők."
 
 #. SysConfig
 msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the DynamicField Criticality in a ticket as soon as a service has been assigned. Please activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to set the priority in the next step based an Criticality and Impact."
 msgstr ""
+"Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható "
+"a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez "
+"az eseménymodul, amely automatikusan frissíti a kritikusság dinamikus mezőt "
+"a jegyben, amint egy szolgáltatás hozzárendelésre kerül. Aktiválja a „"
+"SetPriorityFromCriticalityAndImpactMatrix” rendszerbeállítási lehetőséget, "
+"hogy beállítsa a prioritást a következő lépésben egy kritikusság és hatás "
+"alapján."
 
 #. SysConfig
 msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket."
 msgstr ""
+"Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható "
+"a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez "
+"az eseménymodul, amely automatikusan frissíti a prioritást a kritikusságra "
+"és hatásra vonatkozóan a jegyben."
 
 #. SysConfig
 msgid "Show services with the following ticket type last."
 msgstr ""
+"A következő jegytípusokkal rendelkező szolgáltatások megjelenítése utoljára."
 
 #. SysConfig
 msgid "The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...)."
 msgstr ""
+"Az a GyIK mező, amelyet egy GyIK bejegyzés leírásaként kell használni az "
+"oldalsávban (például Mező1, Mező2, Mező3 stb.)."
 
 #. SysConfig
 msgid "This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected. The \"AddBulkACL\" console script can also be used to create ACLs for services that have already been create."
 msgstr ""
+"Ez a beállítás lehetővé teszi ACL-ek automatikus előállítását a különböző "
+"felületekhez a szolgáltatások létrehozásakor. A szolgáltatások ezután csak "
+"akkor jelennek meg, ha a szolgáltatásban tárolt jegytípust kiválasztották. "
+"Az „AddBulkACL” konzolparancs is használható a már létrehozott "
+"szolgáltatásokhoz tartozó ACL-ek létrehozására."
 
 #. SysConfig
 msgid "This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the \"ServiceCatalog::CreateTypeServiceRelatedAcls\" option. \"GenerateInitalACLToDisableAllServices\" generates an ACL that initially hides all services. The value \"Possible\" or \"PossibleAdd\" can be set for the key \"ConfigChange\". The \"DeployNewACL\" key decides whether the changed ACL should also be deployed immediately. \"ACLValidID\" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid."
 msgstr ""
+"Ez a beállítás lehetővé teszi az automatikusan előállított ACL-ek előzetes "
+"beállítását. A cél az, hogy csak olyan szolgáltatások jelenjenek meg, "
+"amelyek hozzá is lettek rendelve a szolgáltatáshoz a "
+"szolgáltatáskatalógusban. A funkció használatához először engedélyezze a „"
+"ServiceCatalog::CreateTypeServiceRelatedAcls” beállítást. A „"
+"GenerateInitalACLToDisableAllServices” olyan ACL-t állít elő, amely "
+"kezdetben elrejti az összes szolgáltatást. A „Possible” vagy „PossibleAdd” "
+"érték állítható be a „ConfigChange” kulcshoz. A „DeployNewACL” kulcs dönti "
+"el, hogy a megváltoztatott ACL-t is azonnal üzembe kell-e állítani. Az „"
+"ACLValidID” (1, 2, 3) állítja be az ACL-eket érvényesre, érvénytelenre vagy "
+"átmenetileg érvénytelenre."
