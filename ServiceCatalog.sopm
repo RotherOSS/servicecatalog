@@ -10,6 +10,7 @@
     <Description Lang="de">Ein ausführlicher Leistungskatalog.</Description>
     <Description Lang="en">A detailed service catalog.</Description>
     <Description Lang="es">Catálogo de Servicios detallado.</Description>
+    <Description Lang="hu">Egy részletes szolgáltatáskatalógus.</Description>
     <ChangeLog Date="2024-05-10 12:00:00" Version="10.1.15">Add multilanguage support for service descriptions, Keywords field for service filtering.</ChangeLog>    
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Modules/AdminService.pm" />
@@ -201,6 +202,19 @@
         &lt;br&gt;
         https://otobo.de &lt;br&gt;
         &lt;br&gt;
-    </IntroInstall>    
+    </IntroInstall>
+    <IntroInstall Lang="hu" Title="Telepítési információk" Type="pre">
+        &lt;br&gt;
+        ÜDVÖZÖLJÜK!&lt;br&gt;
+        &lt;br&gt;
+        Ön a Rother OSS szolgáltatáskatalógus-csomagjának telepítésére készül.&lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        További információkért látogassa meg a honlapunkat:&lt;br&gt;
+        &lt;br&gt;
+        https://otobo.de &lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>
     <PackageMerge Name="RotherOSS-ServiceCatalog" TargetVersion="10.0.4"></PackageMerge>
 </otobo_package>
