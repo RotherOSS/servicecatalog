@@ -10,6 +10,7 @@
     <Description Lang="de">Ein ausführlicher Leistungskatalog.</Description>
     <Description Lang="en">A detailed service catalog.</Description>
     <Description Lang="es">Catálogo de Servicios detallado.</Description>
+    <Description Lang="hu">Egy részletes szolgáltatáskatalógus.</Description>
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Modules/AdminService.pm" />
         <File Permission="660" Location="Custom/Kernel/Modules/AdminSLA.pm" />
@@ -221,6 +222,19 @@
         https://otobo.de &lt;br&gt;
         &lt;br&gt;
     </IntroInstall>
+    <IntroInstall Lang="hu" Title="Telepítési információk" Type="pre">
+        &lt;br&gt;
+        ÜDVÖZÖLJÜK!&lt;br&gt;
+        &lt;br&gt;
+        Ön a Rother OSS szolgáltatáskatalógus-csomagjának telepítésére készül.&lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        További információkért látogassa meg a honlapunkat:&lt;br&gt;
+        &lt;br&gt;
+        https://otobo.de &lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>
     <IntroInstall Lang="en" Title="Install Information" Type="post">
         &lt;br&gt;
         NOTE:&lt;br&gt;
@@ -239,6 +253,15 @@
         empfehlen wir vorübergehend die andere Kachel mit "order" 7 zu deaktivieren, auf einer Standart-Installation ist dies '###InfoTile-01'.&lt;br&gt;
         &lt;br&gt;
     </IntroInstall>
+    <IntroInstall Lang="hu" Title="Telepítési információk" Type="post">
+        &lt;br&gt;
+        MEGJEGYZÉS:&lt;br&gt;
+        &lt;br&gt;
+        Ahhoz, hogy az ügyfeleinek megjelenítse a szolgáltatáskatalógust, engedélyeznie kell a „CustomerDashboard::Tiles###ServiceCatalog-01” vezérlőpulti csempét.&lt;br&gt;
+        Ha nem szeretne időt tölteni az ügyfél vezérlőpultjának beállításával, hanem csak meg szeretné nézni,
+        akkor azt javasoljuk, hogy átmenetileg tiltsa le a 7-es sorszámú másik csempét, amely az alapértelmezett telepítésben „###InfoTile-01” néven szerepel.&lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>
     <IntroUpgrade Lang="en" Title="Upgrade Information" Type="post">
         &lt;br&gt;
         NOTE:&lt;br&gt;
@@ -251,6 +274,13 @@
         BEACHTE:&lt;br&gt;
         &lt;br&gt;
         Wenn Sie von Version 11.0.2 oder niedriger updaten, prüfen Sie bitte, ob 'CustomerDashboard::Tiles###ServiceCatalog-01' noch aktiviert ist.&lt;br&gt;
+        &lt;br&gt;
+    </IntroUpgrade>
+    <IntroUpgrade Lang="hu" Title="Frissítési információk" Type="post">
+        &lt;br&gt;
+        MEGJEGYZÉS:&lt;br&gt;
+        &lt;br&gt;
+        Ha a 11.0.2-es vagy alacsonyabb verzióról frissít, akkor ellenőrizze, hogy a „CustomerDashboard::Tiles###ServiceCatalog-01” továbbra is engedélyezve van-e.&lt;br&gt;
         &lt;br&gt;
     </IntroUpgrade>
     <PackageMerge Name="RotherOSS-ServiceCatalog" TargetVersion="10.0.4"></PackageMerge>
