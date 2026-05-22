@@ -1,0 +1,308 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ServiceCatalog\n"
+"POT-Creation-Date: 2026-03-05 14:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. Template: AdminSLAImportExport
+msgid "Here you can export a configuration file of SLAs to import these on another system. The configuration file is exported in yml format."
+msgstr ""
+
+#. Template: AdminSLAImportExport
+msgid "SLAs List"
+msgstr ""
+
+#. Template: AdminServiceImportExport
+msgid "Here you can export a configuration file of services to import these on another system. The configuration file is exported in yml format."
+msgstr ""
+
+#. Template: AdminServiceImportExport
+msgid "Services List"
+msgstr ""
+
+#. Template: TileServiceCatalog
+msgid "Show details of this service."
+msgstr ""
+
+#. Template: AdminSLA
+msgid "Here you can upload a configuration file to import SLAs to your system. The file needs to be in .yml format as exported by SLA management module."
+msgstr ""
+
+#. Template: AdminSLA
+msgid "SLAs Import"
+msgstr ""
+
+#. Template: AdminSLA
+msgid "SLAs Export"
+msgstr ""
+
+#. Template: AdminSLA
+msgid "Minimum Time Between Incidents"
+msgstr ""
+
+#. Template: AdminService
+msgid "Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by queue management module."
+msgstr ""
+
+#. Template: AdminService
+msgid "Services Import"
+msgstr ""
+
+#. Template: AdminService
+msgid "Services Export"
+msgstr ""
+
+#. Template: AdminService
+msgid "Criticality"
+msgstr ""
+
+#. Template: AdminService
+msgid "Service depends on the following ticket types"
+msgstr ""
+
+#. Template: AdminService
+msgid "Ticket destination queue"
+msgstr ""
+
+#. Template: AdminService
+msgid "Customer default service"
+msgstr ""
+
+#. Template: AdminService
+msgid "Keywords"
+msgstr ""
+
+#. Template: AdminService
+msgid "Service Description"
+msgstr ""
+
+#. Template: AdminService
+msgid "This language is not present or enabled on the system. This service description could be deleted if it is not needed anymore."
+msgstr ""
+
+#. Template: AdminService
+msgid "Remove Service Description Language"
+msgstr ""
+
+#. Template: AdminService
+msgid "Add new service description language"
+msgstr ""
+
+#. Template: AdminService
+msgid "Option Reference"
+msgstr ""
+
+#. Template: AdminService
+msgid "You can use the following options"
+msgstr ""
+
+#. Template: AdminService
+msgid "Within the ServiceCatalogue tile in the customer dashboard, it is possible to show ticket types for preconfigured ticket creation inside the service description. Furthermore, it is possible to restrict the services for other screens using the ticket types set here. If you wish to do this, please activate the options \"ServiceCatalog::CreateTypeServiceRelatedAcls\" and \"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" in the OTOBO system configuration. The restriction is made via automatically generated ACLs, which can be viewed under \"Admin -> Access Control Lists (ACL)\". If necessary, please adjust the option \"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" according to your requirements."
+msgstr ""
+
+#. Template: AdminService
+msgid "If we work service-based, we do not want to offer the customer a choice of queues in the customer portal when creating a ticket, but decide on the basis of the service into which queue (or which team of agents) the ticket should be processed first. In order to use this option sensibly, please deactivate the option \"Ticket::Frontend::CustomerTicketMessage###Queue\" and set a sensible default queue in the option \"Ticket::Frontend::CustomerTicketMessage###QueueDefault\". As soon as you set a \"Ticket destination queue\" here in the service, the ticket will immediately be created in this queue. If the field remains empty, the default queue configured above will be used."
+msgstr ""
+
+#. Template: AdminService
+msgid "If you do not assign services to customers or companies individually, but all services are initially offered to your customers for selection, the step of releasing each service as a \"default\" service under \"Admin -> Customer user <-> Service\" (or \"Customer <-> Service\") can be bypassed here. Of course, in the next step it is possible to restrict the services via ACLs."
+msgstr ""
+
+#. Template: AdminService
+msgid "Here, there is the possibility to automatically calculate the correct ticket priority in the background based on the dynamic field \"ITSMCriticality\" and \"ITSMImpact\". Please activate the option \"Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService\" and the option \"Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix\". In the next step, you have the possibility using \"Admin -> Criticality ↔ Impact ↔ Priority\" to set the priority using a matrix."
+msgstr ""
+
+#. Template: AdminService
+msgid "Keywords to facilitate the search for services within the service catalog."
+msgstr ""
+
+#. Template: AdminService
+msgid "Service descriptions (short & long) specified by User Language."
+msgstr ""
+
+#. Template: AdminService
+msgid "Short summary of the service, mainly used in the CustomerDashboard."
+msgstr ""
+
+#. Template: AdminService
+msgid "Description of the service. Screenshots and tables are also allowed. Please ensure the correct width of the image for screenshots. This can be adjusted in the ckeditor after uploading the screenshot. A width of 600px has proven to be useful or you can configure a \"max-width\" of 95% under Advanced."
+msgstr ""
+
+#. Template: AdminService
+msgid "Add more service catalog fields"
+msgstr ""
+
+#. Template: AdminService
+msgid "You have the option of adding further fields here in the service catalog at any time. To do this, please go to \"Admin -> DynamicFields\" and create the new field of the object type \"Service\". You can then activate the field for the customer dashboard under \"Admin -> DynamicField Screens\" by assigning it under \"CustomerDashboardTile ServiceCatalog\"."
+msgstr ""
+
+#. Template: AgentITSMSLAZoom
+msgid "SLA Information"
+msgstr ""
+
+#. Template: AgentITSMSLAZoom
+msgid "Last changed"
+msgstr ""
+
+#. Template: AgentITSMSLAZoom
+msgid "Last changed by"
+msgstr ""
+
+#. Template: AgentITSMSLAZoom
+msgid "Associated Services"
+msgstr ""
+
+#. Template: AgentITSMServiceZoom
+msgid "Service Information"
+msgstr ""
+
+#. Template: AgentITSMServiceZoom
+msgid "Current incident state"
+msgstr ""
+
+#. Template: AgentITSMServiceZoom
+msgid "Associated SLAs"
+msgstr ""
+
+#. JS Template: TileServiceCatalogContainer
+msgid "Create a new ticket for this service."
+msgstr ""
+
+#. JS Template: TileServiceCatalogContainer
+msgid "Create %s"
+msgstr ""
+
+#. JS Template: TileServiceCatalogContainer
+msgid "Show %s sub-service(s)"
+msgstr ""
+
+#. JS Template: TileServiceCatalogContainer
+msgid "More details"
+msgstr ""
+
+#. JS Template: TileServiceCatalogContainer
+msgid "Sub-Service(s)"
+msgstr ""
+
+#. JS Template: TileServiceCatalogDetailed
+msgid "sub-service(s) available"
+msgstr ""
+
+#. JS Template: TileServiceCatalogDetailed
+msgid "Create a new ticket of type %s."
+msgstr ""
+
+#. JS Template: TileServiceCatalogDetailed
+msgid "FAQ article on this topic"
+msgstr ""
+
+#. JS Template: TileServiceCatalogDetailed
+msgid "Additional information"
+msgstr ""
+
+#. JS Template: TileServiceCatalogDetailed
+msgid "Service hours"
+msgstr ""
+
+#. JS Template: TileServiceCatalogDetailed
+msgid "o'clock"
+msgstr ""
+
+#. JS Template: TileServiceCatalogDetailed
+msgid "No additional data are available."
+msgstr ""
+
+#. JS Template: TileServiceCatalogDetailed
+msgid "Further information"
+msgstr ""
+
+#. JS Template: TileServiceCatalogModal
+msgid "Search catalog"
+msgstr ""
+
+#. Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
+msgid "Description not available."
+msgstr ""
+
+#. Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
+msgid "Need FileID!"
+msgstr ""
+
+#. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
+msgid "No ServiceID is given!"
+msgstr ""
+
+#. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
+msgid "ServiceID %s not found in database!"
+msgstr ""
+
+#. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
+msgid "operational"
+msgstr ""
+
+#. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
+msgid "warning"
+msgstr ""
+
+#. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
+msgid "incident"
+msgstr ""
+
+#. JS File: Core.Agent.Admin.Service
+msgid "Do you really want to delete this service description language?"
+msgstr ""
+
+#. JS File: Core.Customer.TileServiceCatalog
+msgid "Results for %s"
+msgstr ""
+
+#. SysConfig
+msgid "Additional settings for the service catalog."
+msgstr ""
+
+#. SysConfig
+msgid "Autoload configuration for SLA import and export functions."
+msgstr ""
+
+#. SysConfig
+msgid "Autoload configuration for Service import and export functions."
+msgstr ""
+
+#. SysConfig
+msgid "CustomerTileServiceCatalog AJAX Module."
+msgstr ""
+
+#. SysConfig
+msgid "Dynamic fields shown in the service catalog screen of the customer interface."
+msgstr ""
+
+#. SysConfig
+msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the DynamicField Criticality in a ticket as soon as a service has been assigned. Please activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to set the priority in the next step based an Criticality and Impact."
+msgstr ""
+
+#. SysConfig
+msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket."
+msgstr ""
+
+#. SysConfig
+msgid "Show services with the following ticket type last."
+msgstr ""
+
+#. SysConfig
+msgid "The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...)."
+msgstr ""
+
+#. SysConfig
+msgid "This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected. The \"AddBulkACL\" console script can also be used to create ACLs for services that have already been create."
+msgstr ""
+
+#. SysConfig
+msgid "This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the \"ServiceCatalog::CreateTypeServiceRelatedAcls\" option. \"GenerateInitalACLToDisableAllServices\" generates an ACL that initially hides all services. The value \"Possible\" or \"PossibleAdd\" can be set for the key \"ConfigChange\". The \"DeployNewACL\" key decides whether the changed ACL should also be deployed immediately. \"ACLValidID\" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid."
+msgstr ""
