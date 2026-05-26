@@ -148,6 +148,8 @@ sub Data {
         '';
     $Self->{Translation}->{'This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the "ServiceCatalog::CreateTypeServiceRelatedAcls" option. "GenerateInitalACLToDisableAllServices" generates an ACL that initially hides all services. The value "Possible" or "PossibleAdd" can be set for the key "ConfigChange". The "DeployNewACL" key decides whether the changed ACL should also be deployed immediately. "ACLValidID" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid.'} =
         '';
+    $Self->{Translation}->{'Tile registration for the CustomerDashboard. Module is required.'} =
+        '';
 
 
     push @{ $Self->{JavaScriptStrings} // [] }, (
