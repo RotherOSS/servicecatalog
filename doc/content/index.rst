@@ -18,11 +18,11 @@ System requirements
 
 Framework
 ---------
-OTOBO 11.0.x
+OTOBO 11.1.x
 
 Packages
 --------
-ITSMCore >= 11.0.6
+ITSMCore >= 11.1.0
 
 Third-party software
 --------------------
