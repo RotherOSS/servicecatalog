@@ -12,10 +12,8 @@
     <Description Lang="es">Catálogo de Servicios detallado.</Description>
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Modules/AdminService.pm" />
-        <File Permission="660" Location="Custom/Kernel/Modules/AdminSLA.pm" />
         <File Permission="660" Location="Custom/Kernel/Modules/AgentITSMServiceZoom.pm" />
         <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/AdminService.tt" />
-        <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/AdminSLA.tt" />
         <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/AgentITSMService.tt" />
         <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/AgentITSMServiceZoom.tt" />
         <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/AgentITSMSLAZoom.tt" />

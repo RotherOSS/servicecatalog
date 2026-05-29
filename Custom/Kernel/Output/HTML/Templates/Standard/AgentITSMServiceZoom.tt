@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # $origin: otobo -  - Kernel/Output/HTML/Templates/Standard/AgentITSMServiceZoom.tt
 # --
@@ -116,9 +116,7 @@
                             [% Translate(Data.Criticality) | html %]
                         </div>
                         <div class="Clear"></div>
-# ---
 # Rother OSS / ServiceCatalog
-# ---
                         <label title="[% Translate("Description (short)") | html %]">[% Translate("Description (short)") | html %]: </label>
                         <div class="Field">
                             [% Translate(Data.DescriptionShort) | html %]
@@ -162,7 +160,7 @@
 [% END %]
 [% RenderBlockEnd("ServiceDynamicField") %]
 
-# EOC ServiceCatalog
+# EO ServiceCatalog
                         <label title="[% Translate("Comment") | html %]">[% Translate("Comment") | html %]: </label>
                         <div class="Field">
                             [% Translate(Data.Comment) | html %]
