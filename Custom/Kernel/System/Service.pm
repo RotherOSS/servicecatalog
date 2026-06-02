@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - ea211902130ca5b796d966845970cfc546444548 - Kernel/System/Service.pm
+# $origin: otobo - 10ae9089b8e8e9b8f6cee94cf666251d5ea5b123 - Kernel/System/Service.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -38,7 +38,6 @@ our @ObjectDependencies = (
     'Kernel::System::Main',
     'Kernel::System::Queue',
     'Kernel::System::Translations',
-    'Kernel::System::Type',
     'Kernel::System::Valid',
 # RotherOSS ServiceCatalog
     'Kernel::System::ACL::DB::ACL',
@@ -382,7 +381,7 @@ sub ServiceListGet {
 
     for my $ServiceData (@ServiceList) {
 
-        # create short name and parentid
+        # create short name and parent id
         $ServiceData->{NameShort} = $ServiceData->{Name};
         if ( $ServiceData->{Name} =~ m{ \A (.*) :: (.+?) \z }xms ) {
             my $ParentName = $1;
@@ -658,7 +657,7 @@ sub ServiceGet {
         return;
     }
 
-    # create short name and parentid
+    # create short name and parent id
     $ServiceData{NameShort} = $ServiceData{Name};
     if ( $ServiceData{Name} =~ m{ \A (.*) :: (.+?) \z }xms ) {
         $ServiceData{NameShort} = $2;
@@ -1269,7 +1268,7 @@ sub ServiceUpdate {
 
     my $LikeService = $DBObject->Quote( $OldServiceName, 'Like' ) . '::%';
 
-    # find all childs
+    # find all children
     $DBObject->Prepare(
         SQL  => "SELECT id, name FROM service WHERE name LIKE ?",
         Bind => [ \$LikeService ],
@@ -1283,7 +1282,7 @@ sub ServiceUpdate {
         push @Childs, \%Child;
     }
 
-    # update childs
+    # update children
     for my $Child (@Childs) {
         $Child->{Name} =~ s{ \A ( \Q$OldServiceName\E ) :: }{$Param{FullName}::}xms;
         $DBObject->Do(
@@ -1766,7 +1765,7 @@ sub ServiceParentsGet {
     # get the ServiceParentID from the requested service
     my $ServiceParentID = $ServiceLookup{ $Param{ServiceID} }->{ParentID};
 
-    # get all partents for the requested service
+    # get all parents for the requested service
     while ($ServiceParentID) {
 
         # add service parent ID to the return structure
@@ -1864,6 +1863,12 @@ sub ExportServices {
         UserID => $UserID,
     );
 
+# Rother OSS / ITSMCore
+    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+        Class => 'ITSM::Service::Type',
+    );
+# EO ITSMCore
+
     my %ExportData;
     SERVICEID:
     for my $ServiceID ( sort keys %ServiceList ) {
@@ -1879,7 +1884,6 @@ sub ExportServices {
 
         # translate IDs into names or name-like identifiers
         my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
-        my $TypeObject  = $Kernel::OM->Get('Kernel::System::Type');
         my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
 
         ATTRIBUTE:
@@ -1908,18 +1912,13 @@ sub ExportServices {
                 $ServiceData{DestQueue} = $Queue;
                 delete $ServiceData{DestQueueID};
             }
-            elsif ( $Attribute eq 'TicketTypeIDs' ) {
-                if ( IsArrayRefWithData( $ServiceData{TicketTypeIDs} ) ) {
-                    my @TicketTypes;
-                    for my $TicketTypeID ( $ServiceData{TicketTypeIDs}->@* ) {
-                        push @TicketTypes, $TypeObject->TypeLookup(
-                            TypeID => $TicketTypeID,
-                        );
-                    }
-                    $ServiceData{TicketTypes} = \@TicketTypes;
-                    delete $ServiceData{TicketTypeIDs};
-                }
+# Rother OSS / ITSMCore
+            elsif ( $Attribute eq 'TypeID' && IsHashRefWithData($TypeList) ) {
+                my $Type = $TypeList->{$ServiceData{TypeID}};
+                $ServiceData{Type} = $Type;
+                delete $ServiceData{TypeID};
             }
+# EO ITSMCore
         }
 
         delete $ServiceData{ChangeBy};
@@ -1927,9 +1926,6 @@ sub ExportServices {
         delete $ServiceData{CreateBy};
         delete $ServiceData{CreateTime};
         delete $ServiceData{ServiceID};
-
-        # unhandled attribute, related to ITSMCore and GeneralCatalog
-        delete $ServiceData{TypeID};
 
         $ExportData{ $ServiceData{Name} } = \%ServiceData;
     }
@@ -1943,13 +1939,20 @@ sub ImportServices {
     my $UserID = $Self->{UserID} || $Param{UserID};
 
     my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
-    my $TypeObject  = $Kernel::OM->Get('Kernel::System::Type');
     my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
     my %ServiceList = $Self->ServiceList(
         Valid  => 0,
         UserID => $UserID,
     );
     my %ServiceLookup = reverse %ServiceList;
+
+# Rother OSS / ITSMCore
+    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+        Class => 'ITSM::Service::Type',
+    );
+
+    my %TypeLookup = IsHashRefWithData($TypeList) ? reverse $TypeList->%* : ();
+# EO ITSMCore
 
     # sort services by parent attribute
     my @FirstLevelServices;
@@ -2021,15 +2024,11 @@ sub ImportServices {
                 Queue => $ServiceData->{DestQueue},
             );
         }
-        if ( IsArrayRefWithData( $ServiceData->{TicketTypes} ) ) {
-            my @TicketTypeIDs;
-            for my $TicketType ( $ServiceData->{TicketTypes}->@* ) {
-                push @TicketTypeIDs, $TypeObject->TypeLookup(
-                    Type => $TicketType,
-                );
-            }
-            $ServiceData->{TicketTypeIDs} = \@TicketTypeIDs;
+# Rother OSS / ITSMCore
+        if ( $ServiceData->{Type} ) {
+            $ServiceData->{TypeID} = $TypeLookup{$ServiceData->{Type}};
         }
+# EO ITSMCore
         $ServiceData->{ValidID} = $ValidObject->ValidLookup(
             Valid => $ServiceData->{Valid},
         );
@@ -2105,11 +2104,7 @@ sub _ServiceGetCurrentIncidentState {
     my $ServiceTypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
         Class => 'ITSM::Service::Type',
     );
-# Rother OSS / ServiceCatalog
-    if ( $ServiceData{TypeID} ) {
-        $ServiceData{Type} = $ServiceTypeList->{ $ServiceData{TypeID} } || '';
-    }
-# EO ServiceCatalog
+    $ServiceData{Type} = $ServiceTypeList->{ $ServiceData{TypeID} } || '';
 
     # set default incident state type
     $ServiceData{CurInciStateType} = 'operational';
