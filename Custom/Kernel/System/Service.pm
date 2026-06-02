@@ -1863,11 +1863,13 @@ sub ExportServices {
         UserID => $UserID,
     );
 
-# Rother OSS / ITSMCore
-    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
-        Class => 'ITSM::Service::Type',
-    );
-# EO ITSMCore
+# Rother OSS / ServiceCatalog
+# # Rother OSS / ITSMCore
+#     my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+#         Class => 'ITSM::Service::Type',
+#     );
+# # EO ITSMCore
+# EO ServiceCatalog
 
     my %ExportData;
     SERVICEID:
@@ -1884,6 +1886,9 @@ sub ExportServices {
 
         # translate IDs into names or name-like identifiers
         my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
+# Rother OSS / ServiceCatalog
+        my $TypeObject  = $Kernel::OM->Get('Kernel::System::Type');
+# EO ServiceCatalog
         my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
 
         ATTRIBUTE:
@@ -1912,13 +1917,27 @@ sub ExportServices {
                 $ServiceData{DestQueue} = $Queue;
                 delete $ServiceData{DestQueueID};
             }
-# Rother OSS / ITSMCore
-            elsif ( $Attribute eq 'TypeID' && IsHashRefWithData($TypeList) ) {
-                my $Type = $TypeList->{$ServiceData{TypeID}};
-                $ServiceData{Type} = $Type;
-                delete $ServiceData{TypeID};
+# Rother OSS / ServiceCatalog
+# # Rother OSS / ITSMCore
+#             elsif ( $Attribute eq 'TypeID' && IsHashRefWithData($TypeList) ) {
+#                 my $Type = $TypeList->{$ServiceData{TypeID}};
+#                 $ServiceData{Type} = $Type;
+#                 delete $ServiceData{TypeID};
+#             }
+# # EO ITSMCore
+            elsif ( $Attribute eq 'TicketTypeIDs' ) {
+                if ( IsArrayRefWithData( $ServiceData{TicketTypeIDs} ) ) {
+                    my @TicketTypes;
+                    for my $TicketTypeID ( $ServiceData{TicketTypeIDs}->@* ) {
+                        push @TicketTypes, $TypeObject->TypeLookup(
+                            TypeID => $TicketTypeID,
+                        );
+                    }
+                    $ServiceData{TicketTypes} = \@TicketTypes;
+                    delete $ServiceData{TicketTypeIDs};
+                }
             }
-# EO ITSMCore
+# EO ServiceCatalog
         }
 
         delete $ServiceData{ChangeBy};
@@ -1939,6 +1958,9 @@ sub ImportServices {
     my $UserID = $Self->{UserID} || $Param{UserID};
 
     my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
+# Rother OSS / ServiceCatalog
+    my $TypeObject    = $Kernel::OM->Get('Kernel::System::Type');
+# EO ServiceCatalog
     my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
     my %ServiceList = $Self->ServiceList(
         Valid  => 0,
@@ -1946,13 +1968,15 @@ sub ImportServices {
     );
     my %ServiceLookup = reverse %ServiceList;
 
-# Rother OSS / ITSMCore
-    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
-        Class => 'ITSM::Service::Type',
-    );
-
-    my %TypeLookup = IsHashRefWithData($TypeList) ? reverse $TypeList->%* : ();
-# EO ITSMCore
+# Rother OSS / ServiceCatalog
+# # Rother OSS / ITSMCore
+#     my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+#         Class => 'ITSM::Service::Type',
+#     );
+#
+#     my %TypeLookup = IsHashRefWithData($TypeList) ? reverse $TypeList->%* : ();
+# # EO ITSMCore
+# EO ServiceCatalog
 
     # sort services by parent attribute
     my @FirstLevelServices;
@@ -2024,11 +2048,22 @@ sub ImportServices {
                 Queue => $ServiceData->{DestQueue},
             );
         }
-# Rother OSS / ITSMCore
-        if ( $ServiceData->{Type} ) {
-            $ServiceData->{TypeID} = $TypeLookup{$ServiceData->{Type}};
+# Rother OSS / ServiceCatalog
+# # Rother OSS / ITSMCore
+#         if ( $ServiceData->{Type} ) {
+#             $ServiceData->{TypeID} = $TypeLookup{$ServiceData->{Type}};
+#         }
+# # EO ITSMCore
+        if ( IsArrayRefWithData( $ServiceData->{TicketTypes} ) ) {
+            my @TicketTypeIDs;
+            for my $TicketType ( $ServiceData->{TicketTypes}->@* ) {
+                push @TicketTypeIDs, $TypeObject->TypeLookup(
+                    Type => $TicketType,
+                );
+            }
+            $ServiceData->{TicketTypeIDs} = \@TicketTypeIDs;
         }
-# EO ITSMCore
+# EO ServiceCatalog
         $ServiceData->{ValidID} = $ValidObject->ValidLookup(
             Valid => $ServiceData->{Valid},
         );

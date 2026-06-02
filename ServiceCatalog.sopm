@@ -19,8 +19,6 @@
         <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/AgentITSMSLAZoom.tt" />
         <File Permission="660" Location="Custom/Kernel/System/Console/Command/Admin/Service/Add.pm" />
         <File Permission="660" Location="Custom/Kernel/System/Service.pm" />
-        <File Permission="660" Location="Kernel/Autoload/ServiceImportExport.pm" />
-        <File Permission="660" Location="Kernel/Autoload/SLAImportExport.pm" />
         <File Permission="660" Location="Kernel/Config/Files/XML/ServiceCatalog.xml" />
         <File Permission="660" Location="Kernel/Language/de_ServiceCatalog.pm" />
         <File Permission="660" Location="Kernel/Language/es_ServiceCatalog.pm" />
