@@ -23,31 +23,10 @@ use utf8;
 sub Data {
     my $Self = shift;
 
-    # Template: AdminSLAImportExport
-    $Self->{Translation}->{'Here you can export a configuration file of SLAs to import these on another system. The configuration file is exported in yml format.'} =
-        'Itt exportálhatja az SLA-k beállítófájlját, hogy azokat egy másik rendszerbe importálhassa. A beállítófájl YAML formátumban kerül exportálásra.';
-    $Self->{Translation}->{'SLAs List'} = 'SLA-k listája';
-
-    # Template: AdminServiceImportExport
-    $Self->{Translation}->{'Here you can export a configuration file of services to import these on another system. The configuration file is exported in yml format.'} =
-        'Itt exportálhatja a szolgáltatások beállítófájlját, hogy azokat egy másik rendszerbe importálhassa. A beállítófájl YAML formátumban kerül exportálásra.';
-    $Self->{Translation}->{'Services List'} = 'Szolgáltatások listája';
-
     # Template: TileServiceCatalog
     $Self->{Translation}->{'Show details of this service.'} = 'A szolgáltatás részleteinek megjelenítése.';
 
-    # Template: AdminSLA
-    $Self->{Translation}->{'Here you can upload a configuration file to import SLAs to your system. The file needs to be in .yml format as exported by SLA management module.'} =
-        'Itt tölthet fel egy beállítófájlt az SLA-k importálásához a rendszerre. A fájlnak .yml formátumban kell lennie, ahogy az SLA-kezelő modul exportálta.';
-    $Self->{Translation}->{'SLAs Import'} = 'SLA-k importálása';
-    $Self->{Translation}->{'SLAs Export'} = 'SLA-k exportálása';
-    $Self->{Translation}->{'Minimum Time Between Incidents'} = 'Az incidensek közti legkisebb idő';
-
     # Template: AdminService
-    $Self->{Translation}->{'Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by the service management module.'} =
-        '';
-    $Self->{Translation}->{'Services Import'} = 'Szolgáltatások importálása';
-    $Self->{Translation}->{'Services Export'} = 'Szolgáltatások exportálása';
     $Self->{Translation}->{'Criticality'} = 'Kritikusság';
     $Self->{Translation}->{'Service depends on the following ticket types'} = 'A szolgáltatás a következő jegytípusoktól függ';
     $Self->{Translation}->{'Ticket destination queue'} = 'Jegy célvárólistája';
@@ -84,6 +63,7 @@ sub Data {
     $Self->{Translation}->{'SLA Information'} = 'SLA információk';
     $Self->{Translation}->{'Last changed'} = 'Utoljára módosítva';
     $Self->{Translation}->{'Last changed by'} = 'Utoljára módosította';
+    $Self->{Translation}->{'Minimum Time Between Incidents'} = 'Az incidensek közti legkisebb idő';
     $Self->{Translation}->{'Associated Services'} = 'Hozzárendelt szolgáltatások';
 
     # Template: AgentITSMServiceZoom
@@ -131,9 +111,6 @@ sub Data {
 
     # SysConfig
     $Self->{Translation}->{'Additional settings for the service catalog.'} = 'További beállítások a szolgáltatáskatalógushoz.';
-    $Self->{Translation}->{'Autoload configuration for SLA import and export functions.'} = 'Automatikus betöltési beállítás az SLA importálása és exportálása funkciókhoz.';
-    $Self->{Translation}->{'Autoload configuration for Service import and export functions.'} =
-        'Automatikus betöltési beállítás a szolgáltatás importálása és exportálása funkciókhoz.';
     $Self->{Translation}->{'CustomerTileServiceCatalog AJAX Module.'} = 'Ügyfélcsempe-szolgáltatáskatalógus AJAX-modul.';
     $Self->{Translation}->{'Dynamic fields shown in the service catalog screen of the customer interface.'} =
         'Az ügyfélfelület szolgáltatáskatalógus képernyőjén megjelenített dinamikus mezők.';

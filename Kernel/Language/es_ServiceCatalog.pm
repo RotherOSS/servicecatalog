@@ -23,31 +23,10 @@ use utf8;
 sub Data {
     my $Self = shift;
 
-    # Template: AdminSLAImportExport
-    $Self->{Translation}->{'Here you can export a configuration file of SLAs to import these on another system. The configuration file is exported in yml format.'} =
-        '';
-    $Self->{Translation}->{'SLAs List'} = '';
-
-    # Template: AdminServiceImportExport
-    $Self->{Translation}->{'Here you can export a configuration file of services to import these on another system. The configuration file is exported in yml format.'} =
-        '';
-    $Self->{Translation}->{'Services List'} = '';
-
     # Template: TileServiceCatalog
     $Self->{Translation}->{'Show details of this service.'} = '';
 
-    # Template: AdminSLA
-    $Self->{Translation}->{'Here you can upload a configuration file to import SLAs to your system. The file needs to be in .yml format as exported by SLA management module.'} =
-        '';
-    $Self->{Translation}->{'SLAs Import'} = '';
-    $Self->{Translation}->{'SLAs Export'} = '';
-    $Self->{Translation}->{'Minimum Time Between Incidents'} = '';
-
     # Template: AdminService
-    $Self->{Translation}->{'Here you can upload a configuration file to import services to your system. The file needs to be in .yml format as exported by the service management module.'} =
-        '';
-    $Self->{Translation}->{'Services Import'} = '';
-    $Self->{Translation}->{'Services Export'} = '';
     $Self->{Translation}->{'Criticality'} = '';
     $Self->{Translation}->{'Service depends on the following ticket types'} = '';
     $Self->{Translation}->{'Ticket destination queue'} = '';
@@ -84,6 +63,7 @@ sub Data {
     $Self->{Translation}->{'SLA Information'} = '';
     $Self->{Translation}->{'Last changed'} = '';
     $Self->{Translation}->{'Last changed by'} = '';
+    $Self->{Translation}->{'Minimum Time Between Incidents'} = '';
     $Self->{Translation}->{'Associated Services'} = '';
 
     # Template: AgentITSMServiceZoom
@@ -131,9 +111,6 @@ sub Data {
 
     # SysConfig
     $Self->{Translation}->{'Additional settings for the service catalog.'} = '';
-    $Self->{Translation}->{'Autoload configuration for SLA import and export functions.'} = '';
-    $Self->{Translation}->{'Autoload configuration for Service import and export functions.'} =
-        '';
     $Self->{Translation}->{'CustomerTileServiceCatalog AJAX Module.'} = '';
     $Self->{Translation}->{'Dynamic fields shown in the service catalog screen of the customer interface.'} =
         '';
