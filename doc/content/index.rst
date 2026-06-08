@@ -45,11 +45,22 @@ Core::Acl
 
 ServiceCatalog::CreateTypeServiceRelatedAcls
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected.
+This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected. The "AddBulkACL" console script can also be used to create ACLs for services that have already been create.
 
 ServiceCatalog::CreateTypeServiceRelatedAcls::Options
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Acl configuration für Type - Service restrictions. Please activate ServiceCatalog::CreateTypeServiceRelatedAcls before. For the key ConfigChange please use Possible or PossibleAdd. DeployNewACL deploy the changed acl Immediately.
+This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the "ServiceCatalog::CreateTypeServiceRelatedAcls" option. "GenerateInitalACLToDisableAllServices" generates an ACL that initially hides all services. The value "Possible" or "PossibleAdd" can be set for the key "ConfigChange". The "DeployNewACL" key decides whether the changed ACL should also be deployed immediately. "ACLValidID" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid.
+
+Core::Autoload
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+AutoloadPerlPackages###002-SLAImportExport
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Autoload configuration for SLA import and export functions.
+
+AutoloadPerlPackages###002-ServiceImportExport
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Autoload configuration for Service import and export functions.
 
 Core::DynamicFields::ObjectTypeRegistration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -68,6 +79,35 @@ Event module registration. Currently, the criticality of the service can also be
 Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket.
+
+Frontend::Admin::ModuleRegistration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Frontend::Module###AdminSLAImportExport
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Frontend module registration for the admin interface.
+
+Frontend::Module###AdminServiceImportExport
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Frontend module registration for the admin interface.
+
+Frontend::Admin::ModuleRegistration::Loader
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Loader::Module::AdminSLAImportExport###002-ServiceCatalog
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Loader module registration for the agent interface.
+
+Loader::Module::AdminServiceImportExport###002-ServiceCatalog
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Loader module registration for the agent interface.
+
+Frontend::Agent::ModuleRegistration::Loader
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Loader module registration for the agent interface.
 
 Frontend::Base::DynamicFieldScreens
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -97,26 +137,22 @@ CustomerDashboard::Configuration::ServiceCatalog
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Additional settings for the service catalog.
 
-CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType
+CustomerDashboard::Configuration::ServiceCatalog###DynamicField
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Show services with the following ticket type last.
+Dynamic fields shown in the service catalog screen of the customer interface.
 
 CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...).
 
-CustomerDashboard::Configuration::ServiceCatalog###DynamicField
+CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Dynamic fields shown in the service catalog screen of the customer interface.
+Show services with the following ticket type last.
 
 Frontend::Customer::View::Dashboard::Tiles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 CustomerDashboard::Tiles###ServiceCatalog-01
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Tile registration for the CustomerDashboard. Module is required.
-
-CustomerDashboard::Tiles###FeaturedLink-01
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Tile registration for the CustomerDashboard. Module is required.
 
@@ -126,8 +162,8 @@ About
 Contact
 -------
 | Rother OSS GmbH
-| Email: hello@otobo.de
-| Web: https://otobo.de
+| Email: hello@otobo.io
+| Web: https://otobo.io
 
 Version
 -------
