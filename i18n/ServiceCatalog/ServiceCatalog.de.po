@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
-"POT-Creation-Date: 2026-05-26 12:28+0000\n"
+"POT-Creation-Date: 2026-06-03 15:03+0000\n"
 "PO-Revision-Date: 2026-06-24 10:00+0000\n"
 "Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
@@ -13,74 +13,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.16\n"
 
-#. Template: AdminSLAImportExport
-msgid ""
-"Here you can export a configuration file of SLAs to import these on another "
-"system. The configuration file is exported in yml format."
-msgstr ""
-"Hier können Sie eine Konfigurationsdatei von SLAs exportieren, um diese auf "
-"einem anderen System zu importieren. Die Konfigurationsdatei wird im yml "
-"Format exportiert."
-
-#. Template: AdminSLAImportExport
-msgid "SLAs List"
-msgstr "Liste von SLAs"
-
-#. Template: AdminServiceImportExport
-msgid ""
-"Here you can export a configuration file of services to import these on "
-"another system. The configuration file is exported in yml format."
-msgstr ""
-"Hier können Sie eine Konfigurationsdatei von Services exportieren, um diese "
-"auf einem anderen System zu importieren. Die Konfigurationsdatei wird im yml "
-"Format exportiert."
-
-#. Template: AdminServiceImportExport
-msgid "Services List"
-msgstr "Service-Liste"
-
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
 msgstr "Zeige die Details von diesem Service."
-
-#. Template: AdminSLA
-msgid ""
-"Here you can upload a configuration file to import SLAs to your system. The "
-"file needs to be in .yml format as exported by SLA management module."
-msgstr ""
-"Hier kann eine Konfigurationsdatei hochgeladen werden, um SLAs in das System "
-"zu importieren. Diese Datei muss im YML-Format sein, so wie sie durch das "
-"SLA-Verwaltungsmodul exportiert wird."
-
-#. Template: AdminSLA
-msgid "SLAs Import"
-msgstr "SLAs Importieren"
-
-#. Template: AdminSLA
-msgid "SLAs Export"
-msgstr "SLAs Exportieren"
-
-#. Template: AdminSLA
-msgid "Minimum Time Between Incidents"
-msgstr ""
-
-#. Template: AdminService
-msgid ""
-"Here you can upload a configuration file to import services to your system. "
-"The file needs to be in .yml format as exported by the service management "
-"module."
-msgstr ""
-"Hier können Sie eine Konfigurationsdatei hochladen, um Services in Ihr "
-"System zu importieren. Die Datei muss im YAML-Format (.yml) vorliegen, so "
-"wie sie von der Serviceverwaltung auch exportiert wird."
-
-#. Template: AdminService
-msgid "Services Import"
-msgstr "Services importieren"
-
-#. Template: AdminService
-msgid "Services Export"
-msgstr "Services exportieren"
 
 #. Template: AdminService
 msgid "Criticality"
@@ -275,6 +210,10 @@ msgid "Last changed by"
 msgstr "Zuletzt geändert von"
 
 #. Template: AgentITSMSLAZoom
+msgid "Minimum Time Between Incidents"
+msgstr ""
+
+#. Template: AgentITSMSLAZoom
 msgid "Associated Services"
 msgstr "Zugehörige Services"
 
@@ -387,14 +326,6 @@ msgid "Additional settings for the service catalog."
 msgstr "Zusätzliche Einstellungen für den Servicekatalog."
 
 #. SysConfig
-msgid "Autoload configuration for SLA import and export functions."
-msgstr ""
-
-#. SysConfig
-msgid "Autoload configuration for Service import and export functions."
-msgstr ""
-
-#. SysConfig
 msgid "CustomerTileServiceCatalog AJAX Module."
 msgstr "CustomerTileServiceCatalog AJAX Modul."
 
@@ -488,3 +419,54 @@ msgstr ""
 #. SysConfig
 msgid "Tile registration for the CustomerDashboard. Module is required."
 msgstr ""
+
+#~ msgid ""
+#~ "Here you can export a configuration file of SLAs to import these on "
+#~ "another system. The configuration file is exported in yml format."
+#~ msgstr ""
+#~ "Hier können Sie eine Konfigurationsdatei von SLAs exportieren, um diese "
+#~ "auf einem anderen System zu importieren. Die Konfigurationsdatei wird im "
+#~ "yml Format exportiert."
+
+#~ msgid "SLAs List"
+#~ msgstr "Liste von SLAs"
+
+#~ msgid ""
+#~ "Here you can export a configuration file of services to import these on "
+#~ "another system. The configuration file is exported in yml format."
+#~ msgstr ""
+#~ "Hier können Sie eine Konfigurationsdatei von Services exportieren, um "
+#~ "diese auf einem anderen System zu importieren. Die Konfigurationsdatei "
+#~ "wird im yml Format exportiert."
+
+#~ msgid "Services List"
+#~ msgstr "Service-Liste"
+
+#~ msgid ""
+#~ "Here you can upload a configuration file to import SLAs to your system. "
+#~ "The file needs to be in .yml format as exported by SLA management module."
+#~ msgstr ""
+#~ "Hier kann eine Konfigurationsdatei hochgeladen werden, um SLAs in das "
+#~ "System zu importieren. Diese Datei muss im YML-Format sein, so wie sie "
+#~ "durch das SLA-Verwaltungsmodul exportiert wird."
+
+#~ msgid "SLAs Import"
+#~ msgstr "SLAs Importieren"
+
+#~ msgid "SLAs Export"
+#~ msgstr "SLAs Exportieren"
+
+#~ msgid ""
+#~ "Here you can upload a configuration file to import services to your "
+#~ "system. The file needs to be in .yml format as exported by the service "
+#~ "management module."
+#~ msgstr ""
+#~ "Hier können Sie eine Konfigurationsdatei hochladen, um Services in Ihr "
+#~ "System zu importieren. Die Datei muss im YAML-Format (.yml) vorliegen, so "
+#~ "wie sie von der Serviceverwaltung auch exportiert wird."
+
+#~ msgid "Services Import"
+#~ msgstr "Services importieren"
+
+#~ msgid "Services Export"
+#~ msgstr "Services exportieren"

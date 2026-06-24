@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
-"POT-Creation-Date: 2026-05-26 12:28+0000\n"
+"POT-Creation-Date: 2026-06-03 15:03+0000\n"
 "PO-Revision-Date: 2026-05-22 18:00+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/opm-packages/"
@@ -13,74 +13,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.16\n"
 
-#. Template: AdminSLAImportExport
-msgid ""
-"Here you can export a configuration file of SLAs to import these on another "
-"system. The configuration file is exported in yml format."
-msgstr ""
-"Itt exportálhatja az SLA-k beállítófájlját, hogy azokat egy másik rendszerbe "
-"importálhassa. A beállítófájl YAML formátumban kerül exportálásra."
-
-#. Template: AdminSLAImportExport
-msgid "SLAs List"
-msgstr "SLA-k listája"
-
-#. Template: AdminServiceImportExport
-msgid ""
-"Here you can export a configuration file of services to import these on "
-"another system. The configuration file is exported in yml format."
-msgstr ""
-"Itt exportálhatja a szolgáltatások beállítófájlját, hogy azokat egy másik "
-"rendszerbe importálhassa. A beállítófájl YAML formátumban kerül exportálásra."
-
-#. Template: AdminServiceImportExport
-msgid "Services List"
-msgstr "Szolgáltatások listája"
-
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
 msgstr "A szolgáltatás részleteinek megjelenítése."
-
-#. Template: AdminSLA
-msgid ""
-"Here you can upload a configuration file to import SLAs to your system. The "
-"file needs to be in .yml format as exported by SLA management module."
-msgstr ""
-"Itt tölthet fel egy beállítófájlt az SLA-k importálásához a rendszerre. A "
-"fájlnak .yml formátumban kell lennie, ahogy az SLA-kezelő modul exportálta."
-
-#. Template: AdminSLA
-msgid "SLAs Import"
-msgstr "SLA-k importálása"
-
-#. Template: AdminSLA
-msgid "SLAs Export"
-msgstr "SLA-k exportálása"
-
-#. Template: AdminSLA
-msgid "Minimum Time Between Incidents"
-msgstr "Az incidensek közti legkisebb idő"
-
-#. Template: AdminService
-#, fuzzy
-#| msgid ""
-#| "Here you can upload a configuration file to import SLAs to your system. "
-#| "The file needs to be in .yml format as exported by SLA management module."
-msgid ""
-"Here you can upload a configuration file to import services to your system. "
-"The file needs to be in .yml format as exported by the service management "
-"module."
-msgstr ""
-"Itt tölthet fel egy beállítófájlt az SLA-k importálásához a rendszerre. A "
-"fájlnak .yml formátumban kell lennie, ahogy az SLA-kezelő modul exportálta."
-
-#. Template: AdminService
-msgid "Services Import"
-msgstr "Szolgáltatások importálása"
-
-#. Template: AdminService
-msgid "Services Export"
-msgstr "Szolgáltatások exportálása"
 
 #. Template: AdminService
 msgid "Criticality"
@@ -280,6 +215,10 @@ msgid "Last changed by"
 msgstr "Utoljára módosította"
 
 #. Template: AgentITSMSLAZoom
+msgid "Minimum Time Between Incidents"
+msgstr "Az incidensek közti legkisebb idő"
+
+#. Template: AgentITSMSLAZoom
 msgid "Associated Services"
 msgstr "Hozzárendelt szolgáltatások"
 
@@ -392,18 +331,6 @@ msgid "Additional settings for the service catalog."
 msgstr "További beállítások a szolgáltatáskatalógushoz."
 
 #. SysConfig
-msgid "Autoload configuration for SLA import and export functions."
-msgstr ""
-"Automatikus betöltési beállítás az SLA importálása és exportálása "
-"funkciókhoz."
-
-#. SysConfig
-msgid "Autoload configuration for Service import and export functions."
-msgstr ""
-"Automatikus betöltési beállítás a szolgáltatás importálása és exportálása "
-"funkciókhoz."
-
-#. SysConfig
 msgid "CustomerTileServiceCatalog AJAX Module."
 msgstr "Ügyfélcsempe-szolgáltatáskatalógus AJAX-modul."
 
@@ -497,3 +424,68 @@ msgstr ""
 #. SysConfig
 msgid "Tile registration for the CustomerDashboard. Module is required."
 msgstr ""
+
+#~ msgid ""
+#~ "Here you can export a configuration file of SLAs to import these on "
+#~ "another system. The configuration file is exported in yml format."
+#~ msgstr ""
+#~ "Itt exportálhatja az SLA-k beállítófájlját, hogy azokat egy másik "
+#~ "rendszerbe importálhassa. A beállítófájl YAML formátumban kerül "
+#~ "exportálásra."
+
+#~ msgid "SLAs List"
+#~ msgstr "SLA-k listája"
+
+#~ msgid ""
+#~ "Here you can export a configuration file of services to import these on "
+#~ "another system. The configuration file is exported in yml format."
+#~ msgstr ""
+#~ "Itt exportálhatja a szolgáltatások beállítófájlját, hogy azokat egy másik "
+#~ "rendszerbe importálhassa. A beállítófájl YAML formátumban kerül "
+#~ "exportálásra."
+
+#~ msgid "Services List"
+#~ msgstr "Szolgáltatások listája"
+
+#~ msgid ""
+#~ "Here you can upload a configuration file to import SLAs to your system. "
+#~ "The file needs to be in .yml format as exported by SLA management module."
+#~ msgstr ""
+#~ "Itt tölthet fel egy beállítófájlt az SLA-k importálásához a rendszerre. A "
+#~ "fájlnak .yml formátumban kell lennie, ahogy az SLA-kezelő modul "
+#~ "exportálta."
+
+#~ msgid "SLAs Import"
+#~ msgstr "SLA-k importálása"
+
+#~ msgid "SLAs Export"
+#~ msgstr "SLA-k exportálása"
+
+#, fuzzy
+#~| msgid ""
+#~| "Here you can upload a configuration file to import SLAs to your system. "
+#~| "The file needs to be in .yml format as exported by SLA management module."
+#~ msgid ""
+#~ "Here you can upload a configuration file to import services to your "
+#~ "system. The file needs to be in .yml format as exported by the service "
+#~ "management module."
+#~ msgstr ""
+#~ "Itt tölthet fel egy beállítófájlt az SLA-k importálásához a rendszerre. A "
+#~ "fájlnak .yml formátumban kell lennie, ahogy az SLA-kezelő modul "
+#~ "exportálta."
+
+#~ msgid "Services Import"
+#~ msgstr "Szolgáltatások importálása"
+
+#~ msgid "Services Export"
+#~ msgstr "Szolgáltatások exportálása"
+
+#~ msgid "Autoload configuration for SLA import and export functions."
+#~ msgstr ""
+#~ "Automatikus betöltési beállítás az SLA importálása és exportálása "
+#~ "funkciókhoz."
+
+#~ msgid "Autoload configuration for Service import and export functions."
+#~ msgstr ""
+#~ "Automatikus betöltési beállítás a szolgáltatás importálása és exportálása "
+#~ "funkciókhoz."

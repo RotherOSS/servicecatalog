@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
-"POT-Creation-Date: 2026-05-26 12:28+0000\n"
+"POT-Creation-Date: 2026-06-03 15:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,61 +10,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Template: AdminSLAImportExport
-msgid ""
-"Here you can export a configuration file of SLAs to import these on another "
-"system. The configuration file is exported in yml format."
-msgstr ""
-
-#. Template: AdminSLAImportExport
-msgid "SLAs List"
-msgstr ""
-
-#. Template: AdminServiceImportExport
-msgid ""
-"Here you can export a configuration file of services to import these on "
-"another system. The configuration file is exported in yml format."
-msgstr ""
-
-#. Template: AdminServiceImportExport
-msgid "Services List"
-msgstr ""
-
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
-msgstr ""
-
-#. Template: AdminSLA
-msgid ""
-"Here you can upload a configuration file to import SLAs to your system. The "
-"file needs to be in .yml format as exported by SLA management module."
-msgstr ""
-
-#. Template: AdminSLA
-msgid "SLAs Import"
-msgstr ""
-
-#. Template: AdminSLA
-msgid "SLAs Export"
-msgstr ""
-
-#. Template: AdminSLA
-msgid "Minimum Time Between Incidents"
-msgstr ""
-
-#. Template: AdminService
-msgid ""
-"Here you can upload a configuration file to import services to your system. "
-"The file needs to be in .yml format as exported by the service management "
-"module."
-msgstr ""
-
-#. Template: AdminService
-msgid "Services Import"
-msgstr ""
-
-#. Template: AdminService
-msgid "Services Export"
 msgstr ""
 
 #. Template: AdminService
@@ -210,6 +157,10 @@ msgid "Last changed by"
 msgstr ""
 
 #. Template: AgentITSMSLAZoom
+msgid "Minimum Time Between Incidents"
+msgstr ""
+
+#. Template: AgentITSMSLAZoom
 msgid "Associated Services"
 msgstr ""
 
@@ -319,14 +270,6 @@ msgstr ""
 
 #. SysConfig
 msgid "Additional settings for the service catalog."
-msgstr ""
-
-#. SysConfig
-msgid "Autoload configuration for SLA import and export functions."
-msgstr ""
-
-#. SysConfig
-msgid "Autoload configuration for Service import and export functions."
 msgstr ""
 
 #. SysConfig
