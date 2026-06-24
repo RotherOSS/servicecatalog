@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
 "POT-Creation-Date: 2026-05-26 12:28+0000\n"
-"PO-Revision-Date: 2026-03-31 13:00+0000\n"
-"Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
-"Language-Team: German <http://translate.otobo.org/projects/opm-packages/"
+"PO-Revision-Date: 2026-06-24 10:00+0000\n"
+"Last-Translator: Alexander Oesterling <ao@otobo.io>\n"
+"Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
 "servicecatalog/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -18,22 +18,22 @@ msgid ""
 "Here you can export a configuration file of SLAs to import these on another "
 "system. The configuration file is exported in yml format."
 msgstr ""
-"Hier kann eine SLA-Konfigurationsdatei exportiert werden, die auf einem "
-"anderen System importiert werden kann. Die Konfigurationsdatei ist im YML-"
-"Format."
+"Hier können Sie eine Konfigurationsdatei von SLAs exportieren, um diese auf "
+"einem anderen System zu importieren. Die Konfigurationsdatei wird im yml "
+"Format exportiert."
 
 #. Template: AdminSLAImportExport
 msgid "SLAs List"
-msgstr "SLA-Liste"
+msgstr "Liste von SLAs"
 
 #. Template: AdminServiceImportExport
 msgid ""
 "Here you can export a configuration file of services to import these on "
 "another system. The configuration file is exported in yml format."
 msgstr ""
-"Hier kann eine Service-Konfigurationsdatei exportiert werden, die auf einem "
-"anderen System importiert werden kann. Die Konfigurationsdatei ist im YML-"
-"Format."
+"Hier können Sie eine Konfigurationsdatei von Services exportieren, um diese "
+"auf einem anderen System zu importieren. Die Konfigurationsdatei wird im yml "
+"Format exportiert."
 
 #. Template: AdminServiceImportExport
 msgid "Services List"
@@ -54,29 +54,25 @@ msgstr ""
 
 #. Template: AdminSLA
 msgid "SLAs Import"
-msgstr "SLAs importieren"
+msgstr "SLAs Importieren"
 
 #. Template: AdminSLA
 msgid "SLAs Export"
-msgstr "SLAs exportieren"
+msgstr "SLAs Exportieren"
 
 #. Template: AdminSLA
 msgid "Minimum Time Between Incidents"
 msgstr ""
 
 #. Template: AdminService
-#, fuzzy
-#| msgid ""
-#| "Here you can upload a configuration file to import SLAs to your system. "
-#| "The file needs to be in .yml format as exported by SLA management module."
 msgid ""
 "Here you can upload a configuration file to import services to your system. "
 "The file needs to be in .yml format as exported by the service management "
 "module."
 msgstr ""
-"Hier kann eine Konfigurationsdatei hochgeladen werden, um SLAs in das System "
-"zu importieren. Diese Datei muss im YML-Format sein, so wie sie durch das "
-"SLA-Verwaltungsmodul exportiert wird."
+"Hier können Sie eine Konfigurationdatei hochladen, um Services in Ihr System "
+"zu importieren. Die Datei muss im YAML-Format vorliegen, so wie sie von der "
+"Serviceverwaltung auch exportiert wird."
 
 #. Template: AdminService
 msgid "Services Import"
