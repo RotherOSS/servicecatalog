@@ -2402,10 +2402,16 @@ sub AttachmentAdd {
     my $DBObject = $Kernel::OM->Get('Kernel::System::DB');
 
     # encode attachment if it's a postgresql backend
-    if ( !$DBObject->GetDatabaseFunction('DirectBlob') ) {
+    my %ExtraDoParams;
+    if ( $DBObject->GetDatabaseFunction('DirectBlob') ) {
+
+        # Make sure that the content is passed as a byte array and is bound as binary
+        $Kernel::OM->Get('Kernel::System::Encode')->EncodeOutput( \$Param{Content} );
+        $ExtraDoParams{BindAsBinary} = [ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, ];
+    }
+    else {
 
         $Kernel::OM->Get('Kernel::System::Encode')->EncodeOutput( \$Param{Content} );
-
         $Param{Content} = MIME::Base64::encode_base64( $Param{Content} );
     }
 
@@ -2419,6 +2425,7 @@ sub AttachmentAdd {
             \$Param{ServiceID}, \$Param{FileName}, \$Param{ContentSize}, \$Param{ContentType},
             \$Param{Content}, \$Param{Inline}, \$Param{UserID}, \$Param{UserID},
         ],
+        %ExtraDoParams,
     );
 
     # get the attachment id
