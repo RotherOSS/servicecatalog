@@ -105,6 +105,10 @@ DynamicFieldScreens###ServiceCatalog
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 This configuration defines all possible screens to enable or disable dynamic fields.
 
+DynamicFieldScreens::ObjectTypes###ServiceCatalog
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Define a list of dynamic field object types which are allowed to be assigned to actions of this package via the dynamic field screens interface.
+
 Frontend::Customer::ModuleRegistration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
