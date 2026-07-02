@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OTOBO Documentation dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 07:19+0000\n"
+"POT-Creation-Date: 2026-07-02 13:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,101 +204,109 @@ msgid "This configuration defines all possible screens to enable or disable dyna
 msgstr ""
 
 #: ../content/index.rst:117
-msgid "Frontend::Customer::ModuleRegistration"
+msgid "DynamicFieldScreens::ObjectTypes###ServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:120
-msgid "CustomerFrontend::Module###CustomerTileServiceCatalog"
+#: ../content/index.rst:118
+msgid "Define a list of dynamic field object types which are allowed to be assigned to actions of this package via the dynamic field screens interface."
 msgstr ""
 
 #: ../content/index.rst:121
-msgid "Frontend module registration for the customer interface."
+msgid "Frontend::Customer::ModuleRegistration"
 msgstr ""
 
 #: ../content/index.rst:124
-msgid "Frontend::Customer::ModuleRegistration::Loader"
+msgid "CustomerFrontend::Module###CustomerTileServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:127
-msgid "Loader::Module::CustomerDashboard###003-CustomerDashboard"
+#: ../content/index.rst:125
+msgid "Frontend module registration for the customer interface."
 msgstr ""
 
 #: ../content/index.rst:128
-msgid "Loader module registration for the customer interface."
+msgid "Frontend::Customer::ModuleRegistration::Loader"
 msgstr ""
 
 #: ../content/index.rst:131
-msgid "Frontend::Customer::View::Dashboard::Configuration"
+msgid "Loader::Module::CustomerDashboard###003-CustomerDashboard"
 msgstr ""
 
-#: ../content/index.rst:134
-msgid "CustomerDashboard::Configuration::ServiceCatalog"
+#: ../content/index.rst:132
+msgid "Loader module registration for the customer interface."
 msgstr ""
 
 #: ../content/index.rst:135
-msgid "Additional settings for the service catalog."
+msgid "Frontend::Customer::View::Dashboard::Configuration"
 msgstr ""
 
 #: ../content/index.rst:138
-msgid "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
+msgid "CustomerDashboard::Configuration::ServiceCatalog"
 msgstr ""
 
 #: ../content/index.rst:139
-msgid "Dynamic fields shown in the service catalog screen of the customer interface."
+msgid "Additional settings for the service catalog."
 msgstr ""
 
 #: ../content/index.rst:142
-msgid "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
+msgid "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
 msgstr ""
 
 #: ../content/index.rst:143
-msgid "The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...)."
+msgid "Dynamic fields shown in the service catalog screen of the customer interface."
 msgstr ""
 
 #: ../content/index.rst:146
-msgid "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
+msgid "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
 msgstr ""
 
 #: ../content/index.rst:147
-msgid "Show services with the following ticket type last."
+msgid "The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...)."
 msgstr ""
 
 #: ../content/index.rst:150
-msgid "Frontend::Customer::View::Dashboard::Tiles"
+msgid "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
 msgstr ""
 
-#: ../content/index.rst:153
-msgid "CustomerDashboard::Tiles###ServiceCatalog-01"
+#: ../content/index.rst:151
+msgid "Show services with the following ticket type last."
 msgstr ""
 
 #: ../content/index.rst:154
-msgid "Tile registration for the CustomerDashboard. Module is required."
+msgid "Frontend::Customer::View::Dashboard::Tiles"
 msgstr ""
 
 #: ../content/index.rst:157
-msgid "About"
+msgid "CustomerDashboard::Tiles###ServiceCatalog-01"
 msgstr ""
 
-#: ../content/index.rst:160
-msgid "Contact"
+#: ../content/index.rst:158
+msgid "Tile registration for the CustomerDashboard. Module is required."
 msgstr ""
 
 #: ../content/index.rst:161
+msgid "About"
+msgstr ""
+
+#: ../content/index.rst:164
+msgid "Contact"
+msgstr ""
+
+#: ../content/index.rst:165
 msgid "Rother OSS GmbH"
 msgstr ""
 
-#: ../content/index.rst:162
+#: ../content/index.rst:166
 msgid "Email: hello@otobo.io"
 msgstr ""
 
-#: ../content/index.rst:163
+#: ../content/index.rst:167
 msgid "Web: https://otobo.io"
 msgstr ""
 
-#: ../content/index.rst:166
+#: ../content/index.rst:170
 msgid "Version"
 msgstr ""
 
-#: ../content/index.rst:167
+#: ../content/index.rst:171
 msgid "Author: |doc-vendor| / Version: |doc-version| / Date of release: |doc-datestamp|"
 msgstr ""
