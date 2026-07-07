@@ -112,6 +112,8 @@ sub Data {
     # SysConfig
     $Self->{Translation}->{'Additional settings for the service catalog.'} = '';
     $Self->{Translation}->{'CustomerTileServiceCatalog AJAX Module.'} = '';
+    $Self->{Translation}->{'Define a list of dynamic field object types which are allowed to be assigned to actions of this package via the dynamic field screens interface.'} =
+        '';
     $Self->{Translation}->{'Dynamic fields shown in the service catalog screen of the customer interface.'} =
         '';
     $Self->{Translation}->{'Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the DynamicField Criticality in a ticket as soon as a service has been assigned. Please activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to set the priority in the next step based an Criticality and Impact.'} =
