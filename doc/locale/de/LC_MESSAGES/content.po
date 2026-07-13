@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-31 09:14+0000\n"
+"POT-Creation-Date: 2026-06-08 07:19+0000\n"
 "PO-Revision-Date: 2026-06-24 13:00+0000\n"
 "Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
@@ -118,10 +118,17 @@ msgid "ServiceCatalog::CreateTypeServiceRelatedAcls"
 msgstr "ServiceCatalog::CreateTypeServiceRelatedAcls"
 
 #: ../content/index.rst:45
+#, fuzzy
+#| msgid ""
+#| "This option allows you to automatically generate ACLs for different "
+#| "interfaces when creating services. Services will then only be displayed "
+#| "if the ticket type stored in the service has been selected."
 msgid ""
 "This option allows you to automatically generate ACLs for different "
 "interfaces when creating services. Services will then only be displayed if "
-"the ticket type stored in the service has been selected."
+"the ticket type stored in the service has been selected. The \"AddBulkACL\" "
+"console script can also be used to create ACLs for services that have "
+"already been create."
 msgstr ""
 "Mit dieser Option können Sie bei der Erstellung von Diensten automatisch "
 "ACLs für verschiedene Schnittstellen erzeugen. Dienste werden dann nur "
@@ -133,37 +140,60 @@ msgstr "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
 
 #: ../content/index.rst:49
 msgid ""
-"Acl configuration für Type - Service restrictions. Please activate "
-"ServiceCatalog::CreateTypeServiceRelatedAcls before. For the key "
-"ConfigChange please use Possible or PossibleAdd. DeployNewACL deploy the "
-"changed acl Immediately."
+"This option makes it possible to preconfigure the automatically generated "
+"ACLs. The aim is to only display the services that have also been assigned "
+"to the service in the service catalog. To use this function, please first "
+"enable the \"ServiceCatalog::CreateTypeServiceRelatedAcls\" option. "
+"\"GenerateInitalACLToDisableAllServices\" generates an ACL that initially "
+"hides all services. The value \"Possible\" or \"PossibleAdd\" can be set for "
+"the key \"ConfigChange\". The \"DeployNewACL\" key decides whether the "
+"changed ACL should also be deployed immediately. \"ACLValidID\" (1, 2, 3) "
+"sets the ACLs to valid, invalid or temporarily invalid."
 msgstr ""
-"ACL Konfiguration für Type - Service Einschränkungen. Bitte aktivieren Sie "
-"vorher ServiceCatalog::CreateTypeServiceRelatedAcls. Für den Schlüssel "
-"ConfigChange verwenden Sie bitte Possible oder PossibleAdd. DeployNewACL "
-"setzt die geänderte ACL sofort ein."
 
 #: ../content/index.rst:52
+#, fuzzy
+#| msgid "Core::Acl"
+msgid "Core::Autoload"
+msgstr "Core::Acl"
+
+#: ../content/index.rst:55
+msgid "AutoloadPerlPackages###002-SLAImportExport"
+msgstr ""
+
+#: ../content/index.rst:56
+msgid "Autoload configuration for SLA import and export functions."
+msgstr ""
+
+#: ../content/index.rst:59
+msgid "AutoloadPerlPackages###002-ServiceImportExport"
+msgstr ""
+
+#: ../content/index.rst:60
+msgid "Autoload configuration for Service import and export functions."
+msgstr ""
+
+#: ../content/index.rst:63
 msgid "Core::DynamicFields::ObjectTypeRegistration"
 msgstr "Core::DynamicFields::ObjectTypeRegistration"
 
-#: ../content/index.rst:55
+#: ../content/index.rst:66
 msgid "DynamicFields::ObjectType###Service"
 msgstr "DynamicFields::ObjectType###Service"
 
-#: ../content/index.rst:56
+#: ../content/index.rst:67
 msgid "DynamicField object registration."
 msgstr "Registrierung des DynamicField-Objekts."
 
-#: ../content/index.rst:59
+#: ../content/index.rst:70
 msgid "Core::Event::Ticket"
 msgstr "Core::Event::Ticket"
 
-#: ../content/index.rst:62
+#: ../content/index.rst:73
 msgid "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
 msgstr "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
 
-#: ../content/index.rst:63
+#: ../content/index.rst:74
 msgid ""
 "Event module registration. Currently, the criticality of the service can "
 "also be set in the service, but this has no effect. Therefore, this event "
@@ -180,12 +210,12 @@ msgstr ""
 "SetPriorityFromCriticalityAndImpactMatrix, um im nächsten Schritt die "
 "Priorität anhand von Kritikalität und Auswirkung zu setzen."
 
-#: ../content/index.rst:66
+#: ../content/index.rst:77
 msgid ""
 "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix"
 msgstr ""
 
-#: ../content/index.rst:67
+#: ../content/index.rst:78
 msgid ""
 "Event module registration. Currently, the criticality of the service can "
 "also be set in the service, but this has no effect. Therefore, this event "
@@ -193,130 +223,181 @@ msgid ""
 "regarding Criticality and Impact in a ticket."
 msgstr ""
 
-#: ../content/index.rst:70
+#: ../content/index.rst:81
+msgid "Frontend::Admin::ModuleRegistration"
+msgstr ""
+
+#: ../content/index.rst:84
+msgid "Frontend::Module###AdminSLAImportExport"
+msgstr ""
+
+#: ../content/index.rst:85 ../content/index.rst:89
+msgid "Frontend module registration for the admin interface."
+msgstr ""
+
+#: ../content/index.rst:88
+msgid "Frontend::Module###AdminServiceImportExport"
+msgstr ""
+
+#: ../content/index.rst:92
+msgid "Frontend::Admin::ModuleRegistration::Loader"
+msgstr ""
+
+#: ../content/index.rst:95
+msgid "Loader::Module::AdminSLAImportExport###002-ServiceCatalog"
+msgstr ""
+
+#: ../content/index.rst:96 ../content/index.rst:100 ../content/index.rst:107
+msgid "Loader module registration for the agent interface."
+msgstr ""
+
+#: ../content/index.rst:99
+msgid "Loader::Module::AdminServiceImportExport###002-ServiceCatalog"
+msgstr ""
+
+#: ../content/index.rst:103
+msgid "Frontend::Agent::ModuleRegistration::Loader"
+msgstr ""
+
+#: ../content/index.rst:106
+msgid "Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog"
+msgstr ""
+
+#: ../content/index.rst:110
 msgid "Frontend::Base::DynamicFieldScreens"
 msgstr ""
 
-#: ../content/index.rst:73
+#: ../content/index.rst:113
 msgid "DynamicFieldScreens###ServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:74
+#: ../content/index.rst:114
 msgid ""
 "This configuration defines all possible screens to enable or disable dynamic "
 "fields."
 msgstr ""
 
-#: ../content/index.rst:77
+#: ../content/index.rst:117
 msgid "Frontend::Customer::ModuleRegistration"
 msgstr ""
 
-#: ../content/index.rst:80
+#: ../content/index.rst:120
 msgid "CustomerFrontend::Module###CustomerTileServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:81
+#: ../content/index.rst:121
 msgid "Frontend module registration for the customer interface."
 msgstr ""
 
-#: ../content/index.rst:84
+#: ../content/index.rst:124
 msgid "Frontend::Customer::ModuleRegistration::Loader"
 msgstr ""
 
-#: ../content/index.rst:87
+#: ../content/index.rst:127
 msgid "Loader::Module::CustomerDashboard###003-CustomerDashboard"
 msgstr ""
 
-#: ../content/index.rst:88
+#: ../content/index.rst:128
 msgid "Loader module registration for the customer interface."
 msgstr ""
 
-#: ../content/index.rst:91
+#: ../content/index.rst:131
 msgid "Frontend::Customer::View::Dashboard::Configuration"
 msgstr ""
 
-#: ../content/index.rst:94
+#: ../content/index.rst:134
 msgid "CustomerDashboard::Configuration::ServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:95
+#: ../content/index.rst:135
 msgid "Additional settings for the service catalog."
 msgstr ""
 
-#: ../content/index.rst:98
-msgid "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
+#: ../content/index.rst:138
+msgid "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
 msgstr ""
 
-#: ../content/index.rst:99
-msgid "Show services with the following ticket type last."
+#: ../content/index.rst:139
+msgid ""
+"Dynamic fields shown in the service catalog screen of the customer interface."
 msgstr ""
 
-#: ../content/index.rst:102
+#: ../content/index.rst:142
 msgid "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
 msgstr ""
 
-#: ../content/index.rst:103
+#: ../content/index.rst:143
 msgid ""
 "The FAQ field that should be used as the description of an FAQ article in "
 "the sidebar (e.g. Field1, Field2, Field3...)."
 msgstr ""
 
-#: ../content/index.rst:106
-msgid "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
+#: ../content/index.rst:146
+msgid "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
 msgstr ""
 
-#: ../content/index.rst:107
-msgid ""
-"Dynamic fields shown in the service catalog screen of the customer interface."
+#: ../content/index.rst:147
+msgid "Show services with the following ticket type last."
 msgstr ""
 
-#: ../content/index.rst:110
+#: ../content/index.rst:150
 msgid "Frontend::Customer::View::Dashboard::Tiles"
 msgstr ""
 
-#: ../content/index.rst:113
+#: ../content/index.rst:153
 msgid "CustomerDashboard::Tiles###ServiceCatalog-01"
 msgstr ""
 
-#: ../content/index.rst:114 ../content/index.rst:118
+#: ../content/index.rst:154
 msgid "Tile registration for the CustomerDashboard. Module is required."
 msgstr ""
 
-#: ../content/index.rst:117
-msgid "CustomerDashboard::Tiles###FeaturedLink-01"
-msgstr ""
-
-#: ../content/index.rst:121
+#: ../content/index.rst:157
 msgid "About"
 msgstr "Über"
 
-#: ../content/index.rst:124
+#: ../content/index.rst:160
 msgid "Contact"
 msgstr "Kontakt"
 
-#: ../content/index.rst:125
+#: ../content/index.rst:161
 msgid "Rother OSS GmbH"
 msgstr "Rother OSS GmbH"
 
-#: ../content/index.rst:126
-msgid "Email: hello@otobo.de"
+#: ../content/index.rst:162
+#, fuzzy
+#| msgid "Email: hello@otobo.de"
+msgid "Email: hello@otobo.io"
 msgstr "E-Mail: hello@otobo.de"
 
-#: ../content/index.rst:127
-msgid "Web: https://otobo.de"
+#: ../content/index.rst:163
+#, fuzzy
+#| msgid "Web: https://otobo.de"
+msgid "Web: https://otobo.io"
 msgstr "Web: https://otobo.de"
 
-#: ../content/index.rst:130
+#: ../content/index.rst:166
 msgid "Version"
 msgstr "Version"
 
-#: ../content/index.rst:131
+#: ../content/index.rst:167
 msgid ""
 "Author: |doc-vendor| / Version: |doc-version| / Date of release: |doc-"
 "datestamp|"
 msgstr ""
 "Autor: |doc-vendor| / Version: |doc-version| / Datum der Veröffentlichung: |"
 "doc-datestamp|"
+
+#~ msgid ""
+#~ "Acl configuration für Type - Service restrictions. Please activate "
+#~ "ServiceCatalog::CreateTypeServiceRelatedAcls before. For the key "
+#~ "ConfigChange please use Possible or PossibleAdd. DeployNewACL deploy the "
+#~ "changed acl Immediately."
+#~ msgstr ""
+#~ "ACL Konfiguration für Type - Service Einschränkungen. Bitte aktivieren "
+#~ "Sie vorher ServiceCatalog::CreateTypeServiceRelatedAcls. Für den "
+#~ "Schlüssel ConfigChange verwenden Sie bitte Possible oder PossibleAdd. "
+#~ "DeployNewACL setzt die geänderte ACL sofort ein."
 
 #~ msgid "Sacrifice to Sphinx"
 #~ msgstr "Sacrifice to Sphinx"
