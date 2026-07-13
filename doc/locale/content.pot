@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OTOBO Documentation dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 07:19+0000\n"
+"POT-Creation-Date: 2026-07-13 12:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgid "Framework"
 msgstr ""
 
 #: ../content/index.rst:18
-msgid "OTOBO 11.0.x"
+msgid "OTOBO 11.1.x"
 msgstr ""
 
 #: ../content/index.rst:21
@@ -45,7 +45,7 @@ msgid "Packages"
 msgstr ""
 
 #: ../content/index.rst:22
-msgid "ITSMCore >= 11.0.6"
+msgid "ITSMCore >= 11.1.0"
 msgstr ""
 
 #: ../content/index.rst:25
@@ -97,208 +97,196 @@ msgid "This option makes it possible to preconfigure the automatically generated
 msgstr ""
 
 #: ../content/index.rst:52
-msgid "Core::Autoload"
-msgstr ""
-
-#: ../content/index.rst:55
-msgid "AutoloadPerlPackages###002-SLAImportExport"
-msgstr ""
-
-#: ../content/index.rst:56
-msgid "Autoload configuration for SLA import and export functions."
-msgstr ""
-
-#: ../content/index.rst:59
-msgid "AutoloadPerlPackages###002-ServiceImportExport"
-msgstr ""
-
-#: ../content/index.rst:60
-msgid "Autoload configuration for Service import and export functions."
-msgstr ""
-
-#: ../content/index.rst:63
 msgid "Core::DynamicFields::ObjectTypeRegistration"
 msgstr ""
 
-#: ../content/index.rst:66
+#: ../content/index.rst:55
 msgid "DynamicFields::ObjectType###Service"
 msgstr ""
 
-#: ../content/index.rst:67
+#: ../content/index.rst:56
 msgid "DynamicField object registration."
 msgstr ""
 
-#: ../content/index.rst:70
+#: ../content/index.rst:59
 msgid "Core::Event::Ticket"
 msgstr ""
 
-#: ../content/index.rst:73
+#: ../content/index.rst:62
 msgid "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
 msgstr ""
 
-#: ../content/index.rst:74
+#: ../content/index.rst:63
 msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the DynamicField Criticality in a ticket as soon as a service has been assigned. Please activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to set the priority in the next step based an Criticality and Impact."
 msgstr ""
 
-#: ../content/index.rst:77
+#: ../content/index.rst:66
 msgid "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix"
 msgstr ""
 
-#: ../content/index.rst:78
+#: ../content/index.rst:67
 msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket."
 msgstr ""
 
-#: ../content/index.rst:81
+#: ../content/index.rst:70
 msgid "Frontend::Admin::ModuleRegistration"
 msgstr ""
 
-#: ../content/index.rst:84
+#: ../content/index.rst:73
 msgid "Frontend::Module###AdminSLAImportExport"
+msgstr ""
+
+#: ../content/index.rst:74
+#: ../content/index.rst:78
+msgid "Frontend module registration for the admin interface."
+msgstr ""
+
+#: ../content/index.rst:77
+msgid "Frontend::Module###AdminServiceImportExport"
+msgstr ""
+
+#: ../content/index.rst:81
+msgid "Frontend::Admin::ModuleRegistration::Loader"
+msgstr ""
+
+#: ../content/index.rst:84
+msgid "Loader::Module::AdminSLAImportExport###002-ServiceCatalog"
 msgstr ""
 
 #: ../content/index.rst:85
 #: ../content/index.rst:89
-msgid "Frontend module registration for the admin interface."
-msgstr ""
-
-#: ../content/index.rst:88
-msgid "Frontend::Module###AdminServiceImportExport"
-msgstr ""
-
-#: ../content/index.rst:92
-msgid "Frontend::Admin::ModuleRegistration::Loader"
-msgstr ""
-
-#: ../content/index.rst:95
-msgid "Loader::Module::AdminSLAImportExport###002-ServiceCatalog"
-msgstr ""
-
 #: ../content/index.rst:96
-#: ../content/index.rst:100
-#: ../content/index.rst:107
 msgid "Loader module registration for the agent interface."
 msgstr ""
 
-#: ../content/index.rst:99
+#: ../content/index.rst:88
 msgid "Loader::Module::AdminServiceImportExport###002-ServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:103
+#: ../content/index.rst:92
 msgid "Frontend::Agent::ModuleRegistration::Loader"
 msgstr ""
 
-#: ../content/index.rst:106
+#: ../content/index.rst:95
 msgid "Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:110
+#: ../content/index.rst:99
 msgid "Frontend::Base::DynamicFieldScreens"
 msgstr ""
 
-#: ../content/index.rst:113
+#: ../content/index.rst:102
 msgid "DynamicFieldScreens###ServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:114
+#: ../content/index.rst:103
 msgid "This configuration defines all possible screens to enable or disable dynamic fields."
 msgstr ""
 
-#: ../content/index.rst:117
+#: ../content/index.rst:106
+msgid "DynamicFieldScreens::ObjectTypes###ServiceCatalog"
+msgstr ""
+
+#: ../content/index.rst:107
+msgid "Define a list of dynamic field object types which are allowed to be assigned to actions of this package via the dynamic field screens interface."
+msgstr ""
+
+#: ../content/index.rst:110
 msgid "Frontend::Customer::ModuleRegistration"
 msgstr ""
 
-#: ../content/index.rst:120
+#: ../content/index.rst:113
 msgid "CustomerFrontend::Module###CustomerTileServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:121
+#: ../content/index.rst:114
 msgid "Frontend module registration for the customer interface."
 msgstr ""
 
-#: ../content/index.rst:124
+#: ../content/index.rst:117
 msgid "Frontend::Customer::ModuleRegistration::Loader"
 msgstr ""
 
-#: ../content/index.rst:127
+#: ../content/index.rst:120
 msgid "Loader::Module::CustomerDashboard###003-CustomerDashboard"
 msgstr ""
 
-#: ../content/index.rst:128
+#: ../content/index.rst:121
 msgid "Loader module registration for the customer interface."
 msgstr ""
 
-#: ../content/index.rst:131
+#: ../content/index.rst:124
 msgid "Frontend::Customer::View::Dashboard::Configuration"
 msgstr ""
 
-#: ../content/index.rst:134
+#: ../content/index.rst:127
 msgid "CustomerDashboard::Configuration::ServiceCatalog"
 msgstr ""
 
-#: ../content/index.rst:135
+#: ../content/index.rst:128
 msgid "Additional settings for the service catalog."
 msgstr ""
 
-#: ../content/index.rst:138
+#: ../content/index.rst:131
 msgid "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
 msgstr ""
 
-#: ../content/index.rst:139
+#: ../content/index.rst:132
 msgid "Dynamic fields shown in the service catalog screen of the customer interface."
 msgstr ""
 
-#: ../content/index.rst:142
+#: ../content/index.rst:135
 msgid "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
 msgstr ""
 
-#: ../content/index.rst:143
+#: ../content/index.rst:136
 msgid "The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...)."
 msgstr ""
 
-#: ../content/index.rst:146
+#: ../content/index.rst:139
 msgid "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
 msgstr ""
 
-#: ../content/index.rst:147
+#: ../content/index.rst:140
 msgid "Show services with the following ticket type last."
 msgstr ""
 
-#: ../content/index.rst:150
+#: ../content/index.rst:143
 msgid "Frontend::Customer::View::Dashboard::Tiles"
 msgstr ""
 
-#: ../content/index.rst:153
+#: ../content/index.rst:146
 msgid "CustomerDashboard::Tiles###ServiceCatalog-01"
 msgstr ""
 
-#: ../content/index.rst:154
+#: ../content/index.rst:147
 msgid "Tile registration for the CustomerDashboard. Module is required."
 msgstr ""
 
-#: ../content/index.rst:157
+#: ../content/index.rst:150
 msgid "About"
 msgstr ""
 
-#: ../content/index.rst:160
+#: ../content/index.rst:153
 msgid "Contact"
 msgstr ""
 
-#: ../content/index.rst:161
+#: ../content/index.rst:154
 msgid "Rother OSS GmbH"
 msgstr ""
 
-#: ../content/index.rst:162
+#: ../content/index.rst:155
 msgid "Email: hello@otobo.io"
 msgstr ""
 
-#: ../content/index.rst:163
+#: ../content/index.rst:156
 msgid "Web: https://otobo.io"
 msgstr ""
 
-#: ../content/index.rst:166
+#: ../content/index.rst:159
 msgid "Version"
 msgstr ""
 
-#: ../content/index.rst:167
+#: ../content/index.rst:160
 msgid "Author: |doc-vendor| / Version: |doc-version| / Date of release: |doc-datestamp|"
 msgstr ""
