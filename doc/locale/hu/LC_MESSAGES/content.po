@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-02 13:36+0000\n"
-"PO-Revision-Date: 2026-07-13 12:00+0000\n"
+"PO-Revision-Date: 2026-07-13 14:46+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-0/"
 "addons/manuals/servicecatalog-documentation/hu/>\n"
@@ -22,10 +22,8 @@ msgstr ""
 "Generated-By: Babel 2.4.0\n"
 
 #: ../content/index.rst:5
-#, fuzzy
-#| msgid "Contact"
 msgid "Contents"
-msgstr "Kapcsolat"
+msgstr "Tartalom"
 
 #: ../content/index.rst:10
 msgid "Description"
@@ -159,7 +157,7 @@ msgstr ""
 
 #: ../content/index.rst:63
 msgid "Core::DynamicFields::ObjectTypeRegistration"
-msgstr ""
+msgstr "Core::DynamicFields::ObjectTypeRegistration"
 
 #: ../content/index.rst:66
 msgid "DynamicFields::ObjectType###Service"
@@ -167,7 +165,7 @@ msgstr ""
 
 #: ../content/index.rst:67
 msgid "DynamicField object registration."
-msgstr ""
+msgstr "Dinamikus mező objektum regisztráció."
 
 #: ../content/index.rst:70
 msgid "Core::Event::Ticket"
@@ -234,7 +232,7 @@ msgstr ""
 
 #: ../content/index.rst:103
 msgid "Frontend::Agent::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration::Loader"
 
 #: ../content/index.rst:106
 msgid "Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog"
@@ -266,7 +264,7 @@ msgstr ""
 
 #: ../content/index.rst:121
 msgid "Frontend::Customer::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Customer::ModuleRegistration"
 
 #: ../content/index.rst:124
 msgid "CustomerFrontend::Module###CustomerTileServiceCatalog"
@@ -274,11 +272,11 @@ msgstr ""
 
 #: ../content/index.rst:125
 msgid "Frontend module registration for the customer interface."
-msgstr ""
+msgstr "Előtétprogram-modul regisztráció az ügyfélfelülethez."
 
 #: ../content/index.rst:128
 msgid "Frontend::Customer::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Customer::ModuleRegistration::Loader"
 
 #: ../content/index.rst:131
 msgid "Loader::Module::CustomerDashboard###003-CustomerDashboard"
@@ -353,11 +351,11 @@ msgstr "Rother OSS GmbH"
 
 #: ../content/index.rst:166
 msgid "Email: hello@otobo.io"
-msgstr ""
+msgstr "E-mail: hello@otobo.io"
 
 #: ../content/index.rst:167
 msgid "Web: https://otobo.io"
-msgstr ""
+msgstr "Web: https://otobo.io"
 
 #: ../content/index.rst:170
 msgid "Version"
