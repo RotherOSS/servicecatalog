@@ -46,7 +46,7 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     $Self->Print("<yellow>Adding new ACLs...</yellow>\n");
-    my $TypeObject = $Kernel::OM->Get('Kernel::System::Type');
+    my $TypeObject    = $Kernel::OM->Get('Kernel::System::Type');
     my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
 
     # Get all services.
@@ -56,19 +56,19 @@ sub Run {
     );
 
     SERVICEGET:
-    for my $ServiceGet ( @$ServiceList ) {
-        next SERVICEGET if !IsArrayRefWithData($ServiceGet->{TicketTypeIDs} );
+    for my $ServiceGet (@$ServiceList) {
+        next SERVICEGET if !IsArrayRefWithData( $ServiceGet->{TicketTypeIDs} );
 
         my @TicketTypeIDs = $ServiceGet->{TicketTypeIDs}->@*;
-        for my $TID ( @TicketTypeIDs ) {
+        for my $TID (@TicketTypeIDs) {
 
             # Create Acl if config is enabled
             # We create one Acl per Ticket-Type
             my $Success = $ServiceObject->UpdateTypServiceACL(
                 TicketTypeID => $TID,
-                ServiceID   => $ServiceGet->{ServiceID},
+                ServiceID    => $ServiceGet->{ServiceID},
                 ServiceValid => $ServiceGet->{ValidID},
-                UserID => 1,
+                UserID       => 1,
             );
 
         }
