@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-02 13:36+0000\n"
-"PO-Revision-Date: 2026-07-13 14:46+0000\n"
+"PO-Revision-Date: 2026-07-14 11:08+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-0/"
 "addons/manuals/servicecatalog-documentation/hu/>\n"
@@ -117,6 +117,11 @@ msgid ""
 "console script can also be used to create ACLs for services that have "
 "already been create."
 msgstr ""
+"Ez a beállítás lehetővé teszi ACL-ek automatikus előállítását a különböző "
+"felületekhez a szolgáltatások létrehozásakor. A szolgáltatások ezután csak "
+"akkor jelennek meg, ha a szolgáltatásban tárolt jegytípust kiválasztották. "
+"Az „AddBulkACL” konzolparancs is használható a már létrehozott "
+"szolgáltatásokhoz tartozó ACL-ek létrehozására."
 
 #: ../content/index.rst:48
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
@@ -134,6 +139,17 @@ msgid ""
 "changed ACL should also be deployed immediately. \"ACLValidID\" (1, 2, 3) "
 "sets the ACLs to valid, invalid or temporarily invalid."
 msgstr ""
+"Ez a beállítás lehetővé teszi az automatikusan előállított ACL-ek előzetes "
+"beállítását. A cél az, hogy csak olyan szolgáltatások jelenjenek meg, "
+"amelyek hozzá is lettek rendelve a szolgáltatáshoz a "
+"szolgáltatáskatalógusban. A funkció használatához először engedélyezze a „"
+"ServiceCatalog::CreateTypeServiceRelatedAcls” beállítást. A „"
+"GenerateInitalACLToDisableAllServices” olyan ACL-t állít elő, amely "
+"kezdetben elrejti az összes szolgáltatást. A „Possible” vagy „PossibleAdd” "
+"érték állítható be a „ConfigChange” kulcshoz. A „DeployNewACL” kulcs dönti "
+"el, hogy a megváltoztatott ACL-t is azonnal üzembe kell-e állítani. Az „"
+"ACLValidID” (1, 2, 3) állítja be az ACL-eket érvényesre, érvénytelenre vagy "
+"átmenetileg érvénytelenre."
 
 #: ../content/index.rst:52
 msgid "Core::Autoload"
@@ -146,6 +162,8 @@ msgstr ""
 #: ../content/index.rst:56
 msgid "Autoload configuration for SLA import and export functions."
 msgstr ""
+"Automatikus betöltési beállítás az SLA importálása és exportálása "
+"funkciókhoz."
 
 #: ../content/index.rst:59
 msgid "AutoloadPerlPackages###002-ServiceImportExport"
@@ -154,6 +172,8 @@ msgstr ""
 #: ../content/index.rst:60
 msgid "Autoload configuration for Service import and export functions."
 msgstr ""
+"Automatikus betöltési beállítás a szolgáltatás importálása és exportálása "
+"funkciókhoz."
 
 #: ../content/index.rst:63
 msgid "Core::DynamicFields::ObjectTypeRegistration"
@@ -184,6 +204,13 @@ msgid ""
 "activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to "
 "set the priority in the next step based an Criticality and Impact."
 msgstr ""
+"Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható "
+"a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez "
+"az eseménymodul, amely automatikusan frissíti a kritikusság dinamikus mezőt "
+"a jegyben, amint egy szolgáltatás hozzárendelésre kerül. Aktiválja a „"
+"SetPriorityFromCriticalityAndImpactMatrix” rendszerbeállítási lehetőséget, "
+"hogy beállítsa a prioritást a következő lépésben egy kritikusság és hatás "
+"alapján."
 
 #: ../content/index.rst:77
 msgid ""
@@ -197,6 +224,10 @@ msgid ""
 "module has been implemented that automatically updates the priority "
 "regarding Criticality and Impact in a ticket."
 msgstr ""
+"Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható "
+"a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez "
+"az eseménymodul, amely automatikusan frissíti a prioritást a kritikusságra "
+"és hatásra vonatkozóan a jegyben."
 
 #: ../content/index.rst:81
 msgid "Frontend::Admin::ModuleRegistration"
@@ -261,6 +292,9 @@ msgid ""
 "Define a list of dynamic field object types which are allowed to be assigned "
 "to actions of this package via the dynamic field screens interface."
 msgstr ""
+"Azon dinamikus mező objektumtípusok listájának meghatározása, amelyek "
+"hozzárendelhetők a csomag műveleteihez a dinamikus mező képernyőinek "
+"felületén keresztül."
 
 #: ../content/index.rst:121
 msgid "Frontend::Customer::ModuleRegistration"
@@ -296,7 +330,7 @@ msgstr ""
 
 #: ../content/index.rst:139
 msgid "Additional settings for the service catalog."
-msgstr ""
+msgstr "További beállítások a szolgáltatáskatalógushoz."
 
 #: ../content/index.rst:142
 msgid "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
@@ -306,6 +340,8 @@ msgstr ""
 msgid ""
 "Dynamic fields shown in the service catalog screen of the customer interface."
 msgstr ""
+"Az ügyfélfelület szolgáltatáskatalógus képernyőjén megjelenített dinamikus "
+"mezők."
 
 #: ../content/index.rst:146
 msgid "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
@@ -316,6 +352,8 @@ msgid ""
 "The FAQ field that should be used as the description of an FAQ article in "
 "the sidebar (e.g. Field1, Field2, Field3...)."
 msgstr ""
+"Az a GyIK mező, amelyet egy GyIK bejegyzés leírásaként kell használni az "
+"oldalsávban (például Mező1, Mező2, Mező3 stb.)."
 
 #: ../content/index.rst:150
 msgid "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
@@ -324,6 +362,7 @@ msgstr ""
 #: ../content/index.rst:151
 msgid "Show services with the following ticket type last."
 msgstr ""
+"A következő jegytípusokkal rendelkező szolgáltatások megjelenítése utoljára."
 
 #: ../content/index.rst:154
 msgid "Frontend::Customer::View::Dashboard::Tiles"
@@ -335,7 +374,7 @@ msgstr ""
 
 #: ../content/index.rst:158
 msgid "Tile registration for the CustomerDashboard. Module is required."
-msgstr ""
+msgstr "Csemperegisztráció az ügyfél vezérlőpultjához. A modul kötelező."
 
 #: ../content/index.rst:161
 msgid "About"
