@@ -113,7 +113,7 @@ sub Data {
     $Self->{Translation}->{'Additional settings for the service catalog.'} = 'További beállítások a szolgáltatáskatalógushoz.';
     $Self->{Translation}->{'CustomerTileServiceCatalog AJAX Module.'} = 'Ügyfélcsempe-szolgáltatáskatalógus AJAX-modul.';
     $Self->{Translation}->{'Define a list of dynamic field object types which are allowed to be assigned to actions of this package via the dynamic field screens interface.'} =
-        '';
+        'Azon dinamikus mező objektumtípusok listájának meghatározása, amelyek hozzárendelhetők a csomag műveleteihez a dinamikus mező képernyőinek felületén keresztül.';
     $Self->{Translation}->{'Dynamic fields shown in the service catalog screen of the customer interface.'} =
         'Az ügyfélfelület szolgáltatáskatalógus képernyőjén megjelenített dinamikus mezők.';
     $Self->{Translation}->{'Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the DynamicField Criticality in a ticket as soon as a service has been assigned. Please activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to set the priority in the next step based an Criticality and Impact.'} =
@@ -128,7 +128,7 @@ sub Data {
     $Self->{Translation}->{'This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the "ServiceCatalog::CreateTypeServiceRelatedAcls" option. "GenerateInitalACLToDisableAllServices" generates an ACL that initially hides all services. The value "Possible" or "PossibleAdd" can be set for the key "ConfigChange". The "DeployNewACL" key decides whether the changed ACL should also be deployed immediately. "ACLValidID" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid.'} =
         'Ez a beállítás lehetővé teszi az automatikusan előállított ACL-ek előzetes beállítását. A cél az, hogy csak olyan szolgáltatások jelenjenek meg, amelyek hozzá is lettek rendelve a szolgáltatáshoz a szolgáltatáskatalógusban. A funkció használatához először engedélyezze a „ServiceCatalog::CreateTypeServiceRelatedAcls” beállítást. A „GenerateInitalACLToDisableAllServices” olyan ACL-t állít elő, amely kezdetben elrejti az összes szolgáltatást. A „Possible” vagy „PossibleAdd” érték állítható be a „ConfigChange” kulcshoz. A „DeployNewACL” kulcs dönti el, hogy a megváltoztatott ACL-t is azonnal üzembe kell-e állítani. Az „ACLValidID” (1, 2, 3) állítja be az ACL-eket érvényesre, érvénytelenre vagy átmenetileg érvénytelenre.';
     $Self->{Translation}->{'Tile registration for the CustomerDashboard. Module is required.'} =
-        '';
+        'Csemperegisztráció az ügyfél vezérlőpultjához. A modul kötelező.';
 
 
     push @{ $Self->{JavaScriptStrings} // [] }, (
