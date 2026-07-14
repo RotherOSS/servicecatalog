@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-13 12:01+0000\n"
-"PO-Revision-Date: 2026-07-13 16:00+0000\n"
+"PO-Revision-Date: 2026-07-14 12:21+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-1/"
 "addons/manuals/servicecatalog-documentation/hu/>\n"
@@ -38,6 +38,14 @@ msgid ""
 "options to set services as default services directly in the service, "
 "automatically create service specific ACLs, and much more."
 msgstr ""
+"Egy részletes szolgáltatáskatalógus, amely többnyelvű leírásokkal egészíti "
+"ki a szolgáltatásokat, várólistákat és jegytípusokat rendel hozzájuk, "
+"valamint lehetővé teszi az ügyfelek számára, hogy az ügyfélvezérlőpulton "
+"böngésszék a szolgáltatásokat, és közvetlenül hozzanak létre jegyeket "
+"bizonyos szolgáltatásokhoz. Ezenkívül egyszerűbbé válik az adminisztráció "
+"azáltal, hogy lehetőséget nyújt a szolgáltatások alapértelmezett "
+"szolgáltatásokként történő beállítására közvetlenül a szolgáltatásban, a "
+"szolgáltatásra vonatkozó ACL-ek automatikus létrehozására, és még sok másra."
 
 #: ../content/index.rst:14
 msgid "System requirements"
@@ -48,10 +56,8 @@ msgid "Framework"
 msgstr "Keretrendszer"
 
 #: ../content/index.rst:18
-#, fuzzy
-#| msgid "OTOBO 11.0.x"
 msgid "OTOBO 11.1.x"
-msgstr "OTOBO 11.0.x"
+msgstr "OTOBO 11.1.x"
 
 #: ../content/index.rst:21
 msgid "Packages"
@@ -59,7 +65,7 @@ msgstr "Csomagok"
 
 #: ../content/index.rst:22
 msgid "ITSMCore >= 11.1.0"
-msgstr ""
+msgstr "ITSMCore >= 11.1.0"
 
 #: ../content/index.rst:25
 msgid "Third-party software"
@@ -75,7 +81,7 @@ msgstr "Használat"
 
 #: ../content/index.rst:32
 msgid "Basic Setup"
-msgstr ""
+msgstr "Alapvető beállítás"
 
 #: ../content/index.rst:33
 msgid ""
@@ -91,6 +97,19 @@ msgid ""
 "the different tiles, where the number reflects the order in the SysConfig, "
 "to your liking. Note that this is an advanced topic however.)"
 msgstr ""
+"A szolgáltatások kiegészítő információkkal való bővítéséhez nincs szükség "
+"további beállításokra, ezt egyszerűen az adminisztrátori felületen lévő "
+"Szolgáltatások modulban lehet elvégezni. Ahhoz, hogy a szolgáltatások "
+"megjelenjenek az ügyfél vezérlőpultján, a „"
+"CustomerDashboard::Tiles###ServiceCatalog-01” vezérlőpulti csempét kell "
+"engedélyezni. Győződjön meg arról, hogy a csempe sorrendje nem ütközik más "
+"aktív csempékkel. Egy egyszerű tesztként csak kapcsolja ki a 7-es sorszámú "
+"másik csempét, amely a szabványos telepítésnél az „###InfoTile-01”. (A "
+"részletesebb változtatásokért érdemes megnézni a „var/httpd/htdocs/skins/"
+"Customer/default/css/Core.Dashboard.Default.css” nevű CSS-fájlt, és a saját "
+"igényeinek megfelelően megváltoztatni a különböző csempék helyzetét, ahol a "
+"szám a rendszerbeállításokban lévő sorrendet tükrözi. Ne feledje azonban, "
+"hogy ez egy speciális téma.)"
 
 #: ../content/index.rst:35
 msgid ""
@@ -98,6 +117,9 @@ msgid ""
 "customer will be able to directly from the customer dashboard create a "
 "ticket for the specific service."
 msgstr ""
+"Egy olyan szolgáltatásnál, amely várólistával és jegytípusokkal van "
+"beállítva, az ügyfél képes lesz közvetlenül az ügyfélvezérlőpultról jegyet "
+"létrehozni az adott szolgáltatáshoz."
 
 #: ../content/index.rst:38
 msgid "Configuration Reference"
@@ -105,11 +127,11 @@ msgstr "Beállítások hivatkozása"
 
 #: ../content/index.rst:41
 msgid "Core::Acl"
-msgstr ""
+msgstr "Core::Acl"
 
 #: ../content/index.rst:44
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls"
-msgstr ""
+msgstr "ServiceCatalog::CreateTypeServiceRelatedAcls"
 
 #: ../content/index.rst:45
 msgid ""
@@ -119,10 +141,15 @@ msgid ""
 "console script can also be used to create ACLs for services that have "
 "already been create."
 msgstr ""
+"Ez a beállítás lehetővé teszi ACL-ek automatikus előállítását a különböző "
+"felületekhez a szolgáltatások létrehozásakor. A szolgáltatások ezután csak "
+"akkor jelennek meg, ha a szolgáltatásban tárolt jegytípust kiválasztották. "
+"Az „AddBulkACL” konzolparancs is használható a már létrehozott "
+"szolgáltatásokhoz tartozó ACL-ek létrehozására."
 
 #: ../content/index.rst:48
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
-msgstr ""
+msgstr "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
 
 #: ../content/index.rst:49
 msgid ""
@@ -136,6 +163,17 @@ msgid ""
 "changed ACL should also be deployed immediately. \"ACLValidID\" (1, 2, 3) "
 "sets the ACLs to valid, invalid or temporarily invalid."
 msgstr ""
+"Ez a beállítás lehetővé teszi az automatikusan előállított ACL-ek előzetes "
+"beállítását. A cél az, hogy csak olyan szolgáltatások jelenjenek meg, "
+"amelyek hozzá is lettek rendelve a szolgáltatáshoz a "
+"szolgáltatáskatalógusban. A funkció használatához először engedélyezze a „"
+"ServiceCatalog::CreateTypeServiceRelatedAcls” beállítást. A „"
+"GenerateInitalACLToDisableAllServices” olyan ACL-t állít elő, amely "
+"kezdetben elrejti az összes szolgáltatást. A „Possible” vagy „PossibleAdd” "
+"érték állítható be a „ConfigChange” kulcshoz. A „DeployNewACL” kulcs dönti "
+"el, hogy a megváltoztatott ACL-t is azonnal üzembe kell-e állítani. Az „"
+"ACLValidID” (1, 2, 3) állítja be az ACL-eket érvényesre, érvénytelenre vagy "
+"átmenetileg érvénytelenre."
 
 #: ../content/index.rst:52
 msgid "Core::DynamicFields::ObjectTypeRegistration"
@@ -143,7 +181,7 @@ msgstr "Core::DynamicFields::ObjectTypeRegistration"
 
 #: ../content/index.rst:55
 msgid "DynamicFields::ObjectType###Service"
-msgstr ""
+msgstr "DynamicFields::ObjectType###Service"
 
 #: ../content/index.rst:56
 msgid "DynamicField object registration."
@@ -151,11 +189,11 @@ msgstr "Dinamikus mező objektum regisztráció."
 
 #: ../content/index.rst:59
 msgid "Core::Event::Ticket"
-msgstr ""
+msgstr "Core::Event::Ticket"
 
 #: ../content/index.rst:62
 msgid "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
-msgstr ""
+msgstr "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
 
 #: ../content/index.rst:63
 msgid ""
@@ -166,11 +204,19 @@ msgid ""
 "activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to "
 "set the priority in the next step based an Criticality and Impact."
 msgstr ""
+"Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható "
+"a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez "
+"az eseménymodul, amely automatikusan frissíti a kritikusság dinamikus mezőt "
+"a jegyben, amint egy szolgáltatás hozzárendelésre kerül. Aktiválja a „"
+"SetPriorityFromCriticalityAndImpactMatrix” rendszerbeállítási lehetőséget, "
+"hogy beállítsa a prioritást a következő lépésben egy kritikusság és hatás "
+"alapján."
 
 #: ../content/index.rst:66
 msgid ""
 "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix"
 msgstr ""
+"Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix"
 
 #: ../content/index.rst:67
 msgid ""
@@ -179,38 +225,42 @@ msgid ""
 "module has been implemented that automatically updates the priority "
 "regarding Criticality and Impact in a ticket."
 msgstr ""
+"Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható "
+"a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez "
+"az eseménymodul, amely automatikusan frissíti a prioritást a kritikusságra "
+"és hatásra vonatkozóan a jegyben."
 
 #: ../content/index.rst:70
 msgid "Frontend::Admin::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration"
 
 #: ../content/index.rst:73
 msgid "Frontend::Module###AdminSLAImportExport"
-msgstr ""
+msgstr "Frontend::Module###AdminSLAImportExport"
 
 #: ../content/index.rst:74 ../content/index.rst:78
 msgid "Frontend module registration for the admin interface."
-msgstr ""
+msgstr "Előtétprogram-modul regisztráció az adminisztrátori felülethez."
 
 #: ../content/index.rst:77
 msgid "Frontend::Module###AdminServiceImportExport"
-msgstr ""
+msgstr "Frontend::Module###AdminServiceImportExport"
 
 #: ../content/index.rst:81
 msgid "Frontend::Admin::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration::Loader"
 
 #: ../content/index.rst:84
 msgid "Loader::Module::AdminSLAImportExport###002-ServiceCatalog"
-msgstr ""
+msgstr "Loader::Module::AdminSLAImportExport###002-ServiceCatalog"
 
 #: ../content/index.rst:85 ../content/index.rst:89 ../content/index.rst:96
 msgid "Loader module registration for the agent interface."
-msgstr ""
+msgstr "Betöltőmodul regisztráció az ügyintézői felülethez."
 
 #: ../content/index.rst:88
 msgid "Loader::Module::AdminServiceImportExport###002-ServiceCatalog"
-msgstr ""
+msgstr "Loader::Module::AdminServiceImportExport###002-ServiceCatalog"
 
 #: ../content/index.rst:92
 msgid "Frontend::Agent::ModuleRegistration::Loader"
@@ -218,33 +268,36 @@ msgstr "Frontend::Agent::ModuleRegistration::Loader"
 
 #: ../content/index.rst:95
 msgid "Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog"
-msgstr ""
+msgstr "Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog"
 
 #: ../content/index.rst:99
 msgid "Frontend::Base::DynamicFieldScreens"
-msgstr ""
+msgstr "Frontend::Base::DynamicFieldScreens"
 
 #: ../content/index.rst:102
 msgid "DynamicFieldScreens###ServiceCatalog"
-msgstr ""
+msgstr "DynamicFieldScreens###ServiceCatalog"
 
 #: ../content/index.rst:103
 msgid ""
 "This configuration defines all possible screens to enable or disable dynamic "
 "fields."
 msgstr ""
+"Ez a beállítás határozza meg az összes lehetséges képernyőt a dinamikus "
+"mezők engedélyezéséhez vagy letiltásához."
 
 #: ../content/index.rst:106
-#, fuzzy
-#| msgid "Core::DynamicFields::ObjectTypeRegistration"
 msgid "DynamicFieldScreens::ObjectTypes###ServiceCatalog"
-msgstr "Core::DynamicFields::ObjectTypeRegistration"
+msgstr "DynamicFieldScreens::ObjectTypes###ServiceCatalog"
 
 #: ../content/index.rst:107
 msgid ""
 "Define a list of dynamic field object types which are allowed to be assigned "
 "to actions of this package via the dynamic field screens interface."
 msgstr ""
+"Azon dinamikus mező objektumtípusok listájának meghatározása, amelyek "
+"hozzárendelhetők a csomag műveleteihez a dinamikus mező képernyőinek "
+"felületén keresztül."
 
 #: ../content/index.rst:110
 msgid "Frontend::Customer::ModuleRegistration"
@@ -252,7 +305,7 @@ msgstr "Frontend::Customer::ModuleRegistration"
 
 #: ../content/index.rst:113
 msgid "CustomerFrontend::Module###CustomerTileServiceCatalog"
-msgstr ""
+msgstr "CustomerFrontend::Module###CustomerTileServiceCatalog"
 
 #: ../content/index.rst:114
 msgid "Frontend module registration for the customer interface."
@@ -264,62 +317,67 @@ msgstr "Frontend::Customer::ModuleRegistration::Loader"
 
 #: ../content/index.rst:120
 msgid "Loader::Module::CustomerDashboard###003-CustomerDashboard"
-msgstr ""
+msgstr "Loader::Module::CustomerDashboard###003-CustomerDashboard"
 
 #: ../content/index.rst:121
 msgid "Loader module registration for the customer interface."
-msgstr ""
+msgstr "Betöltőmodul regisztráció az ügyfélfelülethez."
 
 #: ../content/index.rst:124
 msgid "Frontend::Customer::View::Dashboard::Configuration"
-msgstr ""
+msgstr "Frontend::Customer::View::Dashboard::Configuration"
 
 #: ../content/index.rst:127
 msgid "CustomerDashboard::Configuration::ServiceCatalog"
-msgstr ""
+msgstr "CustomerDashboard::Configuration::ServiceCatalog"
 
 #: ../content/index.rst:128
 msgid "Additional settings for the service catalog."
-msgstr ""
+msgstr "További beállítások a szolgáltatáskatalógushoz."
 
 #: ../content/index.rst:131
 msgid "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
-msgstr ""
+msgstr "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
 
 #: ../content/index.rst:132
 msgid ""
 "Dynamic fields shown in the service catalog screen of the customer interface."
 msgstr ""
+"Az ügyfélfelület szolgáltatáskatalógus képernyőjén megjelenített dinamikus "
+"mezők."
 
 #: ../content/index.rst:135
 msgid "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
-msgstr ""
+msgstr "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
 
 #: ../content/index.rst:136
 msgid ""
 "The FAQ field that should be used as the description of an FAQ article in "
 "the sidebar (e.g. Field1, Field2, Field3...)."
 msgstr ""
+"Az a GyIK mező, amelyet egy GyIK bejegyzés leírásaként kell használni az "
+"oldalsávban (például Mező1, Mező2, Mező3 stb.)."
 
 #: ../content/index.rst:139
 msgid "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
-msgstr ""
+msgstr "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
 
 #: ../content/index.rst:140
 msgid "Show services with the following ticket type last."
 msgstr ""
+"A következő jegytípusokkal rendelkező szolgáltatások megjelenítése utoljára."
 
 #: ../content/index.rst:143
 msgid "Frontend::Customer::View::Dashboard::Tiles"
-msgstr ""
+msgstr "Frontend::Customer::View::Dashboard::Tiles"
 
 #: ../content/index.rst:146
 msgid "CustomerDashboard::Tiles###ServiceCatalog-01"
-msgstr ""
+msgstr "CustomerDashboard::Tiles###ServiceCatalog-01"
 
 #: ../content/index.rst:147
 msgid "Tile registration for the CustomerDashboard. Module is required."
-msgstr ""
+msgstr "Csemperegisztráció az ügyfél vezérlőpultjához. A modul kötelező."
 
 #: ../content/index.rst:150
 msgid "About"
