@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-02 13:36+0000\n"
-"PO-Revision-Date: 2026-07-14 11:08+0000\n"
+"PO-Revision-Date: 2026-07-14 12:53+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-0/"
 "addons/manuals/servicecatalog-documentation/hu/>\n"
@@ -38,6 +38,14 @@ msgid ""
 "options to set services as default services directly in the service, "
 "automatically create service specific ACLs, and much more."
 msgstr ""
+"Egy részletes szolgáltatáskatalógus, amely többnyelvű leírásokkal egészíti "
+"ki a szolgáltatásokat, várólistákat és jegytípusokat rendel hozzájuk, "
+"valamint lehetővé teszi az ügyfelek számára, hogy az ügyfélvezérlőpulton "
+"böngésszék a szolgáltatásokat, és közvetlenül hozzanak létre jegyeket "
+"bizonyos szolgáltatásokhoz. Ezenkívül egyszerűbbé válik az adminisztráció "
+"azáltal, hogy lehetőséget nyújt a szolgáltatások alapértelmezett "
+"szolgáltatásokként történő beállítására közvetlenül a szolgáltatásban, a "
+"szolgáltatásra vonatkozó ACL-ek automatikus létrehozására, és még sok másra."
 
 #: ../content/index.rst:14
 msgid "System requirements"
@@ -57,7 +65,7 @@ msgstr "Csomagok"
 
 #: ../content/index.rst:22
 msgid "ITSMCore >= 11.0.6"
-msgstr ""
+msgstr "ITSMCore >= 11.0.6"
 
 #: ../content/index.rst:25
 msgid "Third-party software"
@@ -69,11 +77,11 @@ msgstr "\\-"
 
 #: ../content/index.rst:29
 msgid "Usage"
-msgstr ""
+msgstr "Használat"
 
 #: ../content/index.rst:32
 msgid "Basic Setup"
-msgstr ""
+msgstr "Alapvető beállítás"
 
 #: ../content/index.rst:33
 msgid ""
@@ -89,6 +97,19 @@ msgid ""
 "the different tiles, where the number reflects the order in the SysConfig, "
 "to your liking. Note that this is an advanced topic however.)"
 msgstr ""
+"A szolgáltatások kiegészítő információkkal való bővítéséhez nincs szükség "
+"további beállításokra, ezt egyszerűen az adminisztrátori felületen lévő "
+"Szolgáltatások modulban lehet elvégezni. Ahhoz, hogy a szolgáltatások "
+"megjelenjenek az ügyfél vezérlőpultján, a „"
+"CustomerDashboard::Tiles###ServiceCatalog-01” vezérlőpulti csempét kell "
+"engedélyezni. Győződjön meg arról, hogy a csempe sorrendje nem ütközik más "
+"aktív csempékkel. Egy egyszerű tesztként csak kapcsolja ki a 7-es sorszámú "
+"másik csempét, amely a szabványos telepítésnél az „###InfoTile-01”. (A "
+"részletesebb változtatásokért érdemes megnézni a „var/httpd/htdocs/skins/"
+"Customer/default/css/Core.Dashboard.Default.css” nevű CSS-fájlt, és a saját "
+"igényeinek megfelelően megváltoztatni a különböző csempék helyzetét, ahol a "
+"szám a rendszerbeállításokban lévő sorrendet tükrözi. Ne feledje azonban, "
+"hogy ez egy speciális téma.)"
 
 #: ../content/index.rst:35
 msgid ""
@@ -96,6 +117,9 @@ msgid ""
 "customer will be able to directly from the customer dashboard create a "
 "ticket for the specific service."
 msgstr ""
+"Egy olyan szolgáltatásnál, amely várólistával és jegytípusokkal van "
+"beállítva, az ügyfél képes lesz közvetlenül az ügyfélvezérlőpultról jegyet "
+"létrehozni az adott szolgáltatáshoz."
 
 #: ../content/index.rst:38
 msgid "Configuration Reference"
@@ -103,11 +127,11 @@ msgstr "Beállítások hivatkozása"
 
 #: ../content/index.rst:41
 msgid "Core::Acl"
-msgstr ""
+msgstr "Core::Acl"
 
 #: ../content/index.rst:44
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls"
-msgstr ""
+msgstr "ServiceCatalog::CreateTypeServiceRelatedAcls"
 
 #: ../content/index.rst:45
 msgid ""
@@ -125,7 +149,7 @@ msgstr ""
 
 #: ../content/index.rst:48
 msgid "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
-msgstr ""
+msgstr "ServiceCatalog::CreateTypeServiceRelatedAcls::Options"
 
 #: ../content/index.rst:49
 msgid ""
@@ -153,11 +177,11 @@ msgstr ""
 
 #: ../content/index.rst:52
 msgid "Core::Autoload"
-msgstr ""
+msgstr "Core::Autoload"
 
 #: ../content/index.rst:55
 msgid "AutoloadPerlPackages###002-SLAImportExport"
-msgstr ""
+msgstr "AutoloadPerlPackages###002-SLAImportExport"
 
 #: ../content/index.rst:56
 msgid "Autoload configuration for SLA import and export functions."
@@ -167,7 +191,7 @@ msgstr ""
 
 #: ../content/index.rst:59
 msgid "AutoloadPerlPackages###002-ServiceImportExport"
-msgstr ""
+msgstr "AutoloadPerlPackages###002-ServiceImportExport"
 
 #: ../content/index.rst:60
 msgid "Autoload configuration for Service import and export functions."
@@ -181,7 +205,7 @@ msgstr "Core::DynamicFields::ObjectTypeRegistration"
 
 #: ../content/index.rst:66
 msgid "DynamicFields::ObjectType###Service"
-msgstr ""
+msgstr "DynamicFields::ObjectType###Service"
 
 #: ../content/index.rst:67
 msgid "DynamicField object registration."
@@ -189,11 +213,11 @@ msgstr "Dinamikus mező objektum regisztráció."
 
 #: ../content/index.rst:70
 msgid "Core::Event::Ticket"
-msgstr ""
+msgstr "Core::Event::Ticket"
 
 #: ../content/index.rst:73
 msgid "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
-msgstr ""
+msgstr "Ticket::EventModulePost###9700-SetDynamicFieldCriticalityFromService"
 
 #: ../content/index.rst:74
 msgid ""
@@ -216,6 +240,7 @@ msgstr ""
 msgid ""
 "Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix"
 msgstr ""
+"Ticket::EventModulePost###9800-SetPriorityFromCriticalityAndImpactMatrix"
 
 #: ../content/index.rst:78
 msgid ""
@@ -231,35 +256,35 @@ msgstr ""
 
 #: ../content/index.rst:81
 msgid "Frontend::Admin::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration"
 
 #: ../content/index.rst:84
 msgid "Frontend::Module###AdminSLAImportExport"
-msgstr ""
+msgstr "Frontend::Module###AdminSLAImportExport"
 
 #: ../content/index.rst:85 ../content/index.rst:89
 msgid "Frontend module registration for the admin interface."
-msgstr ""
+msgstr "Előtétprogram-modul regisztráció az adminisztrátori felülethez."
 
 #: ../content/index.rst:88
 msgid "Frontend::Module###AdminServiceImportExport"
-msgstr ""
+msgstr "Frontend::Module###AdminServiceImportExport"
 
 #: ../content/index.rst:92
 msgid "Frontend::Admin::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration::Loader"
 
 #: ../content/index.rst:95
 msgid "Loader::Module::AdminSLAImportExport###002-ServiceCatalog"
-msgstr ""
+msgstr "Loader::Module::AdminSLAImportExport###002-ServiceCatalog"
 
 #: ../content/index.rst:96 ../content/index.rst:100 ../content/index.rst:107
 msgid "Loader module registration for the agent interface."
-msgstr ""
+msgstr "Betöltőmodul regisztráció az ügyintézői felülethez."
 
 #: ../content/index.rst:99
 msgid "Loader::Module::AdminServiceImportExport###002-ServiceCatalog"
-msgstr ""
+msgstr "Loader::Module::AdminServiceImportExport###002-ServiceCatalog"
 
 #: ../content/index.rst:103
 msgid "Frontend::Agent::ModuleRegistration::Loader"
@@ -267,25 +292,27 @@ msgstr "Frontend::Agent::ModuleRegistration::Loader"
 
 #: ../content/index.rst:106
 msgid "Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog"
-msgstr ""
+msgstr "Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog"
 
 #: ../content/index.rst:110
 msgid "Frontend::Base::DynamicFieldScreens"
-msgstr ""
+msgstr "Frontend::Base::DynamicFieldScreens"
 
 #: ../content/index.rst:113
 msgid "DynamicFieldScreens###ServiceCatalog"
-msgstr ""
+msgstr "DynamicFieldScreens###ServiceCatalog"
 
 #: ../content/index.rst:114
 msgid ""
 "This configuration defines all possible screens to enable or disable dynamic "
 "fields."
 msgstr ""
+"Ez a beállítás határozza meg az összes lehetséges képernyőt a dinamikus "
+"mezők engedélyezéséhez vagy letiltásához."
 
 #: ../content/index.rst:117
 msgid "DynamicFieldScreens::ObjectTypes###ServiceCatalog"
-msgstr ""
+msgstr "DynamicFieldScreens::ObjectTypes###ServiceCatalog"
 
 #: ../content/index.rst:118
 msgid ""
@@ -302,7 +329,7 @@ msgstr "Frontend::Customer::ModuleRegistration"
 
 #: ../content/index.rst:124
 msgid "CustomerFrontend::Module###CustomerTileServiceCatalog"
-msgstr ""
+msgstr "CustomerFrontend::Module###CustomerTileServiceCatalog"
 
 #: ../content/index.rst:125
 msgid "Frontend module registration for the customer interface."
@@ -314,19 +341,19 @@ msgstr "Frontend::Customer::ModuleRegistration::Loader"
 
 #: ../content/index.rst:131
 msgid "Loader::Module::CustomerDashboard###003-CustomerDashboard"
-msgstr ""
+msgstr "Loader::Module::CustomerDashboard###003-CustomerDashboard"
 
 #: ../content/index.rst:132
 msgid "Loader module registration for the customer interface."
-msgstr ""
+msgstr "Betöltőmodul regisztráció az ügyfélfelülethez."
 
 #: ../content/index.rst:135
 msgid "Frontend::Customer::View::Dashboard::Configuration"
-msgstr ""
+msgstr "Frontend::Customer::View::Dashboard::Configuration"
 
 #: ../content/index.rst:138
 msgid "CustomerDashboard::Configuration::ServiceCatalog"
-msgstr ""
+msgstr "CustomerDashboard::Configuration::ServiceCatalog"
 
 #: ../content/index.rst:139
 msgid "Additional settings for the service catalog."
@@ -334,7 +361,7 @@ msgstr "További beállítások a szolgáltatáskatalógushoz."
 
 #: ../content/index.rst:142
 msgid "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
-msgstr ""
+msgstr "CustomerDashboard::Configuration::ServiceCatalog###DynamicField"
 
 #: ../content/index.rst:143
 msgid ""
@@ -345,7 +372,7 @@ msgstr ""
 
 #: ../content/index.rst:146
 msgid "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
-msgstr ""
+msgstr "CustomerDashboard::Configuration::ServiceCatalog###FAQDescriptionField"
 
 #: ../content/index.rst:147
 msgid ""
@@ -357,7 +384,7 @@ msgstr ""
 
 #: ../content/index.rst:150
 msgid "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
-msgstr ""
+msgstr "CustomerDashboard::Configuration::ServiceCatalog###SortByTicketType"
 
 #: ../content/index.rst:151
 msgid "Show services with the following ticket type last."
@@ -366,11 +393,11 @@ msgstr ""
 
 #: ../content/index.rst:154
 msgid "Frontend::Customer::View::Dashboard::Tiles"
-msgstr ""
+msgstr "Frontend::Customer::View::Dashboard::Tiles"
 
 #: ../content/index.rst:157
 msgid "CustomerDashboard::Tiles###ServiceCatalog-01"
-msgstr ""
+msgstr "CustomerDashboard::Tiles###ServiceCatalog-01"
 
 #: ../content/index.rst:158
 msgid "Tile registration for the CustomerDashboard. Module is required."
