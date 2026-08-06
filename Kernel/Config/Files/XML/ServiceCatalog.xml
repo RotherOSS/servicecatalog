@@ -79,7 +79,7 @@
                 <Item Key="Module">Kernel::Output::HTML::CustomerDashboard::TileServiceCatalog</Item>
                 <Item Key="Config">
                     <Hash>
-                        <Item Key="HeaderText">Find the right service for your ticket</Item>
+                        <Item Key="HeaderText" Translatable="1">Find the right service for your ticket</Item>
                     </Hash>
                 </Item>
             </Hash>
