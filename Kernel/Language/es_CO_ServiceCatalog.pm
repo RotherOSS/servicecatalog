@@ -143,6 +143,7 @@ sub Data {
         '';
     $Self->{Translation}->{'Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket.'} =
         '';
+    $Self->{Translation}->{'Find the right service for your ticket'} = '';
     $Self->{Translation}->{'Show services with the following ticket type last.'} = '';
     $Self->{Translation}->{'The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...).'} =
         '';

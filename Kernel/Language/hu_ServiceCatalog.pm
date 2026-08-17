@@ -143,6 +143,7 @@ sub Data {
         'Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez az eseménymodul, amely automatikusan frissíti a kritikusság dinamikus mezőt a jegyben, amint egy szolgáltatás hozzárendelésre kerül. Aktiválja a „SetPriorityFromCriticalityAndImpactMatrix” rendszerbeállítási lehetőséget, hogy beállítsa a prioritást a következő lépésben egy kritikusság és hatás alapján.';
     $Self->{Translation}->{'Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket.'} =
         'Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez az eseménymodul, amely automatikusan frissíti a prioritást a kritikusságra és hatásra vonatkozóan a jegyben.';
+    $Self->{Translation}->{'Find the right service for your ticket'} = '';
     $Self->{Translation}->{'Show services with the following ticket type last.'} = 'A következő jegytípusokkal rendelkező szolgáltatások megjelenítése utoljára.';
     $Self->{Translation}->{'The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...).'} =
         'Az a GyIK mező, amelyet egy GyIK bejegyzés leírásaként kell használni az oldalsávban (például Mező1, Mező2, Mező3 stb.).';
