@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
-"POT-Creation-Date: 2026-07-07 13:18+0000\n"
+"POT-Creation-Date: 2026-08-17 07:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9,6 +9,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#. Template: AdminSLAImportExport
+msgid "Select the items you want to "
+msgstr ""
 
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
@@ -244,6 +248,10 @@ msgstr ""
 
 #. SysConfig
 msgid "Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket."
+msgstr ""
+
+#. SysConfig
+msgid "Find the right service for your ticket"
 msgstr ""
 
 #. SysConfig
