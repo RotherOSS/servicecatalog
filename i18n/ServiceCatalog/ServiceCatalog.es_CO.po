@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
-"POT-Creation-Date: 2026-07-07 11:45+0000\n"
+"POT-Creation-Date: 2026-08-17 07:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -360,6 +360,10 @@ msgid ""
 "also be set in the service, but this has no effect. Therefore, this event "
 "module has been implemented that automatically updates the priority "
 "regarding Criticality and Impact in a ticket."
+msgstr ""
+
+#. SysConfig
+msgid "Find the right service for your ticket"
 msgstr ""
 
 #. SysConfig
