@@ -2139,7 +2139,9 @@ sub _ServiceGetCurrentIncidentState {
     my $ServiceTypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
         Class => 'ITSM::Service::Type',
     );
-    $ServiceData{Type} = $ServiceTypeList->{ $ServiceData{TypeID} } || '';
+    if ( $ServiceData{TypeID} ) {
+        $ServiceData{Type} = $ServiceTypeList->{ $ServiceData{TypeID} } || '';
+    }
 
     # set default incident state type
     $ServiceData{CurInciStateType} = 'operational';
