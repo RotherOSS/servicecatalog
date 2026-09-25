@@ -2360,9 +2360,7 @@ sub AttachmentAdd {
     }
 
     # set default
-    if ( !$Param{Inline} ) {
-        $Param{Inline} = 0;
-    }
+    $Param{Inline} ||= 0;
 
     # get all existing attachments
     my @Index = $Self->AttachmentIndex(
