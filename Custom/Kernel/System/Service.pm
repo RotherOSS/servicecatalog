@@ -5,6 +5,7 @@
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # $origin: otobo - 5aa4852713ee4b3845891682f4385939fd086546 - Kernel/System/Service.pm
+# $origin: itsmcore - 3fa4d7f06fb0c0605ef4f693535509f09b908ed3 - Kernel/System/Service.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
