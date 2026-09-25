@@ -448,9 +448,9 @@ sub Run {
                 # Create Acl if config is enabled
                 # We create one Acl per Ticket-Type
                 if ( $ConfigObject->Get('ServiceCatalog::CreateTypeServiceRelatedAcls') ) {
-                    for my $TicketType ( @{ $GetParam{TicketTypeIDs} } ) {
+                    for my $TicketTypeID ( $GetParam{TicketTypeIDs}->@* ) {
                         my $Success = $ServiceObject->UpdateTypServiceACL(
-                            TicketTypeID => $TicketType,
+                            TicketTypeID => $TicketTypeID,
                             ServiceID    => $GetParam{ServiceID},
                             ServiceValid => $GetParam{ValidID},
                             UserID       => 1,
