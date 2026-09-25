@@ -398,8 +398,8 @@ sub ServiceListGet {
         if (%Preferences) {
             %{$ServiceData} = ( %{$ServiceData}, %Preferences );
         }
-
 # RotherOSS / ServiceCatalog
+
         # Get all linked ticket type IDs.
         $DBObject->Prepare(
             SQL =>
@@ -412,8 +412,8 @@ sub ServiceListGet {
             push @TicketTypeIDs, $Row[0];
         }
         $ServiceData->{TicketTypeIDs} = \@TicketTypeIDs;
-# EO ServiceCatalog
 
+# EO ServiceCatalog
 # Rother OSS / ITSMCore
         # get current incident state, calculated from related config items and child services
         my %NewServiceData = $Self->_ServiceGetCurrentIncidentState(
@@ -423,7 +423,6 @@ sub ServiceListGet {
         );
         $ServiceData = \%NewServiceData;
 # EO ITSMCore
-
 # RotherOSS / ServiceCatalog
 
         # get service descriptions data
@@ -646,8 +645,8 @@ sub ServiceGet {
         push @TicketTypeIDs, $Row[0];
     }
     $ServiceData{TicketTypeIDs} = \@TicketTypeIDs;
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # check service
     if ( !$ServiceData{ServiceID} ) {
         $Kernel::OM->Get('Kernel::System::Log')->Log(
@@ -857,8 +856,8 @@ sub ServiceAdd {
 
 # Rother OSS / ServiceCatalog
     $Param{DestQueueID} ||= '';
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # cleanup given params
     for my $Argument (qw(Name Comment)) {
         $Kernel::OM->Get('Kernel::System::CheckItem')->StringClean(
@@ -906,8 +905,8 @@ sub ServiceAdd {
             $Param{Descriptions}->{$Language}->{DescriptionLong} =~ s/(\n\r|\r\r\n|\r\n|\r)/\n/g;
         }
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # create full name
     $Param{FullName} = $Param{Name};
 
@@ -1020,8 +1019,8 @@ sub ServiceAdd {
             ],
         );
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # reset cache
     $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
         Type => $Self->{CacheType},
@@ -1099,8 +1098,8 @@ sub ServiceUpdate {
 
 # Rother OSS / ServiceCatalog
     $Param{DestQueueID} ||= '';
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # cleanup given params
     for my $Argument (qw(Name Comment)) {
         $Kernel::OM->Get('Kernel::System::CheckItem')->StringClean(
@@ -1161,8 +1160,8 @@ sub ServiceUpdate {
             $Param{Descriptions}->{$Language}->{DescriptionLong} =~ s/(\n\r|\r\r\n|\r\n|\r)/\n/g;
         }
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # create full name
     $Param{FullName} = $Param{Name};
 
@@ -1220,8 +1219,8 @@ sub ServiceUpdate {
         SQL  => 'DELETE FROM service_type WHERE service_id = ?;',
         Bind => [ \$Param{ServiceID}, ],
     );
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # update service
     return if !$DBObject->Do(
 # Rother OSS / ServiceCatalog
@@ -1264,8 +1263,8 @@ sub ServiceUpdate {
             Bind => [ \$Param{ServiceID}, \$TicketTypeID, \$Param{UserID} ]
         );
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     my $LikeService = $DBObject->Quote( $OldServiceName, 'Like' ) . '::%';
 
     # find all children
@@ -1317,8 +1316,8 @@ sub ServiceUpdate {
             ],
         );
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # reset cache
     $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
         Type => $Self->{CacheType},
@@ -2984,6 +2983,6 @@ sub UpdateTypServiceACL {
 
     return 1;
 }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
 1;
