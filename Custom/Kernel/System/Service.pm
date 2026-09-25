@@ -2323,11 +2323,12 @@ sub _ServiceGetCurrentIncidentState {
 
 # EO ITSMCore
 
-
 # Rother OSS / ServiceCatalog
+
 =head2 AttachmentAdd()
 
 add article attachments, returns the attachment id
+
     my $AttachmentID = $ServiceObject->AttachmentAdd(
         ServiceID   => $123,
         FileName    => 'F<image.png>',
@@ -2337,8 +2338,11 @@ add article attachments, returns the attachment id
         Inline      => 1,   (0|1, default 0)
         UserID      => 1,
     );
+
 Returns:
+
     $AttachmentID = 123 ;               # or undef if can't add the attachment
+
 =cut
 
 sub AttachmentAdd {
@@ -2453,7 +2457,9 @@ sub AttachmentAdd {
 }
 
 =head2 ServiceInlineAttachmentURLUpdate()
+
 Updates the URLs of uploaded inline attachments.
+
     my $Success = $ServiceObject->ServiceInlineAttachmentURLUpdate(
         ServiceID  => 12,
         FormID     => 456,
@@ -2461,8 +2467,11 @@ Updates the URLs of uploaded inline attachments.
         Attachment => \%Attachment,
         UserID     => 1,
     );
+
 Returns:
+
     $Success = 1;               # of undef if attachment URL could not be updated
+
 =cut
 
 sub ServiceInlineAttachmentURLUpdate {
@@ -2538,18 +2547,22 @@ sub ServiceInlineAttachmentURLUpdate {
 =head2 AttachmentGet()
 
 get attachment of service ID
+
     my %File = $ServiceObject->AttachmentGet(
         ServiceID => 123,
         FileID    => 1,
         UserID    => 1,
     );
+
 Returns:
+
     %File = (
         Filesize    => '540286',                # file size in bytes
         ContentType => 'image/jpeg',
         Filename    => 'F<Error.jpg>',
         Content     => '...'                    # file binary content
     );
+
 =cut
 
 sub AttachmentGet {
@@ -2596,13 +2609,17 @@ sub AttachmentGet {
 }
 
 =head2 AttachmentIndex()
+
 return an attachment index of an service id
+
     my @Index = $ServiceObject->AttachmentIndex(
         ServiceID  => 123,
         ShowInline => 0,   ( 0|1, default 1)
         UserID     => 1,
     );
+
 Returns:
+
     @Index = (
         {
             Filesize    => '527.6 KBytes',
@@ -2629,6 +2646,7 @@ Returns:
             Inline => 0,
         },
     );
+
 =cut
 
 sub AttachmentIndex {
