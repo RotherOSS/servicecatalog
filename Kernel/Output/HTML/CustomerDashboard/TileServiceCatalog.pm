@@ -71,6 +71,13 @@ sub Run {
         User => $Param{UserID},
     );
 
+    # Get all service IDs of the customer.
+    my %ServiceIDs = $Kernel::OM->Get('Kernel::System::Ticket')->TicketServiceList(
+        Action         => 'CustomerDashboard',
+        CustomerUserID => $Param{UserID},
+        QueueID        => 1,
+    );
+
     # Only get information of SLAs or calendars once and save them in hashes.
     my %SLAIDs = $SLAObject->SLAList(
         Valid  => 1,
@@ -90,7 +97,10 @@ sub Run {
         $SLAList{$SLAID} = \%SLAData;
 
         # Get all services which use this SLA.
+        SERVICE:
         for my $ServiceID ( @{ $SLAData{ServiceIDs} } ) {
+            next SERVICE unless $ServiceIDs{$ServiceID};
+
             push @{ $ServiceList{$ServiceID}{SLAIDs} }, $SLAID;
         }
 
@@ -168,13 +178,6 @@ sub Run {
 
     my %TypeList = $Kernel::OM->Get('Kernel::System::Type')->TypeList(
         Valid => 1,
-    );
-
-    # Get all service IDs of the customer.
-    my %ServiceIDs = $Kernel::OM->Get('Kernel::System::Ticket')->TicketServiceList(
-        Action         => 'CustomerDashboard',
-        CustomerUserID => $Param{UserID},
-        QueueID        => 1,
     );
 
     my $Settings = $ConfigObject->Get('CustomerDashboard::Configuration::ServiceCatalog') || {};
