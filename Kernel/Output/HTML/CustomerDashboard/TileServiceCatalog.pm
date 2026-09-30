@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -206,14 +206,15 @@ sub Run {
                             };
                         }
                     }
-                } elsif ( $Needed eq 'Descriptions' ) {
-                    $Service{DescriptionShort} = $ServiceRef->{$Needed}->{$LayoutObject->{UserLanguage}}->{DescriptionShort} || 
-                        $ServiceRef->{$Needed}->{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}->{DescriptionShort} || 
-                            $ServiceRef->{$Needed}->{'en'}->{DescriptionShort} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
+                }
+                elsif ( $Needed eq 'Descriptions' ) {
+                    $Service{DescriptionShort} = $ServiceRef->{$Needed}->{ $LayoutObject->{UserLanguage} }->{DescriptionShort} ||
+                        $ServiceRef->{$Needed}->{ $Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage') }->{DescriptionShort} ||
+                        $ServiceRef->{$Needed}->{'en'}->{DescriptionShort} || $LayoutObject->{LanguageObject}->Translate('Description not available.');
 
-                    $Service{DescriptionLong} = $ServiceRef->{$Needed}->{$LayoutObject->{UserLanguage}}->{DescriptionLong} || 
-                        $ServiceRef->{$Needed}->{$Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage')}->{DescriptionLong} || 
-                            $ServiceRef->{$Needed}->{'en'}->{DescriptionLong} || $LayoutObject->{LanguageObject}->Translate( 'Description not available.' );
+                    $Service{DescriptionLong} = $ServiceRef->{$Needed}->{ $LayoutObject->{UserLanguage} }->{DescriptionLong} ||
+                        $ServiceRef->{$Needed}->{ $Kernel::OM->Get('Kernel::Config')->Get('DefaultLanguage') }->{DescriptionLong} ||
+                        $ServiceRef->{$Needed}->{'en'}->{DescriptionLong} || $LayoutObject->{LanguageObject}->Translate('Description not available.');
                 }
                 else {
                     $Service{$Needed} = $ServiceRef->{$Needed};
@@ -459,7 +460,6 @@ sub Run {
             }
         }
     }
-
 
     # TODO: Names have to be translated somewhere for the breadcrumb, we need to prevent translation of those translated values
     for my $ServiceID ( keys %ServiceList ) {
