@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
-"POT-Creation-Date: 2026-07-07 13:18+0000\n"
+"POT-Creation-Date: 2026-09-15 14:34+0000\n"
 "PO-Revision-Date: 2026-06-24 10:00+0000\n"
 "Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
@@ -12,6 +12,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.16\n"
+
+#. Template: AdminSLAImportExport
+msgid "Select the items you want to "
+msgstr ""
 
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
@@ -313,6 +317,10 @@ msgstr "Warnung"
 msgid "incident"
 msgstr "Vorfall"
 
+#. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
+msgid "unknown"
+msgstr ""
+
 #. JS File: Core.Agent.Admin.Service
 msgid "Do you really want to delete this service description language?"
 msgstr "Soll diese Sprache der Service-Beschreibung wirklich gelöscht werden?"
@@ -370,6 +378,10 @@ msgstr ""
 "Service festgelegt werden, hat allerdings keine Wirkung. Daher wurde dieses "
 "Event-Modul implementiert, das automatisch die Priorität und die Auswirkung "
 "in einem Ticket aktualisiert."
+
+#. SysConfig
+msgid "Find the right service for your ticket"
+msgstr ""
 
 #. SysConfig
 msgid "Show services with the following ticket type last."
