@@ -2,68 +2,72 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ServiceCatalog\n"
 "POT-Creation-Date: 2026-09-15 14:34+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-10-05 07:41+0000\n"
+"Last-Translator: Kozo Sakurai <sakurai@io-architect.com>\n"
+"Language-Team: Japanese <http://translate.otobo.org/projects/otobo-11-1/"
+"addons/servicecatalog/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.9\n"
 
 #. Template: AdminSLAImportExport
 msgid "Select the items you want to "
-msgstr ""
+msgstr "必要な項目を選択してください "
 
 #. Template: TileServiceCatalog
 msgid "Show details of this service."
-msgstr ""
+msgstr "このサービスの詳細を表示します。"
 
 #. Template: AdminService
 msgid "Criticality"
-msgstr ""
+msgstr "重要度"
 
 #. Template: AdminService
 msgid "Service depends on the following ticket types"
-msgstr ""
+msgstr "サービスが依存するチケットタイプ"
 
 #. Template: AdminService
 msgid "Ticket destination queue"
-msgstr ""
+msgstr "チケットの宛先キュー"
 
 #. Template: AdminService
 msgid "Customer default service"
-msgstr ""
+msgstr "顧客のデフォルトサービス"
 
 #. Template: AdminService
 msgid "Keywords"
-msgstr ""
+msgstr "キーワード"
 
 #. Template: AdminService
 msgid "Service Description"
-msgstr ""
+msgstr "サービスの説明"
 
 #. Template: AdminService
 msgid ""
 "This language is not present or enabled on the system. This service "
 "description could be deleted if it is not needed anymore."
 msgstr ""
+"この言語はシステムに存在しないか、有効になっていません。不要であれば、この"
+"サービスの説明を削除できます。"
 
 #. Template: AdminService
 msgid "Remove Service Description Language"
-msgstr ""
+msgstr "サービスの説明の言語を削除"
 
 #. Template: AdminService
 msgid "Add new service description language"
-msgstr ""
+msgstr "サービスの説明の言語を追加"
 
 #. Template: AdminService
 msgid "Option Reference"
-msgstr ""
+msgstr "オプションのリファレンス"
 
 #. Template: AdminService
 msgid "You can use the following options"
-msgstr ""
+msgstr "次のオプションを使用できます"
 
 #. Template: AdminService
 msgid ""
@@ -79,6 +83,16 @@ msgid ""
 "\"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" according to your "
 "requirements."
 msgstr ""
+"顧客ダッシュボードの ServiceCatalogue タイルでは、サービスの説明内に、あらか"
+"じめ設定したチケット作成用のチケットタイプを表示できます。さらに、ここで設定"
+"したチケットタイプを使用して、他の画面でのサービスを制限することもできます。"
+"その場合は、OTOBO のシステム設定でオプション "
+"\"ServiceCatalog::CreateTypeServiceRelatedAcls\" と "
+"\"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" を有効にしてくださ"
+"い。制限は自動生成される ACL によって行われ、\"Admin -> Access Control Lists "
+"(ACL)\" で確認できます。必要に応じて、オプション "
+"\"ServiceCatalog::CreateTypeServiceRelatedAcls::Options\" を要件に合わせて調"
+"整してください。"
 
 #. Template: AdminService
 msgid ""
@@ -93,6 +107,15 @@ msgid ""
 "immediately be created in this queue. If the field remains empty, the "
 "default queue configured above will be used."
 msgstr ""
+"サービスベースで運用する場合、顧客ポータルでチケットを作成する際に顧客に"
+"キューを選ばせるのではなく、サービスに基づいて、チケットを最初にどのキュー（"
+"どの担当者チーム）で処理するかを決めたいはずです。このオプションを有効に活用"
+"するには、オプション \"Ticket::Frontend::CustomerTicketMessage###Queue\" を無"
+"効にし、オプション "
+"\"Ticket::Frontend::CustomerTicketMessage###QueueDefault\" に適切な"
+"デフォルトキューを設定してください。ここでサービスに \"Ticket destination "
+"queue\"（チケットの宛先キュー）を設定すると、チケットはすぐにこのキューに作成"
+"されます。空欄の場合は、上記で設定したデフォルトキューが使用されます。"
 
 #. Template: AdminService
 msgid ""
@@ -102,6 +125,11 @@ msgid ""
 "user <-> Service\" (or \"Customer <-> Service\") can be bypassed here. Of "
 "course, in the next step it is possible to restrict the services via ACLs."
 msgstr ""
+"サービスを顧客や企業ごとに個別に割り当てず、最初からすべてのサービスを顧客に"
+"選択肢として提供する場合は、\"Admin -> Customer user <-> Service\"（または "
+"\"Customer <-> Service\"）で各サービスを \"default\" サービスとして公開する手"
+"順をここで省略できます。もちろん、次のステップで ACL によってサービスを制限す"
+"ることも可能です。"
 
 #. Template: AdminService
 msgid ""
@@ -114,19 +142,26 @@ msgid ""
 "possibility using \"Admin -> Criticality ↔ Impact ↔ Priority\" to set the "
 "priority using a matrix."
 msgstr ""
+"ここでは、ダイナミックフィールド \"ITSMCriticality\" と \"ITSMImpact\" に基づ"
+"いて、正しいチケットの優先度をバックグラウンドで自動計算させることができます"
+"。オプション \"Ticket::EventModulePost###9700-"
+"SetDynamicFieldCriticalityFromService\" と \"Ticket::EventModulePost###9800-"
+"SetPriorityFromCriticalityAndImpactMatrix\" を有効にしてください。次の"
+"ステップで、\"Admin -> Criticality ↔ Impact ↔ Priority\" を使用して、"
+"マトリックスで優先度を設定できます。"
 
 #. Template: AdminService
 msgid ""
 "Keywords to facilitate the search for services within the service catalog."
-msgstr ""
+msgstr "サービスカタログ内でサービスを検索しやすくするためのキーワード。"
 
 #. Template: AdminService
 msgid "Service descriptions (short & long) specified by User Language."
-msgstr ""
+msgstr "ユーザーの言語ごとに指定するサービスの説明（短い説明と詳しい説明）。"
 
 #. Template: AdminService
 msgid "Short summary of the service, mainly used in the CustomerDashboard."
-msgstr ""
+msgstr "サービスの短い概要。主に CustomerDashboard で使用されます。"
 
 #. Template: AdminService
 msgid ""
@@ -135,10 +170,14 @@ msgid ""
 "in the ckeditor after uploading the screenshot. A width of 600px has proven "
 "to be useful or you can configure a \"max-width\" of 95% under Advanced."
 msgstr ""
+"サービスの説明。スクリーンショットや表も使用できます。スクリーンショットの場"
+"合は、画像の幅が適切になるようにしてください。幅は、スクリーンショットを"
+"アップロードした後に CKEditor で調整できます。幅 600px が実用的です。または、"
+"詳細設定で \"max-width\" を 95% に設定することもできます。"
 
 #. Template: AdminService
 msgid "Add more service catalog fields"
-msgstr ""
+msgstr "サービスカタログのフィールドを追加"
 
 #. Template: AdminService
 msgid ""
@@ -148,153 +187,161 @@ msgid ""
 "for the customer dashboard under \"Admin -> DynamicField Screens\" by "
 "assigning it under \"CustomerDashboardTile ServiceCatalog\"."
 msgstr ""
+"ここでは、いつでもサービスカタログにフィールドを追加できます。そのためには"
+"、\"Admin -> DynamicFields\" でオブジェクトタイプ \"Service\" の新しい"
+"フィールドを作成してください。その後、\"Admin -> DynamicField Screens\" で "
+"\"CustomerDashboardTile ServiceCatalog\" に割り当てることで、顧客"
+"ダッシュボードでそのフィールドを有効にできます。"
 
 #. Template: AgentITSMSLAZoom
 msgid "SLA Information"
-msgstr ""
+msgstr "SLA 情報"
 
 #. Template: AgentITSMSLAZoom
 msgid "Last changed"
-msgstr ""
+msgstr "最終更新日時"
 
 #. Template: AgentITSMSLAZoom
 msgid "Last changed by"
-msgstr ""
+msgstr "最終更新者"
 
 #. Template: AgentITSMSLAZoom
 msgid "Minimum Time Between Incidents"
-msgstr ""
+msgstr "インシデント間の最小時間"
 
 #. Template: AgentITSMSLAZoom
 msgid "Associated Services"
-msgstr ""
+msgstr "関連するサービス"
 
 #. Template: AgentITSMServiceZoom
 msgid "Service Information"
-msgstr ""
+msgstr "サービス情報"
 
 #. Template: AgentITSMServiceZoom
 msgid "Current incident state"
-msgstr ""
+msgstr "現在のインシデント状況"
 
 #. Template: AgentITSMServiceZoom
 msgid "Associated SLAs"
-msgstr ""
+msgstr "関連する SLA"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Create a new ticket for this service."
-msgstr ""
+msgstr "このサービスの新規チケットを作成します。"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Create %s"
-msgstr ""
+msgstr "%s を作成"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Show %s sub-service(s)"
-msgstr ""
+msgstr "%s 件のサブサービスを表示"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "More details"
-msgstr ""
+msgstr "詳細"
 
 #. JS Template: TileServiceCatalogContainer
 msgid "Sub-Service(s)"
-msgstr ""
+msgstr "サブサービス"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "sub-service(s) available"
-msgstr ""
+msgstr "件のサブサービスがあります"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Create a new ticket of type %s."
-msgstr ""
+msgstr "タイプ %s の新規チケットを作成します。"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "FAQ article on this topic"
-msgstr ""
+msgstr "このトピックに関する FAQ 記事"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Additional information"
-msgstr ""
+msgstr "追加情報"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Service hours"
-msgstr ""
+msgstr "サービス時間"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "o'clock"
-msgstr ""
+msgstr "時"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "No additional data are available."
-msgstr ""
+msgstr "追加データはありません。"
 
 #. JS Template: TileServiceCatalogDetailed
 msgid "Further information"
-msgstr ""
+msgstr "その他の情報"
 
 #. JS Template: TileServiceCatalogModal
 msgid "Search catalog"
-msgstr ""
+msgstr "カタログを検索"
 
 #. Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
 msgid "Description not available."
-msgstr ""
+msgstr "説明はありません。"
 
 #. Perl Module: Kernel/Modules/CustomerTileServiceCatalog.pm
 msgid "Need FileID!"
-msgstr ""
+msgstr "FileID が必要です！"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "No ServiceID is given!"
-msgstr ""
+msgstr "ServiceID が指定されていません！"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "ServiceID %s not found in database!"
-msgstr ""
+msgstr "ServiceID %s がデータベースに見つかりません！"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "operational"
-msgstr ""
+msgstr "稼働中"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "warning"
-msgstr ""
+msgstr "警告"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "incident"
-msgstr ""
+msgstr "インシデント"
 
 #. Perl Module: Kernel/Modules/AgentITSMServiceZoom.pm
 msgid "unknown"
-msgstr ""
+msgstr "不明"
 
 #. JS File: Core.Agent.Admin.Service
 msgid "Do you really want to delete this service description language?"
-msgstr ""
+msgstr "このサービスの説明の言語を本当に削除しますか？"
 
 #. JS File: Core.Customer.TileServiceCatalog
 msgid "Results for %s"
-msgstr ""
+msgstr "%s の検索結果"
 
 #. SysConfig
 msgid "Additional settings for the service catalog."
-msgstr ""
+msgstr "サービスカタログの追加設定。"
 
 #. SysConfig
 msgid "CustomerTileServiceCatalog AJAX Module."
-msgstr ""
+msgstr "CustomerTileServiceCatalog の AJAX モジュール。"
 
 #. SysConfig
 msgid ""
 "Define a list of dynamic field object types which are allowed to be assigned "
 "to actions of this package via the dynamic field screens interface."
 msgstr ""
+"ダイナミックフィールド画面インタフェースを介して、このパッケージのアクション"
+"に割り当てることができるダイナミックフィールドのオブジェクトタイプの一覧を定"
+"義します。"
 
 #. SysConfig
 msgid ""
 "Dynamic fields shown in the service catalog screen of the customer interface."
-msgstr ""
+msgstr "顧客インタフェースのサービスカタログ画面に表示するダイナミックフィールド。"
 
 #. SysConfig
 msgid ""
@@ -305,6 +352,12 @@ msgid ""
 "activate the SysConfig option SetPriorityFromCriticalityAndImpactMatrix to "
 "set the priority in the next step based an Criticality and Impact."
 msgstr ""
+"イベントモジュールの登録。現在、サービスの重要度はサービス側でも設定できます"
+"が、効果はありません。そのため、サービスが割り当てられた時点でチケットの"
+"ダイナミックフィールド Criticality を自動的に更新するイベントモジュールを実装"
+"しています。次のステップで重要度と影響度に基づいて優先度を設定するには、"
+"システム設定オプション SetPriorityFromCriticalityAndImpactMatrix を有効にして"
+"ください。"
 
 #. SysConfig
 msgid ""
@@ -313,20 +366,25 @@ msgid ""
 "module has been implemented that automatically updates the priority "
 "regarding Criticality and Impact in a ticket."
 msgstr ""
+"イベントモジュールの登録。現在、サービスの重要度はサービス側でも設定できます"
+"が、効果はありません。そのため、チケットの重要度と影響度に応じて優先度を自動"
+"的に更新するイベントモジュールを実装しています。"
 
 #. SysConfig
 msgid "Find the right service for your ticket"
-msgstr ""
+msgstr "チケットに合ったサービスを探す"
 
 #. SysConfig
 msgid "Show services with the following ticket type last."
-msgstr ""
+msgstr "次のチケットタイプのサービスを最後に表示します。"
 
 #. SysConfig
 msgid ""
 "The FAQ field that should be used as the description of an FAQ article in "
 "the sidebar (e.g. Field1, Field2, Field3...)."
 msgstr ""
+"サイドバーで FAQ 記事の説明として使用する FAQ のフィールド（例: Field1、"
+"Field2、Field3...）。"
 
 #. SysConfig
 msgid ""
@@ -336,6 +394,10 @@ msgid ""
 "console script can also be used to create ACLs for services that have "
 "already been create."
 msgstr ""
+"このオプションにより、サービスの作成時に各インタフェース用の ACL を自動生成で"
+"きます。その場合、サービスに登録されたチケットタイプが選択されたときにのみ、"
+"そのサービスが表示されます。すでに作成済みのサービスの ACL を作成するには、"
+"コンソールスクリプト \"AddBulkACL\" も使用できます。"
 
 #. SysConfig
 msgid ""
@@ -349,7 +411,16 @@ msgid ""
 "changed ACL should also be deployed immediately. \"ACLValidID\" (1, 2, 3) "
 "sets the ACLs to valid, invalid or temporarily invalid."
 msgstr ""
+"このオプションにより、自動生成される ACL を事前に設定できます。目的は、"
+"サービスカタログでサービスに割り当てられたものだけを表示することです。この機"
+"能を使用するには、まず \"ServiceCatalog::CreateTypeServiceRelatedAcls\" "
+"オプションを有効にしてください。\"GenerateInitalACLToDisableAllServices\" は"
+"、最初にすべてのサービスを非表示にする ACL を生成します。キー "
+"\"ConfigChange\" には \"Possible\" または \"PossibleAdd\" を設定できます。"
+"キー \"DeployNewACL\" は、変更した ACL をすぐにデプロイするかどうかを決定しま"
+"す。\"ACLValidID\"（1、2、3）は、ACL を有効、無効、一時的に無効のいずれかに設"
+"定します。"
 
 #. SysConfig
 msgid "Tile registration for the CustomerDashboard. Module is required."
-msgstr ""
+msgstr "CustomerDashboard のタイル登録。Module は必須です。"
