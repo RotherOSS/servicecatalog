@@ -2768,7 +2768,7 @@ sub UpdateTypServiceACL {
     my ( $Self, %Param ) = @_;
 
     # validate parameters
-    for my $Needed (qw(ServiceID ServiceValid UserID)) {
+    for my $Needed (qw(ServiceID ServiceValid TicketTypeIDs UserID)) {
         if ( !defined $Param{$Needed} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
@@ -2779,6 +2779,15 @@ sub UpdateTypServiceACL {
         }
     }
 
+    # the list of types can be empty
+    if ( ref $Param{TicketTypeIDs} ne 'ARRAY' ) {
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority => 'error',
+            Message  => "The parameter TicketTypeIDs must be an arrayref!",
+        );
+
+        return;
+    }
 
     my $ACLObject     = $Kernel::OM->Get('Kernel::System::ACL::DB::ACL');
     my $ConfigObject  = $Kernel::OM->Get('Kernel::Config');
@@ -2793,11 +2802,54 @@ sub UpdateTypServiceACL {
     my $ACLValidID                            = $Param{ACLValidID}                            || $ACLOptions->{ACLValidID};
     my $FrontendAction                        = $Param{FrontendAction}                        || $ACLOptions->{FrontendAction};
 
-    my $TicketType = $TypeObject->TypeLookup( TypeID => $Param{TicketTypeID} );
-    my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
+    # Generate a initial ACL, which disable all services
+    if ( $GenerateInitalACLToDisableAllServices eq '1' ) {
+
+        my $ACLDisableName = 'zza - Disable all Services if no Ticket-Type is selected.';
+
+        # Check if disable ACL exists
+        my $ACL = $ACLObject->ACLGet(
+            Name   => $ACLDisableName,
+            UserID => 1,
+        );
+
+        # Create ACL if it not exists
+        if ( !IsHashRefWithData($ACL) ) {
+            my $DisableConfigMatchHashRef = {};
+            $DisableConfigMatchHashRef->{Properties}->{Frontend}->{Action} = $FrontendAction;
+
+            my $DisableConfigChangeHashRef = {
+                PossibleNot => {
+                    Ticket => {
+                        Service => ['[RegExp].*'],
+                    }
+                }
+            };
+
+            my %NewACL = (
+                Name           => $ACLDisableName,
+                Comment        => 'This ACL was generated when a service was added or changed.',
+                Description    => 'This ACL is used to restrict Services per Ticket-Type',
+                StopAfterMatch => 0,
+                ConfigMatch    => $DisableConfigMatchHashRef,
+                ConfigChange   => $DisableConfigChangeHashRef,
+                ValidID        => $ACLValidID,
+            );
+
+            my $Success = $ACLObject->ACLAdd(
+                %NewACL,
+                UserID => 1,
+            );
+        }
+    }
+
     my $ServiceName   = $ServiceObject->ServiceLookup( ServiceID => $Param{ServiceID} );
     my $Success;
 
+    TICKET_TYPE_ID:
+    for my $TicketTypeID ( $Param{TicketTypeIDs}->@* ) {
+
+    my $TicketType = $TypeObject->TypeLookup( TypeID => $TicketTypeID );
     if ( !$TicketType ) {
 
         # Remove Service from all ACLs.
@@ -2836,43 +2888,7 @@ sub UpdateTypServiceACL {
             }
         }
 
-        return 1;
-    }
-
-    # Generate a initial ACL, which disable all services
-    if ( $GenerateInitalACLToDisableAllServices eq '1' ) {
-
-        my $ACLDisableName = 'zza - Disable all Services if no Ticket-Type is selected.';
-
-        # Check if disable ACL exists
-        my $ACL = $ACLObject->ACLGet(
-            Name   => $ACLDisableName,
-            UserID => 1,
-        );
-
-        # Create ACL if it not exists
-        if ( !IsHashRefWithData($ACL) ) {
-            my $DisableConfigMatchHashRef = {};
-            $DisableConfigMatchHashRef->{Properties}->{Frontend}->{Action} = $FrontendAction;
-
-            my $DisableConfigChangeHashRef = {};
-            $DisableConfigChangeHashRef->{PossibleNot}{Ticket}{Service} = ['[RegExp].*'];
-
-            my %NewACL = (
-                Name           => $ACLDisableName,
-                Comment        => 'This ACL was generated when a service was added or changed.',
-                Description    => 'This ACL is used to restrict Services per Ticket-Type',
-                StopAfterMatch => 0,
-                ConfigMatch    => $DisableConfigMatchHashRef,
-                ConfigChange   => $DisableConfigChangeHashRef,
-                ValidID        => $ACLValidID,
-            );
-
-            $Success = $ACLObject->ACLAdd(
-                %NewACL,
-                UserID => 1,
-            );
-        }
+        next TICKET_TYPE_ID;
     }
 
     my $ACLName = 'zzz - Show Service based on Ticket-Type: ' . $TicketType;
@@ -2889,7 +2905,8 @@ sub UpdateTypServiceACL {
                 UserID => 1,
             );
         }
-        return;
+
+        next TICKET_TYPE_ID;
     }
     else {
         my $Action;
@@ -2960,11 +2977,11 @@ sub UpdateTypServiceACL {
             Message  => 'Could not ' . ( $Param{Delete} ? 'delete' : 'update' ) . " ACL $ACLName!",
         );
 
-        return;
+        next TICKET_TYPE_ID;
     }
 
     # Don't deploy new ACL, cause ServiceCatalog::CreateTypeServiceRelatedAcls::Options -> Deploy is disabled
-    return 1 unless $ACLDeploy eq '1';
+    next TICKET_TYPE_ID unless $ACLDeploy eq '1';
 
     # deploy new ACLs - taken from Kernel/Modules/AdminACL
     my $Location = $Kernel::OM->Get('Kernel::Config')->Get('Home') . '/Kernel/Config/Files/ZZZACL.pm';
@@ -2993,7 +3010,8 @@ sub UpdateTypServiceACL {
             Message  => 'Could not deploy ACLs - manual fix needed!',
         );
 
-        return;
+        next TICKET_TYPE_ID;
+    }
     }
 
     return 1;
