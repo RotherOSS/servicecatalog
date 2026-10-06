@@ -640,7 +640,7 @@ sub ServiceGet {
 
     # Get all linked ticket type IDs.
     my @TicketTypeIDs = $DBObject->SelectColArray(
-        SQL  => 'SELECT ticket_type_id FROM service_type WHERE service_id = ?',
+        SQL  => 'SELECT ticket_type_id FROM service_type WHERE service_id = ? ORDER BY ticket_type_id',
         Bind => [ \$Param{ServiceID} ],
     );
     $ServiceData{TicketTypeIDs} = \@TicketTypeIDs;
