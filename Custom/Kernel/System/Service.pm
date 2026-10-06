@@ -639,16 +639,10 @@ sub ServiceGet {
     }
 
     # Get all linked ticket type IDs.
-    $DBObject->Prepare(
-        SQL =>
-            'SELECT ticket_type_id FROM service_type WHERE service_id = ?',
-        Bind  => [ \$Param{ServiceID} ],
+    my @TicketTypeIDs = $DBObject->SelectColArray(
+        SQL  => 'SELECT ticket_type_id FROM service_type WHERE service_id = ?',
+        Bind => [ \$Param{ServiceID} ],
     );
-
-    my @TicketTypeIDs;
-    while ( my @Row = $DBObject->FetchrowArray() ) {
-        push @TicketTypeIDs, $Row[0];
-    }
     $ServiceData{TicketTypeIDs} = \@TicketTypeIDs;
 
 # EO ServiceCatalog
