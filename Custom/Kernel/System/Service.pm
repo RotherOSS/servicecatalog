@@ -2767,6 +2767,7 @@ Returns:
 sub UpdateTypServiceACL {
     my ( $Self, %Param ) = @_;
 
+    # validate parameters
     for my $Needed (qw(ServiceID ServiceValid UserID)) {
         if ( !defined $Param{$Needed} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
@@ -2778,11 +2779,11 @@ sub UpdateTypServiceACL {
         }
     }
 
-    my $Success;
-    my $ACLName;
 
-    my $ACLObject    = $Kernel::OM->Get('Kernel::System::ACL::DB::ACL');
-    my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
+    my $ACLObject     = $Kernel::OM->Get('Kernel::System::ACL::DB::ACL');
+    my $ConfigObject  = $Kernel::OM->Get('Kernel::Config');
+    my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
+    my $TypeObject    = $Kernel::OM->Get('Kernel::System::Type');
 
     my $ACLOptions = $ConfigObject->Get('ServiceCatalog::CreateTypeServiceRelatedAcls::Options');
 
@@ -2792,11 +2793,10 @@ sub UpdateTypServiceACL {
     my $ACLValidID                            = $Param{ACLValidID}                            || $ACLOptions->{ACLValidID};
     my $FrontendAction                        = $Param{FrontendAction}                        || $ACLOptions->{FrontendAction};
 
-    my $TypeObject = $Kernel::OM->Get('Kernel::System::Type');
     my $TicketType = $TypeObject->TypeLookup( TypeID => $Param{TicketTypeID} );
-
     my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
     my $ServiceName   = $ServiceObject->ServiceLookup( ServiceID => $Param{ServiceID} );
+    my $Success;
 
     if ( !$TicketType ) {
 
@@ -2875,7 +2875,7 @@ sub UpdateTypServiceACL {
         }
     }
 
-    $ACLName = 'zzz - Show Service based on Ticket-Type: ' . $TicketType;
+    my $ACLName = 'zzz - Show Service based on Ticket-Type: ' . $TicketType;
 
     my $ACL = $ACLObject->ACLGet(
         Name   => $ACLName,

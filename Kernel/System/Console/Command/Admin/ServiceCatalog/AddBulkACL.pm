@@ -16,12 +16,20 @@
 
 package Kernel::System::Console::Command::Admin::ServiceCatalog::AddBulkACL;
 
+use v5.26;
 use strict;
 use warnings;
-
-use Kernel::System::VariableCheck qw(:all);
+use namespace::autoclean;
+use utf8;
 
 use parent qw(Kernel::System::Console::BaseCommand);
+
+# core modules
+
+# CPAN modules
+
+# OTOBO modules
+use Kernel::System::VariableCheck qw(:all);
 
 our @ObjectDependencies = (
     'Kernel::System::Service',
@@ -31,7 +39,9 @@ our @ObjectDependencies = (
 sub Configure {
     my ( $Self, %Param ) = @_;
 
-    $Self->Description('Add new Ticket-Type Ticket-Service ACLs.');
+    $Self->Description('Add new ACLs that filter the list of services based on the ticket type.');
+
+    # there are no options
 
     return;
 }
@@ -39,6 +49,7 @@ sub Configure {
 sub PreRun {
     my ( $Self, %Param ) = @_;
 
+    # nothing to do
     return;
 }
 
@@ -46,11 +57,12 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     $Self->Print("<yellow>Adding new ACLs...</yellow>\n");
+
     my $TypeObject    = $Kernel::OM->Get('Kernel::System::Type');
     my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
 
     # Get all services.
-    my $ServiceList = $Kernel::OM->Get('Kernel::System::Service')->ServiceListGet(
+    my $ServiceList = $ServiceObject->ServiceListGet(
         Valid  => 1,
         UserID => 1,
     );
@@ -73,7 +85,9 @@ sub Run {
 
         }
     }
+
     $Self->Print("<green>Done.</green>\n");
+
     return $Self->ExitCodeOk();
 }
 
