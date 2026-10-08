@@ -251,4 +251,61 @@ note "add the zzz ACLs for service 1";
     };
 }
 
+note "claim that service 0 is invalid";
+{
+    my $ServiceID = $ServiceIDs[0];
+
+    my %Service = $ServiceObject->ServiceGet(
+        ServiceID => $ServiceID,
+        UserID    => 1,
+    );
+    is( $Service{TicketTypeIDs}, \@TicketTypeIDs, 'TicketTypeIDs' );
+
+    # Create the zzz ACLs
+    $ServiceObject->UpdateTypeServiceACL(
+        TicketTypeIDs => $Service{TicketTypeIDs},
+        ServiceID     => $Service{ServiceID},
+        ServiceValid  => 2,                         # invalid
+        UserID        => 1,
+    );
+
+    subtest "zzz ACLs for service 1" => sub {
+        my $ACLs = $ACLObject->ACLListGet(
+            UserID     => $UserIDs[0],
+            ObjectType => ['Ticket'],
+        );
+        my %ACLName2ID = map { $_->{Name} => $_->{ID} } $ACLs->@*;
+        my $Prefix     = 'zzz - Show Service based on Ticket-Type: ';
+
+        # Service 0 is invalid So there should be ACLs
+        # for all ticket types and only service 1 should be included in the ACL.
+        TICKET_TYPE_NAME:
+        for my $TicketTypeName (@TicketTypeNames) {
+            my $ACLID = $ACLName2ID{ $Prefix . $TicketTypeName };
+            ok( $ACLID, "zzz ACL for $TicketTypeName" );
+
+            next TICKET_TYPE_NAME unless $ACLID;
+
+            my $ACL = $ACLObject->ACLGet(
+                ID     => $ACLID,
+                UserID => 1,
+            );
+            diag explain $ACL;
+            like(
+                $ACL,
+                {
+                    'ConfigChange' => {
+                        'Possible' => {
+                            'Ticket' => {
+                                'Service' => [ $ServiceNames[1] ],    # only service 1
+                            }
+                        }
+                    },
+                },
+                'Service 0 is no longer possible'
+            );
+        }
+    };
+}
+
 done_testing;

@@ -38,7 +38,7 @@ our @ObjectDependencies = (
     'Kernel::System::Main',
     'Kernel::System::Translations',
     'Kernel::System::Valid',
-# RotherOSS ServiceCatalog
+# Rother OSS ServiceCatalog
     'Kernel::System::ACL::DB::ACL',
     'Kernel::System::Encode',
     'Kernel::System::Queue',
@@ -46,7 +46,7 @@ our @ObjectDependencies = (
     'Kernel::System::Type'
 # EO ServiceCatalog
 );
-# RotherOSS ServiceCatalog
+# Rother OSS ServiceCatalog
 
 =for stopwords OSS de ist
 
@@ -337,7 +337,7 @@ sub ServiceListGet {
 # Rother OSS / ITSMCore
         . ", type_id, criticality "
 # EO ITSMCore
-# RotherOSS / ServiceCatalog
+# Rother OSS / ServiceCatalog
         . ", keywords "
 # EO ServiceCatalog
         . 'FROM service';
@@ -374,7 +374,7 @@ sub ServiceListGet {
         $ServiceData{TypeID}      = $Row[8];
         $ServiceData{Criticality} = $Row[9] || '';
 # EO ITSMCore
-# RotherOSS / ServiceCatalog
+# Rother OSS / ServiceCatalog
         $ServiceData{Keywords}         = $Row[10];
 # EO ServiceCatalog
         # add service data to service list
@@ -403,7 +403,7 @@ sub ServiceListGet {
         if (%Preferences) {
             %{$ServiceData} = ( %{$ServiceData}, %Preferences );
         }
-# RotherOSS / ServiceCatalog
+# Rother OSS / ServiceCatalog
 
         # Get all linked ticket type IDs.
         $DBObject->Prepare(
@@ -428,7 +428,7 @@ sub ServiceListGet {
         );
         $ServiceData = \%NewServiceData;
 # EO ITSMCore
-# RotherOSS / ServiceCatalog
+# Rother OSS / ServiceCatalog
 
         # get service descriptions data
         $DBObject->Prepare(
@@ -2797,27 +2797,30 @@ sub UpdateTypeServiceACL {
     my $ACLOptions = $ConfigObject->Get('ServiceCatalog::CreateTypeServiceRelatedAcls::Options');
 
     my $GenerateInitalACLToDisableAllServices = $Param{GenerateInitalACLToDisableAllServices} || $ACLOptions->{GenerateInitalACLToDisableAllServices};
+    my $FrontendAction                        = $Param{FrontendAction}                        || $ACLOptions->{FrontendAction};
     my $Possible                              = $Param{ConfigChange}                          || $ACLOptions->{ConfigChange};
     my $ACLDeploy                             = $Param{ACLDeploy}                             || $ACLOptions->{ACLDeploy};
     my $ACLValidID                            = $Param{ACLValidID}                            || $ACLOptions->{ACLValidID};
-    my $FrontendAction                        = $Param{FrontendAction}                        || $ACLOptions->{FrontendAction};
 
     # Generate a initial ACL, which disable all services
     if ( $GenerateInitalACLToDisableAllServices eq '1' ) {
-
         my $ACLDisableName = 'zza - Disable all Services if no Ticket-Type is selected.';
 
-        # Check if disable ACL exists
+        # Check if the disable ACL exists
         my $ACL = $ACLObject->ACLGet(
             Name   => $ACLDisableName,
             UserID => 1,
         );
 
-        # Create ACL if it not exists
+        # Create ACL if it does not exist
         if ( !IsHashRefWithData($ACL) ) {
-            my $DisableConfigMatchHashRef = {};
-            $DisableConfigMatchHashRef->{Properties}->{Frontend}->{Action} = $FrontendAction;
-
+            my $DisableConfigMatchHashRef = {
+                Properties => {
+                    Frontend => {
+                        Action => $FrontendAction
+                    },
+                }
+            };
             my $DisableConfigChangeHashRef = {
                 PossibleNot => {
                     Ticket => {
@@ -2825,71 +2828,166 @@ sub UpdateTypeServiceACL {
                     }
                 }
             };
-
-            my %NewACL = (
+            my $Success = $ACLObject->ACLAdd(
                 Name           => $ACLDisableName,
                 Comment        => 'This ACL was generated when a service was added or changed.',
-                Description    => 'This ACL is used to restrict Services per Ticket-Type',
+                Description    => 'This ACL is used to disable all ticket services irregardless of the ticket type.',
                 StopAfterMatch => 0,
                 ConfigMatch    => $DisableConfigMatchHashRef,
                 ConfigChange   => $DisableConfigChangeHashRef,
                 ValidID        => $ACLValidID,
+                UserID         => 1,
             );
+        }
+    }
 
-            my $Success = $ACLObject->ACLAdd(
-                %NewACL,
+    # Loop over all ticket types and handle the different cases:
+    #
+    # A) ACL does not exist
+    #   A;1) the service does not have the type => do nothing
+    #   A;2) the service has the type           => create the ACL with the single service
+    #
+    # B) ACL exists
+    #   B;1) the service has the type
+    #     B;1;1) the service is in the ACL            => do nothing
+    #     B;1;2) the service isn't in the ACL         => add the service to the ACL
+    #   B;2) the service does not have the type
+    #     B;2;1) the service is not in the ACL        => do nothing
+    #     B;2;2) the service is in the ACL
+    #       B;2;2;1) the service is the only one      => remove the ACL
+    #       B;2;2;1) the service is not the only one  => remove the service from the ACL
+    #
+    # First the necessary actions are collected and then executed
+    {
+        my @Actions;
+        my $ServiceID        = $Param{ServiceID};
+
+        # An invalid service is handled just like a service with no ticket types
+        my %ServiceHasTypeID = $Param{ServiceValid} == 1 ?
+            map { $_ => 1 } $Param{TicketTypeIDs}->@*
+            :
+            ();
+        my %TypeID2Name = $TypeObject->TypeList(
+            Valid => 1,
+        );
+        my %TypeID2ACLName = map { $_ => 'zzz - Show Service based on Ticket-Type: ' . $TypeID2Name{$_} } keys %TypeID2Name;
+        TYPE_ID:
+        for my $TypeID (keys %TypeID2Name) {
+            my $ServiceHasType = $ServiceHasTypeID{$TypeID};
+
+            # Check if zzz ACL exists
+            my $ACLName = $TypeID2ACLName{$TypeID};
+            my $ACL     = $ACLObject->ACLGet(
+                Name   => $ACLName,
                 UserID => 1,
             );
+
+            # A) ACL does not exist
+            if ( !defined $ACL) {
+
+                # A;1) the service does not have the type
+                next TYPE_ID unless $ServiceHasType;
+
+                # A;2) the service has the type
+                push @Actions, [ 'CreateACL', $TypeID, $ServiceID ];
+            }
+
+            # B) ACL exists
+            else {
+                my $ServiceName      = $ServiceObject->ServiceLookup( ServiceID => $ServiceID );
+                my @ServicesOfACL    = ( $ACL->{ConfigChange}->{$Possible}->{Ticket}->{Service} // [] )->@*;
+                my $NumServicesInACL = @ServicesOfACL;
+                my $ServiceIsInACL   = grep { $_ eq $ServiceName } @ServicesOfACL;
+
+                # B;1) the service has the type
+                if ($ServiceHasType) {
+
+                    # B;1;1) the service is in the ACL
+                    next TYPE_ID if $ServiceIsInACL;
+
+                    # B;1;2) the service isn't in the ACL
+                    push @Actions, [ 'AddServiceToACL', $TypeID, $ServiceID ];
+                }
+
+                # B;2) the service does not have the type
+                else {
+
+                    # B;2;1) the service is not in the ACL
+                    next TYPE_ID unless $ServiceIsInACL;
+
+                    # B;2;2;1) the service is the only one      => remove the ACL
+                    if ($NumServicesInACL == 1) {
+                        push @Actions, [ 'DeleteACL', $TypeID ];
+                    }
+
+                    # B;2;2;1) the service is not the only one  => remove the service from the ACL
+                    else {
+                        push @Actions, [ 'RemoveServiceFromACL', $TypeID, $ServiceID ];
+                    }
+                }
+            }
+        }
+
+        for my $Action (@Actions) {
+            my ($Command, $TypeID, @Param) = $Action->@*;
+
+            my $ACLName = $TypeID2ACLName{$TypeID};
+
+            if ( $Command eq 'RemoveServiceFromACL' ) {
+                my ($ServiceID) = @Param;
+                my $ACL     = $ACLObject->ACLGet(
+                    Name   => $ACLName,
+                    UserID => 1,
+                );
+                my $ServiceName      = $ServiceObject->ServiceLookup( ServiceID => $ServiceID );
+                my @ServicesOfACL    = ( $ACL->{ConfigChange}->{$Possible}->{Ticket}->{Service} // [] )->@*;
+                my @NewServicesOfACL = grep { $_ ne $ServiceName } @ServicesOfACL;
+                my %ConfigChange     = (
+                    $Possible => {
+                        Ticket => {
+                            Service => \@NewServicesOfACL,
+                        }
+                    },
+                );
+
+                $ACLObject->ACLUpdate(
+                    $ACL->%*,
+                    ConfigChange => \%ConfigChange,
+                    UserID => 1,
+                );
+            }
+            elsif ( $Command eq 'AddServiceToACL' ) {
+                my ($ServiceID) = @Param;
+                my $ACL     = $ACLObject->ACLGet(
+                    Name   => $ACLName,
+                    UserID => 1,
+                );
+                my $ServiceName      = $ServiceObject->ServiceLookup( ServiceID => $ServiceID );
+                my @ServicesOfACL    = ( $ACL->{ConfigChange}->{$Possible}->{Ticket}->{Service} // [] )->@*;
+                my @NewServicesOfACL = ( @ServicesOfACL, $ServiceName );
+                my %ConfigChange     = (
+                    $Possible => {
+                        Ticket => {
+                            Service => \@NewServicesOfACL,
+                        }
+                    },
+                );
+
+                $ACLObject->ACLUpdate(
+                    $ACL->%*,
+                    ConfigChange => \%ConfigChange,
+                    UserID => 1,
+                );
+            }
         }
     }
 
     my $ServiceName   = $ServiceObject->ServiceLookup( ServiceID => $Param{ServiceID} );
     my $Success;
-
     TICKET_TYPE_ID:
     for my $TicketTypeID ( $Param{TicketTypeIDs}->@* ) {
 
     my $TicketType = $TypeObject->TypeLookup( TypeID => $TicketTypeID );
-    if ( !$TicketType ) {
-
-        # Remove Service from all ACLs.
-        my %TypeList = $TypeObject->TypeList(
-            Valid => 1,
-        );
-
-        TYPE:
-        for my $TicketType ( values %TypeList ) {
-
-            my $ACLRemoveName = 'zzz - Show Service based on Ticket-Type: ' . $TicketType;
-
-            # Check if disable ACL exists
-            my $ACL = $ACLObject->ACLGet(
-                Name   => $ACLRemoveName,
-                UserID => 1,
-            );
-
-            if ( IsHashRefWithData($ACL) ) {
-                my $ConfigChangeHashRefOld = $ACL->{ConfigChange};
-                my $OldServices            = ( $ConfigChangeHashRefOld->{$Possible} && $ConfigChangeHashRefOld->{$Possible}{Ticket} )
-                    ?
-                    ( $ConfigChangeHashRefOld->{$Possible}{Ticket}{Service} // [] )
-                    :
-                    [];
-                my @ConfigServices = $OldServices->@*;
-                @ConfigServices = grep { $_ !~ /$ServiceName/ } @ConfigServices;
-
-                $ConfigChangeHashRefOld->{$Possible}{Ticket}{Service} = [@ConfigServices];
-                $ACL->{ConfigChange} = $ConfigChangeHashRefOld;
-
-                $Success = $ACLObject->ACLUpdate(
-                    $ACL->%*,
-                    UserID => 1,
-                );
-            }
-        }
-
-        next TICKET_TYPE_ID;
-    }
 
     my $ACLName = 'zzz - Show Service based on Ticket-Type: ' . $TicketType;
 
@@ -2898,17 +2996,7 @@ sub UpdateTypeServiceACL {
         UserID => 1,
     );
 
-    if ( $Param{ServiceValid} != 1 ) {
-        if ($ACL) {
-            $Success = $ACLObject->ACLDelete(
-                ID     => $ACL->{ID},
-                UserID => 1,
-            );
-        }
-
-        next TICKET_TYPE_ID;
-    }
-    else {
+    {
         my $Action;
         my $ConfigChangeHashRefOld = $ACL->{ConfigChange};
 
@@ -2957,11 +3045,7 @@ sub UpdateTypeServiceACL {
         );
 
         if ( IsHashRefWithData($ACL) ) {
-            $Success = $ACLObject->ACLUpdate(
-                $ACL->%*,
-                %NewACL,
-                UserID => 1,
-            );
+            $Success = 1;
         }
         else {
             $Success = $ACLObject->ACLAdd(
