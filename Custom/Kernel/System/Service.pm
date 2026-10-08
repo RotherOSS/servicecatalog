@@ -2767,10 +2767,12 @@ Returns:
 sub UpdateTypeServiceACL {
     my ( $Self, %Param ) = @_;
 
+    my $LogObject     = $Kernel::OM->Get('Kernel::System::Log');
+
     # validate parameters
     for my $Needed (qw(ServiceID ServiceValid TicketTypeIDs UserID)) {
         if ( !defined $Param{$Needed} ) {
-            $Kernel::OM->Get('Kernel::System::Log')->Log(
+            $LogObject->Log(
                 Priority => 'error',
                 Message  => "Need $Needed!",
             );
@@ -2781,7 +2783,7 @@ sub UpdateTypeServiceACL {
 
     # the list of types can be empty
     if ( ref $Param{TicketTypeIDs} ne 'ARRAY' ) {
-        $Kernel::OM->Get('Kernel::System::Log')->Log(
+        $LogObject->Log(
             Priority => 'error',
             Message  => "The parameter TicketTypeIDs must be an arrayref!",
         );
@@ -2950,11 +2952,17 @@ sub UpdateTypeServiceACL {
                     },
                 );
 
-                $ACLObject->ACLUpdate(
+                my $Success = $ACLObject->ACLUpdate(
                     $ACL->%*,
                     ConfigChange => \%ConfigChange,
                     UserID => 1,
                 );
+                if (!$Success) {
+                    $LogObject->Log(
+                        Priority => 'error',
+                        Message  => "Could not update ACL $ACLName!",
+                    );
+                }
             }
             elsif ( $Command eq 'AddServiceToACL' ) {
                 my ($ServiceID) = @Param;
@@ -2973,11 +2981,55 @@ sub UpdateTypeServiceACL {
                     },
                 );
 
-                $ACLObject->ACLUpdate(
+                my $Success = $ACLObject->ACLUpdate(
                     $ACL->%*,
                     ConfigChange => \%ConfigChange,
                     UserID => 1,
                 );
+                if (!$Success) {
+                    $LogObject->Log(
+                        Priority => 'error',
+                        Message  => "Could not update ACL $ACLName!",
+                    );
+                }
+            }
+            elsif ( $Command eq 'CreateACL' ) {
+                my ($ServiceID) = @Param;
+                my $ServiceName = $ServiceObject->ServiceLookup( ServiceID => $ServiceID );
+                my $TicketType  = $TypeObject->TypeLookup( TypeID => $TypeID );
+                my %ConfigMatch = (
+                    Properties => {
+                        Ticket => {
+                            Type => ["$TicketType"]
+                        },
+                        Frontend => {
+                            Action => $FrontendAction,
+                        },
+                    }
+                );
+                my %ConfigChange = (
+                    $Possible => {
+                        Ticket => {
+                            Service => [$ServiceName],
+                        },
+                    },
+                );
+                my $Success = $ACLObject->ACLAdd(
+                    Name           => $ACLName,
+                    Comment        => 'This ACL was generated when a service was added or changed.',
+                    Description    => 'This ACL is used to restrict Services per Ticket-Type',
+                    StopAfterMatch => 0,
+                    ConfigMatch    => \%ConfigMatch,
+                    ConfigChange   => \%ConfigChange,
+                    ValidID        => $ACLValidID,
+                    UserID => 1,
+                );
+                if (!$Success) {
+                    $LogObject->Log(
+                        Priority => 'error',
+                        Message  => "Could not create ACL $ACLName!",
+                    );
+                }
             }
         }
     }
@@ -3033,35 +3085,6 @@ sub UpdateTypeServiceACL {
         else {
             $ConfigChangeHashRef = $ConfigChangeHashRefOld;
         }
-
-        my %NewACL = (
-            Name           => $ACLName,
-            Comment        => 'This ACL was generated when a service was added or changed.',
-            Description    => 'This ACL is used to restrict Services per Ticket-Type',
-            StopAfterMatch => 0,
-            ConfigMatch    => $ConfigMatchHashRef,
-            ConfigChange   => $ConfigChangeHashRef,
-            ValidID        => $ACLValidID,
-        );
-
-        if ( IsHashRefWithData($ACL) ) {
-            $Success = 1;
-        }
-        else {
-            $Success = $ACLObject->ACLAdd(
-                %NewACL,
-                UserID => 1,
-            );
-        }
-    }
-
-    if ( !$Success ) {
-        $Kernel::OM->Get('Kernel::System::Log')->Log(
-            Priority => 'error',
-            Message  => 'Could not ' . ( $Param{Delete} ? 'delete' : 'update' ) . " ACL $ACLName!",
-        );
-
-        next TICKET_TYPE_ID;
     }
 
     # Don't deploy new ACL, cause ServiceCatalog::CreateTypeServiceRelatedAcls::Options -> Deploy is disabled
@@ -3089,7 +3112,7 @@ sub UpdateTypeServiceACL {
     }
 
     if ( !$Success ) {
-        $Kernel::OM->Get('Kernel::System::Log')->Log(
+        $LogObject->Log(
             Priority => 'error',
             Message  => 'Could not deploy ACLs - manual fix needed!',
         );
