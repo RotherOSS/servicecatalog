@@ -75,7 +75,7 @@ sub Run {
 
         # Create ACL if config is enabled
         # We create one ACL per ticket type.
-        $ServiceObject->UpdateTypServiceACL(
+        $ServiceObject->UpdateTypeServiceACL(
             TicketTypeIDs => $Service->{TicketTypeIDs},
             ServiceID     => $Service->{ServiceID},
             ServiceValid  => $Service->{ValidID},

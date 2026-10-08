@@ -2747,15 +2747,15 @@ sub AttachmentDelete {
 
 =for stopwords acl
 
-=head2 UpdateTypServiceACL()
+=head2 UpdateTypeServiceACL()
 
 create or update an ACL that shows or hides the relevant service depending on the ticket type.
 
-    my $Success = $ServiceObject->UpdateTypServiceACL(
-        ServiceID    => 123,
-        TicketTypeID => 1,      # Optional, remove service from all ACLs when the ticket type is not given
-        ServiceValid => 0|1|2,  # whether a service should be valid, invalid, or temporarily invalid
-        UserID       => 1,
+    my $Success = $ServiceObject->UpdateTypeServiceACL(
+        ServiceID     => 123,
+        TicketTypeIDs => [1, 2, 3], # Optional, remove service from all ACLs when the ticket type is not given
+        ServiceValid  => 0|1|2,     # whether a service should be valid, invalid, or temporarily invalid
+        UserID        => 1,
     );
 
 Returns:
@@ -2764,7 +2764,7 @@ Returns:
 
 =cut
 
-sub UpdateTypServiceACL {
+sub UpdateTypeServiceACL {
     my ( $Self, %Param ) = @_;
 
     # validate parameters
