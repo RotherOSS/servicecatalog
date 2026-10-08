@@ -3031,69 +3031,38 @@ sub UpdateTypeServiceACL {
                     );
                 }
             }
-        }
-    }
+            elsif ( $Command eq 'DeleteACL' ) {
 
-    my $ServiceName   = $ServiceObject->ServiceLookup( ServiceID => $Param{ServiceID} );
-    my $Success;
-    TICKET_TYPE_ID:
-    for my $TicketTypeID ( $Param{TicketTypeIDs}->@* ) {
-
-    my $TicketType = $TypeObject->TypeLookup( TypeID => $TicketTypeID );
-
-    my $ACLName = 'zzz - Show Service based on Ticket-Type: ' . $TicketType;
-
-    my $ACL = $ACLObject->ACLGet(
-        Name   => $ACLName,
-        UserID => 1,
-    );
-
-    {
-        my $Action;
-        my $ConfigChangeHashRefOld = $ACL->{ConfigChange};
-
-        my $OldServices = ( $ConfigChangeHashRefOld->{$Possible} && $ConfigChangeHashRefOld->{$Possible}{Ticket} )
-            ?
-            ( $ConfigChangeHashRefOld->{$Possible}{Ticket}{Service} // [] )
-            :
-            [];
-        my @ConfigServices = $OldServices->@*;
-
-        my $ConfigMatchHashRef = {
-            Properties => {
-                Ticket => {
-                    Type => ["$TicketType"]
-                },
-                Frontend => {
-                    Action => $FrontendAction,
-                },
+                # Deletion is fine as the zza ACL dictates whether no or all services
+                # are shown when there is zzz ACL for the ticket type.
+                my $Success = 0;
+                my $ACL     = $ACLObject->ACLGet(
+                    Name   => $ACLName,
+                    UserID => 1,
+                );
+                if ($ACL && $ACL->{ID} ) {
+                    $Success = $ACLObject->ACLDelete(
+                        ID => $ACL->{ID},
+                        UserID => 1,
+                    );
+                }
+                if (!$Success) {
+                    $LogObject->Log(
+                        Priority => 'error',
+                        Message  => "Could not delete ACL $ACLName!",
+                    );
+                }
             }
-        };
-        my $ConfigChangeHashRef = {};
-
-        if ( !grep { $_ =~ /$ServiceName/ } @ConfigServices ) {
-            push @ConfigServices, $ServiceName;
-            $ConfigChangeHashRef->{$Possible}{Ticket}{Service} = [@ConfigServices];
-
-            if ( IsArrayRefWithData( \@ConfigServices ) ) {
-                $Action = 'Update';
-            }
-            else {
-                $Action = 'Delete';
-            }
-        }
-        else {
-            $ConfigChangeHashRef = $ConfigChangeHashRefOld;
         }
     }
 
     # Don't deploy new ACL, cause ServiceCatalog::CreateTypeServiceRelatedAcls::Options -> Deploy is disabled
-    next TICKET_TYPE_ID unless $ACLDeploy eq '1';
+    return 1 unless $ACLDeploy eq '1';
 
     # deploy new ACLs - taken from Kernel/Modules/AdminACL
-    my $Location = $Kernel::OM->Get('Kernel::Config')->Get('Home') . '/Kernel/Config/Files/ZZZACL.pm';
+    my $Location = $ConfigObject->Get('Home') . '/Kernel/Config/Files/ZZZACL.pm';
 
-    $Success = $ACLObject->ACLDump(
+    my $Success = $ACLObject->ACLDump(
         ResultType => 'FILE',
         Location   => $Location,
         UserID     => 1,
@@ -3116,9 +3085,6 @@ sub UpdateTypeServiceACL {
             Priority => 'error',
             Message  => 'Could not deploy ACLs - manual fix needed!',
         );
-
-        next TICKET_TYPE_ID;
-    }
     }
 
     return 1;
