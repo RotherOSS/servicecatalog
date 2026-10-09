@@ -43,8 +43,9 @@ $Kernel::OM->ObjectParamAdd(
 );
 my $Helper = $Kernel::OM->Get('Kernel::System::UnitTest::Helper');
 
-my $RandomID  = $Helper->GetRandomID;
-my $ACLPrefix = 'zzz - Show Service based on Ticket-Type: ';
+my $RandomID       = $Helper->GetRandomID;
+my $ACLPrefix      = 'zzz - Show Service based on Ticket-Type: ';
+my $ACLDisableName = 'zza - Disable all Services if no Ticket-Type is selected.';
 
 # ------------------------------------------------------------ #
 # make preparations
@@ -128,7 +129,7 @@ subtest 'retrieval of the ticket types' => sub {
     }
 };
 
-subtest 'initially no zzz ACLs for the test ticket types' => sub {
+subtest 'initially no ACLs for the test ticket types' => sub {
     my $ACLs = $ACLObject->ACLListGet(
         UserID     => $UserIDs[0],
         ObjectType => ['Ticket'],
@@ -137,6 +138,10 @@ subtest 'initially no zzz ACLs for the test ticket types' => sub {
     for my $TicketTypeName (@TicketTypeNames) {
         ok( !$ACLName2ID{ $ACLPrefix . $TicketTypeName }, "no zzz ACL for $TicketTypeName" );
     }
+
+    # Assuming that the script runs on a fresh system,
+    # where UpdateTypeServiceACL() had never been called outside a rolled back transaction.
+    ok( !$ACLName2ID{$ACLDisableName}, 'no zza ACL' );
 };
 
 subtest 'add the zzz ACLs for the service 0' => sub {
@@ -163,6 +168,9 @@ subtest 'add the zzz ACLs for the service 0' => sub {
             ObjectType => ['Ticket'],
         );
         my %ACLName2ID = map { $_->{Name} => $_->{ID} } $ACLs->@*;
+
+        # The first call to UpdateTypeServiceACL() should also create the zza ACL.
+        ok( $ACLName2ID{$ACLDisableName}, 'zza ACL' );
 
         # Service 0 has all ticket types. So there should be ACLs
         # for all ticket types and the service should be included in the ACL.
@@ -415,7 +423,7 @@ subtest 'activate services 0 and 1 again, then remove ticket types' => sub {
 
         # Update zzz ACLs, removing service 0 from type 1
         my $Success = $ServiceObject->UpdateTypeServiceACL(
-            TicketTypeIDs => [$TicketTypeIDs[0]], # ticket type 1 is removed
+            TicketTypeIDs => [ $TicketTypeIDs[0] ],    # ticket type 1 is removed
             ServiceID     => $ServiceIDs[0],
             ServiceValid  => 1,
             UserID        => 1,
@@ -445,7 +453,7 @@ subtest 'activate services 0 and 1 again, then remove ticket types' => sub {
             # service 0 is removed from the type 1 ACL
             my @ExpectedServiceNames = @ServiceNames;
             if ( $TicketTypeName eq $TicketTypeNames[1] ) {
-                shift @ExpectedServiceNames; # remove service 0
+                shift @ExpectedServiceNames;    # remove service 0
             }
             like(
                 $ACL,
@@ -467,7 +475,7 @@ subtest 'activate services 0 and 1 again, then remove ticket types' => sub {
 
         # Update zzz ACLs, removing service 0 from type 1
         my $Success = $ServiceObject->UpdateTypeServiceACL(
-            TicketTypeIDs => [$TicketTypeIDs[0]], # ticket type 1 is removed
+            TicketTypeIDs => [ $TicketTypeIDs[0] ],    # ticket type 1 is removed
             ServiceID     => $ServiceIDs[1],
             ServiceValid  => 1,
             UserID        => 1,
