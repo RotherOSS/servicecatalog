@@ -342,5 +342,184 @@ subtest 'claim that service 1 is also invalid' => sub {
     };
 };
 
+subtest 'activate services 0 and 1 again, then remove ticket types' => sub {
+    my $ServiceID0 = $ServiceIDs[0];
+    my %Service0   = $ServiceObject->ServiceGet(
+        ServiceID => $ServiceID0,
+        UserID    => 1,
+    );
+    is( $Service0{TicketTypeIDs}, \@TicketTypeIDs, 'TicketTypeIDs for service 0' );
+
+    # Create the zzz ACLs with the services 0 and 1
+    my $Success0 = $ServiceObject->UpdateTypeServiceACL(
+        TicketTypeIDs => $Service0{TicketTypeIDs},
+        ServiceID     => $Service0{ServiceID},
+        ServiceValid  => $Service0{ValidID},
+        UserID        => 1,
+    );
+    ok( $Success0, 'Update UpdateTypeServiceACL() service 1' );
+
+    my $ServiceID1 = $ServiceIDs[1];
+    my %Service1   = $ServiceObject->ServiceGet(
+        ServiceID => $ServiceID1,
+        UserID    => 1,
+    );
+    is( $Service1{TicketTypeIDs}, \@TicketTypeIDs, 'TicketTypeIDs for service 1' );
+
+    # Create the zzz ACLs with the services 0 and 1
+    my $Success1 = $ServiceObject->UpdateTypeServiceACL(
+        TicketTypeIDs => $Service1{TicketTypeIDs},
+        ServiceID     => $Service1{ServiceID},
+        ServiceValid  => $Service1{ValidID},
+        UserID        => 1,
+    );
+    ok( $Success1, 'Update UpdateTypeServiceACL() service 1' );
+
+    subtest 'zzz ACLs for service 0 and 1 again' => sub {
+        my $ACLs = $ACLObject->ACLListGet(
+            UserID     => $UserIDs[0],
+            ObjectType => ['Ticket'],
+        );
+        my %ACLName2ID = map { $_->{Name} => $_->{ID} } $ACLs->@*;
+
+        # Service 0 and 1 have all ticket types. So there should be ACLs
+        # for all ticket types and the services should be included in the ACL.
+        TICKET_TYPE_NAME:
+        for my $TicketTypeName (@TicketTypeNames) {
+            my $ACLID = $ACLName2ID{ $ACLPrefix . $TicketTypeName };
+            ok( $ACLID, "zzz ACL for $TicketTypeName" );
+
+            next TICKET_TYPE_NAME unless $ACLID;
+
+            my $ACL = $ACLObject->ACLGet(
+                ID     => $ACLID,
+                UserID => 1,
+            );
+            like(
+                $ACL,
+                {
+                    'ConfigChange' => {
+                        'Possible' => {
+                            'Ticket' => {
+                                'Service' => [@ServiceNames],    # both service again
+                            }
+                        }
+                    },
+                },
+                'Service 0 is possible'
+            );
+        }
+    };
+
+    subtest 'zzz ACLs for service 0 and 1, service 0 removed from type 1' => sub {
+
+        # Update zzz ACLs, removing service 0 from type 1
+        my $Success = $ServiceObject->UpdateTypeServiceACL(
+            TicketTypeIDs => [$TicketTypeIDs[0]], # ticket type 1 is removed
+            ServiceID     => $ServiceIDs[0],
+            ServiceValid  => 1,
+            UserID        => 1,
+        );
+        ok( $Success, 'Update UpdateTypeServiceACL() service 0, remove type 1' );
+
+        my $ACLs = $ACLObject->ACLListGet(
+            UserID     => $UserIDs[0],
+            ObjectType => ['Ticket'],
+        );
+        my %ACLName2ID = map { $_->{Name} => $_->{ID} } $ACLs->@*;
+
+        # Service 0 and 1 have all ticket types. So there should be ACLs
+        # for all ticket types and the services should be included in the ACL.
+        TICKET_TYPE_NAME:
+        for my $TicketTypeName (@TicketTypeNames) {
+            my $ACLID = $ACLName2ID{ $ACLPrefix . $TicketTypeName };
+            ok( $ACLID, "zzz ACL for $TicketTypeName" );
+
+            next TICKET_TYPE_NAME unless $ACLID;
+
+            my $ACL = $ACLObject->ACLGet(
+                ID     => $ACLID,
+                UserID => 1,
+            );
+
+            # service 0 is removed from the type 1 ACL
+            my @ExpectedServiceNames = @ServiceNames;
+            if ( $TicketTypeName eq $TicketTypeNames[1] ) {
+                shift @ExpectedServiceNames; # remove service 0
+            }
+            like(
+                $ACL,
+                {
+                    'ConfigChange' => {
+                        'Possible' => {
+                            'Ticket' => {
+                                'Service' => [@ExpectedServiceNames],    # both service again
+                            }
+                        }
+                    },
+                },
+                "services for $TicketTypeName"
+            );
+        }
+    };
+
+    subtest 'zzz ACLs for service 0 and 1, service 0 and 1 removed from type 1' => sub {
+
+        # Update zzz ACLs, removing service 0 from type 1
+        my $Success = $ServiceObject->UpdateTypeServiceACL(
+            TicketTypeIDs => [$TicketTypeIDs[0]], # ticket type 1 is removed
+            ServiceID     => $ServiceIDs[1],
+            ServiceValid  => 1,
+            UserID        => 1,
+        );
+        ok( $Success, 'Update UpdateTypeServiceACL() service 1, remove type 1' );
+
+        my $ACLs = $ACLObject->ACLListGet(
+            UserID     => $UserIDs[0],
+            ObjectType => ['Ticket'],
+        );
+        my %ACLName2ID = map { $_->{Name} => $_->{ID} } $ACLs->@*;
+
+        # Service 0 and 1 have all ticket types. So there should be ACLs
+        # for all ticket types and the services should be included in the ACL.
+        TICKET_TYPE_NAME:
+        for my $TicketTypeName (@TicketTypeNames) {
+            my $ACLID = $ACLName2ID{ $ACLPrefix . $TicketTypeName };
+
+            if ( $TicketTypeName eq $TicketTypeNames[1] ) {
+
+                # ticket type 1 is removed from both services, thus the ACL is deleted
+                is( $ACLID, undef, 'ACL for ticket type 1 is removed' );
+
+                next TICKET_TYPE_NAME;
+            }
+
+            # The ACL for ticket type 0 is still there
+            ok( $ACLID, "zzz ACL for $TicketTypeName" );
+
+            next TICKET_TYPE_NAME unless $ACLID;
+
+            my $ACL = $ACLObject->ACLGet(
+                ID     => $ACLID,
+                UserID => 1,
+            );
+
+            # the ACL for ticket type 1 still has both services
+            like(
+                $ACL,
+                {
+                    'ConfigChange' => {
+                        'Possible' => {
+                            'Ticket' => {
+                                'Service' => [@ServiceNames],    # still both service
+                            }
+                        }
+                    },
+                },
+                "services for $TicketTypeName"
+            );
+        }
+    };
+};
 
 done_testing;
