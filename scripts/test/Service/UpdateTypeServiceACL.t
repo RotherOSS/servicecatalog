@@ -13,6 +13,7 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 # --
 
+use v5.26;
 use strict;
 use warnings;
 use utf8;
@@ -520,6 +521,126 @@ subtest 'activate services 0 and 1 again, then remove ticket types' => sub {
                         'Possible' => {
                             'Ticket' => {
                                 'Service' => [@ServiceNames],    # still both service
+                            }
+                        }
+                    },
+                },
+                "services for $TicketTypeName"
+            );
+        }
+    };
+};
+
+subtest 'rename a parent service' => sub {
+
+    # renaming service 0
+    my $ServiceID = $ServiceIDs[0];
+
+    my %Service = $ServiceObject->ServiceGet(
+        ServiceID => $ServiceID,
+        UserID    => 1,
+    );
+    is( $Service{TicketTypeIDs}, \@TicketTypeIDs,  'TicketTypeIDs for service 0' );    # the service was never changed
+    is( $Service{Name},          $ServiceNames[0], 'still the original name' );
+
+    # make ServiceUpdate() to also adapt the zzz ACLs
+    local $ConfigObject->{'ServiceCatalog::CreateTypeServiceRelatedAcls'} = 'locally set to a true value';
+
+    # add a parent service
+    my $ParentServiceName = "Parent_$RandomID";
+    my $ParentServiceID   = $ServiceObject->ServiceAdd(
+        Name          => $ParentServiceName,
+        ValidID       => 1,
+        UserID        => 1,
+        TypeID        => 2,                    # ITSM::Service::Type from ITSMCore
+        Criticality   => '3 normal',           # added by ITSMCore
+        TicketTypeIDs => [],
+        Descriptions  => {                     # added by ServiceCatalog
+            en => {
+                DescriptionShort => "parent service without ticket types",
+                DescriptionLong  => "parent service without ticket types",
+                ContentType      => 'text/html',
+            },
+        },
+
+    );
+    ok( $ParentServiceID, 'parent service added' );
+
+    # Rename service 0 to be a child of the parent service
+    my $NewService0Name = join '::', $ParentServiceName, $ServiceNames[0];
+    {
+        my %Service = $ServiceObject->ServiceGet(
+            ServiceID => $ServiceIDs[0],
+            UserID    => 1,
+        );
+        my $UpdateSuccess = $ServiceObject->ServiceUpdate(
+            %Service,
+            ParentID => $ParentServiceID,
+            UserID   => 1,
+        );
+        ok( $UpdateSuccess, "ServiceUpdate() service 0, making it a child" );
+
+        my %UpdatedService = $ServiceObject->ServiceGet(
+            ServiceID => $ServiceIDs[0],
+            UserID    => 1,
+        );
+        is( $UpdatedService{Name}, $NewService0Name, 'parent name was prepended' );
+    }
+
+    # Update the name of the parent process, in order to see whether service 0 is also updated.
+    {
+        my %Service = $ServiceObject->ServiceGet(
+            ServiceID => $ParentServiceID,
+            UserID    => 1,
+        );
+        my $UpdateSuccess = $ServiceObject->ServiceUpdate(
+            %Service,
+            Name   => "Updated $ParentServiceName",
+            UserID => 1,
+        );
+        ok( $UpdateSuccess, "ServiceUpdate() parent service" );
+    }
+
+    subtest 'zzz ACLs for service 0 and 1, service 0 renamed' => sub {
+
+        my $ACLs = $ACLObject->ACLListGet(
+            UserID     => $UserIDs[0],
+            ObjectType => ['Ticket'],
+        );
+        my %ACLName2ID = map { $_->{Name} => $_->{ID} } $ACLs->@*;
+
+        # Service 0 and 1 have all ticket types. So there should be ACLs
+        # for all ticket types and the services should be included in the ACL.
+        TICKET_TYPE_NAME:
+        for my $TicketTypeName (@TicketTypeNames) {
+            my $ACLID = $ACLName2ID{ $ACLPrefix . $TicketTypeName };
+
+            if ( $TicketTypeName eq $TicketTypeNames[1] ) {
+
+                # ticket type 1 is removed from both services, thus the ACL is deleted
+                is( $ACLID, undef, 'ACL for ticket type 1 is removed' );
+
+                next TICKET_TYPE_NAME;
+            }
+
+            # The ACL for ticket type 0 is still there
+            ok( $ACLID, "zzz ACL for $TicketTypeName" );
+
+            next TICKET_TYPE_NAME unless $ACLID;
+
+            my $ACL = $ACLObject->ACLGet(
+                ID     => $ACLID,
+                UserID => 1,
+            );
+
+            # the ACL for ticket type 1 still has both services
+            like(
+                $ACL,
+                {
+                    'ConfigChange' => {
+                        'Possible' => {
+                            'Ticket' => {
+                                'Service' => [ "Updated $NewService0Name", $ServiceNames[1] ],    # still both services, service 0 renamed
                             }
                         }
                     },
