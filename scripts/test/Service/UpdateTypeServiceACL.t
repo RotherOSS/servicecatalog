@@ -70,7 +70,7 @@ my @UserIDs;
             ValidID       => 1,
             ChangeUserID  => 1,
         );
-    } ( 0 .. 1 );
+    } ( 0 .. 0 );
 
     # restore original email check param
     $ConfigObject->Set(
@@ -112,22 +112,23 @@ my @ServiceIDs   = map {
 } @ServiceNames;
 my %ServiceID2Name = zip @ServiceIDs, @ServiceNames;
 
-note 'retrieval of the ticket types';
+subtest 'retrieval of the ticket types' => sub {
 
-for my $ServiceID (@ServiceIDs) {
-    subtest "ServiceGet() for ServiceID $ServiceID" => sub {
-        my %Service = $ServiceObject->ServiceGet(
-            ServiceID => $ServiceID,
-            UserID    => 1,
-        );
+    for my $ServiceID (@ServiceIDs) {
+        subtest "ServiceGet() for ServiceID $ServiceID" => sub {
+            my %Service = $ServiceObject->ServiceGet(
+                ServiceID => $ServiceID,
+                UserID    => 1,
+            );
 
-        is( $Service{ServiceID},     $ServiceID,                  'ServiceID' );
-        is( $Service{Name},          $ServiceID2Name{$ServiceID}, 'Name' );
-        is( $Service{TicketTypeIDs}, \@TicketTypeIDs,             'TicketTypeIDs' );
-    };
-}
+            is( $Service{ServiceID},     $ServiceID,                  'ServiceID' );
+            is( $Service{Name},          $ServiceID2Name{$ServiceID}, 'Name' );
+            is( $Service{TicketTypeIDs}, \@TicketTypeIDs,             'TicketTypeIDs' );
+        };
+    }
+};
 
-subtest "no zzz ACL for the test ticket types" => sub {
+subtest 'initially no zzz ACLs for the test ticket types' => sub {
     my $ACLs = $ACLObject->ACLListGet(
         UserID     => $UserIDs[0],
         ObjectType => ['Ticket'],
@@ -138,25 +139,25 @@ subtest "no zzz ACL for the test ticket types" => sub {
     }
 };
 
-note "add the zzz ACLs for the service 0";
-{
+subtest 'add the zzz ACLs for the service 0' => sub {
     my $ServiceID = $ServiceIDs[0];
 
     my %Service = $ServiceObject->ServiceGet(
         ServiceID => $ServiceID,
         UserID    => 1,
     );
-    is( $Service{TicketTypeIDs}, \@TicketTypeIDs, 'TicketTypeIDs' );
+    is( $Service{TicketTypeIDs}, \@TicketTypeIDs, 'TicketTypeIDs for service 0' );
 
     # Create the zzz ACLs
-    $ServiceObject->UpdateTypeServiceACL(
+    my $Success = $ServiceObject->UpdateTypeServiceACL(
         TicketTypeIDs => $Service{TicketTypeIDs},
         ServiceID     => $Service{ServiceID},
         ServiceValid  => $Service{ValidID},
         UserID        => 1,
     );
+    ok( $Success, 'Update UpdateTypeServiceACL()' );
 
-    subtest "zzz ACLs for service 0" => sub {
+    subtest 'zzz ACLs for service 0' => sub {
         my $ACLs = $ACLObject->ACLListGet(
             UserID     => $UserIDs[0],
             ObjectType => ['Ticket'],
@@ -191,10 +192,9 @@ note "add the zzz ACLs for the service 0";
             );
         }
     };
-}
+};
 
-note "add the zzz ACLs for service 1";
-{
+subtest 'add the zzz ACLs for service 1' => sub {
     my $ServiceID = $ServiceIDs[1];
 
     my %Service = $ServiceObject->ServiceGet(
@@ -203,15 +203,16 @@ note "add the zzz ACLs for service 1";
     );
     is( $Service{TicketTypeIDs}, \@TicketTypeIDs, 'TicketTypeIDs' );
 
-    # Create the zzz ACLs
-    $ServiceObject->UpdateTypeServiceACL(
+    # Update the zzz ACLs
+    my $Success = $ServiceObject->UpdateTypeServiceACL(
         TicketTypeIDs => $Service{TicketTypeIDs},
         ServiceID     => $Service{ServiceID},
         ServiceValid  => $Service{ValidID},
         UserID        => 1,
     );
+    ok( $Success, 'Update UpdateTypeServiceACL()' );
 
-    subtest "zzz ACLs for service 1" => sub {
+    subtest 'zzz ACLs for service 1' => sub {
         my $ACLs = $ACLObject->ACLListGet(
             UserID     => $UserIDs[0],
             ObjectType => ['Ticket'],
@@ -246,10 +247,9 @@ note "add the zzz ACLs for service 1";
             );
         }
     };
-}
+};
 
-note "claim that service 0 is invalid";
-{
+subtest 'claim that service 0 is invalid' => sub {
     my $ServiceID = $ServiceIDs[0];
 
     my %Service = $ServiceObject->ServiceGet(
@@ -258,15 +258,16 @@ note "claim that service 0 is invalid";
     );
     is( $Service{TicketTypeIDs}, \@TicketTypeIDs, 'TicketTypeIDs' );
 
-    # Create the zzz ACLs
-    $ServiceObject->UpdateTypeServiceACL(
+    # Update the zzz ACLs
+    my $Success = $ServiceObject->UpdateTypeServiceACL(
         TicketTypeIDs => $Service{TicketTypeIDs},
         ServiceID     => $Service{ServiceID},
         ServiceValid  => 2,                         # invalid
         UserID        => 1,
     );
+    ok( $Success, 'Update UpdateTypeServiceACL()' );
 
-    subtest "zzz ACLs for invalid service 0" => sub {
+    subtest 'zzz ACLs for invalid service 0' => sub {
         my $ACLs = $ACLObject->ACLListGet(
             UserID     => $UserIDs[0],
             ObjectType => ['Ticket'],
@@ -301,10 +302,9 @@ note "claim that service 0 is invalid";
             );
         }
     };
-}
+};
 
-note "claim that service 1 is also invalid";
-{
+subtest 'claim that service 1 is also invalid' => sub {
     my $ServiceID = $ServiceIDs[1];
 
     my %Service = $ServiceObject->ServiceGet(
@@ -314,14 +314,15 @@ note "claim that service 1 is also invalid";
     is( $Service{TicketTypeIDs}, \@TicketTypeIDs, 'TicketTypeIDs' );
 
     # Create the zzz ACLs
-    $ServiceObject->UpdateTypeServiceACL(
+    my $Success = $ServiceObject->UpdateTypeServiceACL(
         TicketTypeIDs => $Service{TicketTypeIDs},
         ServiceID     => $Service{ServiceID},
         ServiceValid  => 2,                         # invalid
         UserID        => 1,
     );
+    ok( $Success, 'Update UpdateTypeServiceACL()' );
 
-    subtest "zzz ACLs for invalid service 1" => sub {
+    subtest 'zzz ACLs for invalid service 1' => sub {
         my $ACLs = $ACLObject->ACLListGet(
             UserID     => $UserIDs[0],
             ObjectType => ['Ticket'],
@@ -339,6 +340,7 @@ note "claim that service 1 is also invalid";
             is( $ACL, undef, 'ACL deleted as there are no more services' );
         }
     };
-}
+};
+
 
 done_testing;
