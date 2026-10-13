@@ -50,6 +50,8 @@ our @ObjectDependencies = (
 
 =for stopwords OSS de ist
 
+=cut
+
 # EO ServiceCatalog
 
 =head1 NAME
@@ -1288,7 +1290,6 @@ sub ServiceUpdate {
 
     # update children
     for my $Child (@Childs) {
-
 # Rother OSS / ServiceCatalog
         my $OldChildName = $Child->{Name};
 # EO ServiceCatalog
@@ -2738,14 +2739,18 @@ sub AttachmentIndex {
 }
 
 =head2 AttachmentDelete()
+
 delete attachment of article
     my $Success = $ServiceObject->AttachmentDelete(
         ServiceID => 123,
         FileID    => 1,
         UserID    => 1,
     );
+
 Returns:
+
     $Success = 1 ;              # or undef if attachment could not be deleted
+
 =cut
 
 sub AttachmentDelete {
