@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # $origin: itsmcore -b27d164b8fe6af91c3ba5845035e0e1669d7bc97 - Kernel/Modules/AdminService.pm
 # $origin: otobo - 6efdc7bf2a3325277cd79a60f0f2407f8ad59e87 - Kernel/Modules/AdminService.pm
@@ -455,14 +455,12 @@ sub Run {
                 # Create Acl if config is enabled
                 # We create one Acl per Ticket-Type
                 if ( $ConfigObject->Get('ServiceCatalog::CreateTypeServiceRelatedAcls') ) {
-                    for my $TicketType ( @{ $GetParam{TicketTypeIDs} } ) {
-                        my $Success = $ServiceObject->UpdateTypServiceACL(
-                            TicketTypeID => $TicketType,
-                            ServiceID    => $GetParam{ServiceID},
-                            ServiceValid => $GetParam{ValidID},
-                            UserID       => 1,
-                        );
-                    }
+                    $ServiceObject->UpdateTypeServiceACL(
+                        TicketTypeIDs => $GetParam{TicketTypeIDs},
+                        ServiceID     => $GetParam{ServiceID},
+                        ServiceValid  => $GetParam{ValidID},
+                        UserID        => 1,
+                    );
                 }
 
 # EO ServiceCatalog
@@ -617,7 +615,7 @@ sub _MaskNew {
 # Rother OSS / ServiceCatalog
         $Param{Descriptions} = $ServiceData{Descriptions};
 # EO ServiceCatalog
-    } 
+    }
 
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 

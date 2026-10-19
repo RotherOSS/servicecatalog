@@ -73,17 +73,14 @@ sub Run {
         # TODO: checked whether services without ticket types can really be skipped
         next SERVICEGET unless IsArrayRefWithData( $Service->{TicketTypeIDs} );
 
-        my @TicketTypeIDs = $Service->{TicketTypeIDs}->@*;
-        for my $TID (@TicketTypeIDs) {
-
-            # Create Acl if config is enabled
-            # We create one Acl per Ticket-Type
-            my $Success = $ServiceObject->UpdateTypServiceACL(
-                TicketTypeID => $TID,
-                ServiceID    => $Service->{ServiceID},
-                ServiceValid => $Service->{ValidID},
-                UserID       => 1,
-            );
+        # Create ACL if config is enabled
+        # We create one ACL per ticket type.
+        $ServiceObject->UpdateTypeServiceACL(
+            TicketTypeIDs => $Service->{TicketTypeIDs},
+            ServiceID     => $Service->{ServiceID},
+            ServiceValid  => $Service->{ValidID},
+            UserID        => 1,
+        );
 
         }
     }
