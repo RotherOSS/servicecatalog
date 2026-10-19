@@ -47,6 +47,13 @@ our @ObjectDependencies = (
     'Kernel::System::Type'
 # EO ServiceCatalog
 );
+# Rother OSS ServiceCatalog
+
+=for stopwords OSS de ist
+
+=cut
+
+# EO ServiceCatalog
 
 =head1 NAME
 
