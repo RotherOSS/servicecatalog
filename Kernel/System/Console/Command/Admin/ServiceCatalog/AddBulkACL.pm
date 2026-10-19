@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -16,12 +16,20 @@
 
 package Kernel::System::Console::Command::Admin::ServiceCatalog::AddBulkACL;
 
+use v5.24;
 use strict;
 use warnings;
-
-use Kernel::System::VariableCheck qw(:all);
+use namespace::autoclean;
+use utf8;
 
 use parent qw(Kernel::System::Console::BaseCommand);
+
+# core modules
+
+# CPAN modules
+
+# OTOBO modules
+use Kernel::System::VariableCheck qw(:all);
 
 our @ObjectDependencies = (
     'Kernel::System::Service',
@@ -31,7 +39,9 @@ our @ObjectDependencies = (
 sub Configure {
     my ( $Self, %Param ) = @_;
 
-    $Self->Description('Add new Ticket-Type Ticket-Service ACLs.');
+    $Self->Description('Add new ACLs that filter the list of services based on the ticket type.');
+
+    # there are no options
 
     return;
 }
@@ -39,6 +49,7 @@ sub Configure {
 sub PreRun {
     my ( $Self, %Param ) = @_;
 
+    # nothing to do
     return;
 }
 
@@ -46,34 +57,39 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     $Self->Print("<yellow>Adding new ACLs...</yellow>\n");
-    my $TypeObject = $Kernel::OM->Get('Kernel::System::Type');
+
+    my $TypeObject    = $Kernel::OM->Get('Kernel::System::Type');
     my $ServiceObject = $Kernel::OM->Get('Kernel::System::Service');
 
     # Get all services.
-    my $ServiceList = $Kernel::OM->Get('Kernel::System::Service')->ServiceListGet(
+    my $ServiceList = $ServiceObject->ServiceListGet(
         Valid  => 1,
         UserID => 1,
     );
 
     SERVICEGET:
-    for my $ServiceGet ( @$ServiceList ) {
-        next SERVICEGET if !IsArrayRefWithData($ServiceGet->{TicketTypeIDs} );
+    for my $Service ( $ServiceList->@* ) {
 
-        my @TicketTypeIDs = $ServiceGet->{TicketTypeIDs}->@*;
-        for my $TID ( @TicketTypeIDs ) {
+        # TODO: checked whether services without ticket types can really be skipped
+        next SERVICEGET unless IsArrayRefWithData( $Service->{TicketTypeIDs} );
+
+        my @TicketTypeIDs = $Service->{TicketTypeIDs}->@*;
+        for my $TID (@TicketTypeIDs) {
 
             # Create Acl if config is enabled
             # We create one Acl per Ticket-Type
             my $Success = $ServiceObject->UpdateTypServiceACL(
                 TicketTypeID => $TID,
-                ServiceID   => $ServiceGet->{ServiceID},
-                ServiceValid => $ServiceGet->{ValidID},
-                UserID => 1,
+                ServiceID    => $Service->{ServiceID},
+                ServiceValid => $Service->{ValidID},
+                UserID       => 1,
             );
 
         }
     }
+
     $Self->Print("<green>Done.</green>\n");
+
     return $Self->ExitCodeOk();
 }
 
