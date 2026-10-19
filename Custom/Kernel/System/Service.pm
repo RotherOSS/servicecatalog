@@ -2,9 +2,10 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - e44c18aea9abc125fddf9ceeed204db4fab290e0 - Kernel/System/Service.pm
+# $origin: itsmcore - b27d164b8fe6af91c3ba5845035e0e1669d7bc97 - Kernel/System/Service.pm
+# $origin: otobo - 6efdc7bf2a3325277cd79a60f0f2407f8ad59e87 - Kernel/System/Service.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -39,7 +40,7 @@ our @ObjectDependencies = (
     'Kernel::System::Main',
     'Kernel::System::Translations',
     'Kernel::System::Valid',
-# RotherOSS ServiceCatalog    
+# Rother OSS ServiceCatalog
     'Kernel::System::ACL::DB::ACL',
     'Kernel::System::Encode',
     'Kernel::System::Service',
@@ -342,7 +343,7 @@ sub ServiceListGet {
 # ---
         . ", type_id, criticality "
 # ---
-# RotherOSS / ServiceCatalog
+# Rother OSS / ServiceCatalog
         . ", keywords "
 # EO ServiceCatalog
         . 'FROM service';
@@ -381,7 +382,7 @@ sub ServiceListGet {
         $ServiceData{TypeID}      = $Row[8];
         $ServiceData{Criticality} = $Row[9] || '';
 # ---
-# RotherOSS / ServiceCatalog
+# Rother OSS / ServiceCatalog
         $ServiceData{Keywords}         = $Row[10];
 # EO ServiceCatalog
         # add service data to service list
@@ -410,8 +411,8 @@ sub ServiceListGet {
         if (%Preferences) {
             %{$ServiceData} = ( %{$ServiceData}, %Preferences );
         }
+# Rother OSS / ServiceCatalog
 
-# RotherOSS / ServiceCatalog
         # Get all linked ticket type IDs.
         $DBObject->Prepare(
             SQL =>
@@ -424,8 +425,8 @@ sub ServiceListGet {
             push @TicketTypeIDs, $Row[0];
         }
         $ServiceData->{TicketTypeIDs} = \@TicketTypeIDs;
-# EO ServiceCatalog
 
+# EO ServiceCatalog
 # ---
 # ITSMCore
 # ---
@@ -437,8 +438,7 @@ sub ServiceListGet {
         );
         $ServiceData = \%NewServiceData;
 # ---
-
-# RotherOSS / ServiceCatalog
+# Rother OSS / ServiceCatalog
 
         # get service descriptions data
         $DBObject->Prepare(
@@ -635,8 +635,8 @@ sub ServiceGet {
         $ServiceData{Keywords}         = $Row[11];
 # EO ServiceCatalog
     }
-
 # Rother OSS / ServiceCatalog
+
     # get service descriptions data
     $DBObject->Prepare(
         SQL => '
@@ -668,8 +668,8 @@ sub ServiceGet {
         push @TicketTypeIDs, $Row[0];
     }
     $ServiceData{TicketTypeIDs} = \@TicketTypeIDs;
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # check service
     if ( !$ServiceData{ServiceID} ) {
         $Kernel::OM->Get('Kernel::System::Log')->Log(
@@ -885,8 +885,8 @@ sub ServiceAdd {
 
 # Rother OSS / ServiceCatalog
     $Param{DestQueueID} ||= '';
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # cleanup given params
     for my $Argument (qw(Name Comment)) {
         $Kernel::OM->Get('Kernel::System::CheckItem')->StringClean(
@@ -934,8 +934,8 @@ sub ServiceAdd {
             $Param{Descriptions}->{$Language}->{DescriptionLong} =~ s/(\n\r|\r\r\n|\r\n|\r)/\n/g;
         }
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # create full name
     $Param{FullName} = $Param{Name};
 
@@ -1050,8 +1050,8 @@ sub ServiceAdd {
             ],
         );
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # reset cache
     $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
         Type => $Self->{CacheType},
@@ -1133,8 +1133,8 @@ sub ServiceUpdate {
 
 # Rother OSS / ServiceCatalog
     $Param{DestQueueID} ||= '';
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # cleanup given params
     for my $Argument (qw(Name Comment)) {
         $Kernel::OM->Get('Kernel::System::CheckItem')->StringClean(
@@ -1195,8 +1195,8 @@ sub ServiceUpdate {
             $Param{Descriptions}->{$Language}->{DescriptionLong} =~ s/(\n\r|\r\r\n|\r\n|\r)/\n/g;
         }
     }    
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # create full name
     $Param{FullName} = $Param{Name};
 
@@ -1254,8 +1254,8 @@ sub ServiceUpdate {
         SQL  => 'DELETE FROM service_type WHERE service_id = ?;',
         Bind => [ \$Param{ServiceID}, ],
     );
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # update service
     return if !$DBObject->Do(
 # Rother OSS / ServiceCatalog
@@ -1300,8 +1300,8 @@ sub ServiceUpdate {
             Bind => [ \$Param{ServiceID}, \$TicketTypeID, \$Param{UserID} ]
         );
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     my $LikeService = $DBObject->Quote( $OldServiceName, 'Like' ) . '::%';
 
     # find all childs
@@ -1353,8 +1353,8 @@ sub ServiceUpdate {
             ],
         );
     }    
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # reset cache
     $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
         Type => $Self->{CacheType},
@@ -2125,8 +2125,8 @@ sub _ServiceGetCurrentIncidentState {
 
 # ---
 
-
 # Rother OSS / ServiceCatalog
+
 =head2 AttachmentAdd()
 
 add article attachments, returns the attachment id
@@ -2764,6 +2764,6 @@ sub UpdateTypServiceACL {
 
     return 1;
 }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
 1;

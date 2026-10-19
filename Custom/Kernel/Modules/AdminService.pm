@@ -4,7 +4,8 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - e44c18aea9abc125fddf9ceeed204db4fab290e0 - Kernel/Modules/AdminService.pm
+# $origin: itsmcore -b27d164b8fe6af91c3ba5845035e0e1669d7bc97 - Kernel/Modules/AdminService.pm
+# $origin: otobo - 6efdc7bf2a3325277cd79a60f0f2407f8ad59e87 - Kernel/Modules/AdminService.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -56,8 +57,8 @@ sub new {
     $Self->{DynamicFieldLookup} = $Kernel::OM->Get('Kernel::System::DynamicField')->DynamicFieldListGet(
         ObjectType => 'Service',
     );
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     return $Self;
 }
 
@@ -83,8 +84,8 @@ sub Run {
 
 # Rother OSS / ServiceCatalog
     my $UploadCacheObject = $Kernel::OM->Get('Kernel::System::Web::UploadCache');
-# EO ServiceCatalog
 
+# EO ServiceCatalog
 # ---
 # ITSMCore
 # ---
@@ -141,7 +142,6 @@ sub Run {
 
         # get params
         my %GetParam;
-
 # Rother OSS / ServiceCatalog
 ## ---
 ## ITSMCore
@@ -197,8 +197,8 @@ sub Run {
                 LayoutObject       => $LayoutObject,
             );
         }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
         if ( !$GetParam{Name} ) {
             $Error{'NameInvalid'} = 'ServerError';
         }
@@ -251,6 +251,7 @@ sub Run {
             }
 
 # Rother OSS / ServiceCatalog
+
             # set customer user service member
             $ServiceObject->CustomerUserServiceMemberAdd(
                 CustomerUserLogin => '<DEFAULT>',
@@ -258,8 +259,8 @@ sub Run {
                 Active            => $GetParam{CustomerDefaultService},
                 UserID            => $Self->{UserID},
             );
-# EO ServiceCatalog
 
+# EO ServiceCatalog
             if ( !%Error ) {
 
                 # update preferences
@@ -463,8 +464,8 @@ sub Run {
                         );
                     }
                 }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
                 # if the user would like to continue editing the service, just redirect to the edit screen
                 if (
                     defined $ParamObject->GetParam( Param => 'ContinueAfterSave' )
@@ -613,7 +614,6 @@ sub _MaskNew {
             ServiceID => $ServiceData{ServiceID},
             UserID    => $Self->{UserID},
         );
-
 # Rother OSS / ServiceCatalog
         $Param{Descriptions} = $ServiceData{Descriptions};
 # EO ServiceCatalog
@@ -625,8 +625,8 @@ sub _MaskNew {
     $Param{FormID} = $Self->{FormID};
 
     my $HTMLUtilsObject = $Kernel::OM->Get('Kernel::System::HTMLUtils');
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # output overview
     $LayoutObject->Block(
         Name => 'Overview',
@@ -642,8 +642,8 @@ sub _MaskNew {
     $LayoutObject->Block(
         Name => 'ServiceReference',
     );
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     $LayoutObject->Block( Name => 'ActionList' );
     $LayoutObject->Block( Name => 'ActionOverview' );
 
@@ -669,7 +669,6 @@ sub _MaskNew {
         Translation    => 0,
         Class          => 'Modernize',
     );
-
 # Rother OSS / ServiceCatalog
 ## ---
 ## ITSMCore
@@ -742,8 +741,8 @@ sub _MaskNew {
             Data => \%Param,
         );
     }
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # build the criticality dropdown
     $ServiceData{CriticalityOptionStrg} = $LayoutObject->BuildSelection(
         Data       => $Self->{CriticalityList},
@@ -940,8 +939,8 @@ sub _MaskNew {
         Name => 'LanguageOptions',
         Data => \%Param,
     );
-# EO ServiceCatalog
 
+# EO ServiceCatalog
     # show each preferences setting
     my %Preferences = ();
     if ( $ConfigObject->Get('ServicePreferences') ) {
