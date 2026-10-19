@@ -81,8 +81,6 @@ sub Run {
             ServiceValid  => $Service->{ValidID},
             UserID        => 1,
         );
-
-        }
     }
 
     $Self->Print("<green>Done.</green>\n");
