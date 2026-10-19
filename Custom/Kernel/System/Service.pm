@@ -2130,6 +2130,7 @@ sub _ServiceGetCurrentIncidentState {
 =head2 AttachmentAdd()
 
 add article attachments, returns the attachment id
+
     my $AttachmentID = $ServiceObject->AttachmentAdd(
         ServiceID   => $123,
         FileName    => 'F<image.png>',
@@ -2139,8 +2140,11 @@ add article attachments, returns the attachment id
         Inline      => 1,   (0|1, default 0)
         UserID      => 1,
     );
+
 Returns:
+
     $AttachmentID = 123 ;               # or undef if can't add the attachment
+
 =cut
 
 sub AttachmentAdd {
@@ -2158,9 +2162,7 @@ sub AttachmentAdd {
     }
 
     # set default
-    if ( !$Param{Inline} ) {
-        $Param{Inline} = 0;
-    }
+    $Param{Inline} ||= 0;
 
     # get all existing attachments
     my @Index = $Self->AttachmentIndex(
@@ -2248,7 +2250,9 @@ sub AttachmentAdd {
 }
 
 =head2 ServiceInlineAttachmentURLUpdate()
+
 Updates the URLs of uploaded inline attachments.
+
     my $Success = $ServiceObject->ServiceInlineAttachmentURLUpdate(
         ServiceID  => 12,
         FormID     => 456,
@@ -2256,8 +2260,11 @@ Updates the URLs of uploaded inline attachments.
         Attachment => \%Attachment,
         UserID     => 1,
     );
+
 Returns:
+
     $Success = 1;               # of undef if attachment URL could not be updated
+
 =cut
 
 sub ServiceInlineAttachmentURLUpdate {
@@ -2301,7 +2308,7 @@ sub ServiceInlineAttachmentURLUpdate {
         . "ServiceID=$Param{ServiceID};FileID=$Param{FileID}";
 
     # rewrite picture URLs
-    foreach my $LanguageID ( keys %{$ServiceData{Descriptions}} ) {
+    for my $LanguageID ( keys %{$ServiceData{Descriptions}} ) {
         if ( $ServiceData{Descriptions}->{$LanguageID}->{DescriptionLong} ) {
             # replace URL
             $ServiceData{Descriptions}->{$LanguageID}->{DescriptionLong} =~ s{$Search}{$Replace}xms;
@@ -2333,18 +2340,22 @@ sub ServiceInlineAttachmentURLUpdate {
 =head2 AttachmentGet()
 
 get attachment of service ID
+
     my %File = $ServiceObject->AttachmentGet(
         ServiceID => 123,
         FileID    => 1,
         UserID    => 1,
     );
+
 Returns:
+
     %File = (
         Filesize    => '540286',                # file size in bytes
         ContentType => 'image/jpeg',
         Filename    => 'F<Error.jpg>',
         Content     => '...'                    # file binary content
     );
+
 =cut
 
 sub AttachmentGet {
@@ -2391,13 +2402,17 @@ sub AttachmentGet {
 }
 
 =head2 AttachmentIndex()
+
 return an attachment index of an service id
+
     my @Index = $ServiceObject->AttachmentIndex(
         ServiceID  => 123,
         ShowInline => 0,   ( 0|1, default 1)
         UserID     => 1,
     );
+
 Returns:
+
     @Index = (
         {
             Filesize    => '527.6 KBytes',
@@ -2424,6 +2439,7 @@ Returns:
             Inline => 0,
         },
     );
+
 =cut
 
 sub AttachmentIndex {
@@ -2493,14 +2509,18 @@ sub AttachmentIndex {
 }
 
 =head2 AttachmentDelete()
+
 delete attachment of article
     my $Success = $ServiceObject->AttachmentDelete(
         ServiceID => 123,
         FileID    => 1,
         UserID    => 1,
     );
+
 Returns:
+
     $Success = 1 ;              # or undef if attachment could not be deleted
+
 =cut
 
 sub AttachmentDelete {
@@ -2528,15 +2548,20 @@ sub AttachmentDelete {
 =for stopwords acl
 
 =head2 UpdateTypServiceACL()
+
 delete attachment of article
+
     my $Success = $ServiceObject->UpdateTypServiceACL(
         ServiceID => 123,
         TicketTypeID    => 1, # Optional
         ServiceValid => 0,1,2,
         UserID    => 1,
     );
+
 Returns:
+
     $Success = 1 ;              # or undef if acl could not be added/changed/deleted
+
 =cut
 
 sub UpdateTypServiceACL {
@@ -2741,8 +2766,7 @@ sub UpdateTypServiceACL {
         UserID     => 1,
     );
 
-    if ( $Success ) {
-
+    if ($Success) {
         $Success = $ACLObject->ACLsNeedSyncReset();
 
         # remove preselection cache TODO: rebuild the cache properly (a simple $FieldRestrictionsObject->SetACLPreselectionCache(); uses the old ACLs)
