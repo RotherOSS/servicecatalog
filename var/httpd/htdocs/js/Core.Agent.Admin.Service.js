@@ -46,8 +46,8 @@ Core.Agent.Admin = Core.Agent.Admin || {};
             var URL = Core.Config.Get("Baselink") + 'Action=' + Core.Config.Get("Action") + ';IncludeInvalid=' + ( $(this).is(':checked') ? 1 : 0 );
             window.location.href = URL;
         });
+// Rother OSS / ServiceCatalog
 
-// Service Catalog
         // bind click function to add button
         $('.LanguageAdd').off('change.Service').on('change.Service', function () {
             TargetNS.AddLanguage($(this).val(), $('.LanguageAdd option:selected').text());
@@ -62,11 +62,10 @@ Core.Agent.Admin = Core.Agent.Admin || {};
             }
             return false;
         });
-// EO Service Catalog
+// EO ServiceCatalog
     };
 
-    
-// Service Catalog
+// Rother OSS / ServiceCatalog
    /**
      * @name AddLanguage
      * @memberof Core.Agent.Admin.Service
@@ -186,8 +185,8 @@ Core.Agent.Admin = Core.Agent.Admin || {};
         });
 
         return true;
-    };    
-// EO Service Catalog
+    };
+// EO ServiceCatalog
 
     Core.Init.RegisterNamespace(TargetNS, 'APP_MODULE');
 
