@@ -24,7 +24,7 @@ sub Data {
     my $Self = shift;
 
     # Template: AdminSLAImportExport
-    $Self->{Translation}->{'Select the items you want to '} = '';
+    $Self->{Translation}->{'Select the items you want to '} = 'Válassza ki azokat az elemeket, amelyekkel ezt szeretné tenni: ';
 
     # Template: TileServiceCatalog
     $Self->{Translation}->{'Show details of this service.'} = 'A szolgáltatás részleteinek megjelenítése.';
@@ -104,7 +104,7 @@ sub Data {
     $Self->{Translation}->{'operational'} = 'üzemképes';
     $Self->{Translation}->{'warning'} = 'figyelmeztetés';
     $Self->{Translation}->{'incident'} = 'incidens';
-    $Self->{Translation}->{'unknown'} = '';
+    $Self->{Translation}->{'unknown'} = 'ismeretlen';
 
     # JS File: Core.Agent.Admin.Service
     $Self->{Translation}->{'Do you really want to delete this service description language?'} =
@@ -124,14 +124,14 @@ sub Data {
         'Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez az eseménymodul, amely automatikusan frissíti a kritikusság dinamikus mezőt a jegyben, amint egy szolgáltatás hozzárendelésre kerül. Aktiválja a „SetPriorityFromCriticalityAndImpactMatrix” rendszerbeállítási lehetőséget, hogy beállítsa a prioritást a következő lépésben egy kritikusság és hatás alapján.';
     $Self->{Translation}->{'Event module registration. Currently, the criticality of the service can also be set in the service, but this has no effect. Therefore, this event module has been implemented that automatically updates the priority regarding Criticality and Impact in a ticket.'} =
         'Eseménymodul regisztráció. Jelenleg a szolgáltatás kritikussága beállítható a szolgáltatásban is, de ennek nincs hatása. Ezért került megvalósításra ez az eseménymodul, amely automatikusan frissíti a prioritást a kritikusságra és hatásra vonatkozóan a jegyben.';
-    $Self->{Translation}->{'Find the right service for your ticket'} = '';
+    $Self->{Translation}->{'Find the right service for your ticket'} = 'A megfelelő szolgáltatás megtalálása a jegyhez';
     $Self->{Translation}->{'Show services with the following ticket type last.'} = 'A következő jegytípusokkal rendelkező szolgáltatások megjelenítése utoljára.';
     $Self->{Translation}->{'The FAQ field that should be used as the description of an FAQ article in the sidebar (e.g. Field1, Field2, Field3...).'} =
         'Az a GyIK mező, amelyet egy GyIK bejegyzés leírásaként kell használni az oldalsávban (például Mező1, Mező2, Mező3 stb.).';
     $Self->{Translation}->{'This option allows you to automatically generate ACLs for different interfaces when creating services. Services will then only be displayed if the ticket type stored in the service has been selected. The "AddBulkACL" console script can also be used to create ACLs for services that have already been create.'} =
         'Ez a beállítás lehetővé teszi ACL-ek automatikus előállítását a különböző felületekhez a szolgáltatások létrehozásakor. A szolgáltatások ezután csak akkor jelennek meg, ha a szolgáltatásban tárolt jegytípust kiválasztották. Az „AddBulkACL” konzolparancs is használható a már létrehozott szolgáltatásokhoz tartozó ACL-ek létrehozására.';
-    $Self->{Translation}->{'This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the "ServiceCatalog::CreateTypeServiceRelatedAcls" option. "GenerateInitalACLToDisableAllServices" generates an ACL that initially hides all services. The value "Possible" or "PossibleAdd" can be set for the key "ConfigChange". The "DeployNewACL" key decides whether the changed ACL should also be deployed immediately. "ACLValidID" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid.'} =
-        'Ez a beállítás lehetővé teszi az automatikusan előállított ACL-ek előzetes beállítását. A cél az, hogy csak olyan szolgáltatások jelenjenek meg, amelyek hozzá is lettek rendelve a szolgáltatáshoz a szolgáltatáskatalógusban. A funkció használatához először engedélyezze a „ServiceCatalog::CreateTypeServiceRelatedAcls” beállítást. A „GenerateInitalACLToDisableAllServices” olyan ACL-t állít elő, amely kezdetben elrejti az összes szolgáltatást. A „Possible” vagy „PossibleAdd” érték állítható be a „ConfigChange” kulcshoz. A „DeployNewACL” kulcs dönti el, hogy a megváltoztatott ACL-t is azonnal üzembe kell-e állítani. Az „ACLValidID” (1, 2, 3) állítja be az ACL-eket érvényesre, érvénytelenre vagy átmenetileg érvénytelenre.';
+    $Self->{Translation}->{'This option makes it possible to preconfigure the automatically generated ACLs. The aim is to only display the services that have also been assigned to the service in the service catalog. To use this function, please first enable the "ServiceCatalog::CreateTypeServiceRelatedAcls" option. "GenerateInitalACLToDisableAllServices" generates an ACL that initially hides all services. The value "Possible" or "PossibleAdd" can be set for the key "ConfigChange". The "ACLDeploy" key decides whether the changed ACL should also be deployed immediately. "ACLValidID" (1, 2, 3) sets the ACLs to valid, invalid or temporarily invalid.'} =
+        '';
     $Self->{Translation}->{'Tile registration for the CustomerDashboard. Module is required.'} =
         'Csemperegisztráció az ügyfél vezérlőpultjához. A modul kötelező.';
 
