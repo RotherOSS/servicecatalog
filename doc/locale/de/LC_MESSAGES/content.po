@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-13 12:01+0000\n"
-"PO-Revision-Date: 2026-11-11 09:00+0000\n"
+"PO-Revision-Date: 2026-11-11 12:00+0000\n"
 "Last-Translator: Jasmin Hammes <jasmin.hammes@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
 "manuals/servicecatalog-documentation/de/>\n"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: ../content/index.rst:70
 msgid "Frontend::Admin::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration"
 
 #: ../content/index.rst:73
 msgid "Frontend::Module###AdminSLAImportExport"
@@ -219,7 +219,7 @@ msgstr ""
 
 #: ../content/index.rst:81
 msgid "Frontend::Admin::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration::Loader"
 
 #: ../content/index.rst:84
 msgid "Loader::Module::AdminSLAImportExport###002-ServiceCatalog"
@@ -227,7 +227,7 @@ msgstr ""
 
 #: ../content/index.rst:85 ../content/index.rst:89 ../content/index.rst:96
 msgid "Loader module registration for the agent interface."
-msgstr ""
+msgstr "Registrierung des Loader-Moduls für die Agentenoberfläche."
 
 #: ../content/index.rst:88
 msgid "Loader::Module::AdminServiceImportExport###002-ServiceCatalog"
@@ -235,7 +235,7 @@ msgstr ""
 
 #: ../content/index.rst:92
 msgid "Frontend::Agent::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration::Loader"
 
 #: ../content/index.rst:95
 msgid "Loader::Module::AgentITSMServiceZoom###002-ServiceCatalog"
@@ -273,7 +273,7 @@ msgstr ""
 
 #: ../content/index.rst:110
 msgid "Frontend::Customer::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Customer::ModuleRegistration"
 
 #: ../content/index.rst:113
 msgid "CustomerFrontend::Module###CustomerTileServiceCatalog"
@@ -281,7 +281,7 @@ msgstr ""
 
 #: ../content/index.rst:114
 msgid "Frontend module registration for the customer interface."
-msgstr ""
+msgstr "Registrierung des Frontend-Moduls für die Kundenoberfläche."
 
 #: ../content/index.rst:117
 msgid "Frontend::Customer::ModuleRegistration::Loader"
