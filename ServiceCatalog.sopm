@@ -10,6 +10,7 @@
     <Description Lang="de">Ein ausführlicher Leistungskatalog.</Description>
     <Description Lang="en">A detailed service catalog.</Description>
     <Description Lang="es">Catálogo de Servicios detallado.</Description>
+    <Description Lang="hu">Egy részletes szolgáltatáskatalógus.</Description>
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Modules/AdminService.pm" />
         <File Permission="660" Location="Custom/Kernel/Modules/AdminSLA.pm" />
@@ -220,6 +221,19 @@
         &lt;br&gt;
         &lt;br&gt;
         Para más información visite:&lt;br&gt;
+        &lt;br&gt;
+        https://otobo.de &lt;br&gt;
+        &lt;br&gt;
+    </IntroInstall>
+    <IntroInstall Lang="hu" Title="Telepítési információk" Type="pre">
+        &lt;br&gt;
+        ÜDVÖZÖLJÜK!&lt;br&gt;
+        &lt;br&gt;
+        Ön a Rother OSS szolgáltatáskatalógus-csomagjának telepítésére készül.&lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+        További információkért látogassa meg a honlapunkat:&lt;br&gt;
         &lt;br&gt;
         https://otobo.de &lt;br&gt;
         &lt;br&gt;
