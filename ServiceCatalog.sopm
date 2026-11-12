@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <otobo_package version="1.1">
     <Name>ServiceCatalog</Name>
-    <Version>10.1.15</Version>
+    <Version>0.0.0</Version>
     <Framework>10.1.x</Framework>
     <PackageRequired Version="10.1.1">ITSMCore</PackageRequired>
     <Vendor>Rother OSS GmbH</Vendor>
-    <URL>https://rother-oss.com/</URL>
+    <URL>https://otobo.io/</URL>
     <License>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</License>
     <Description Lang="de">Ein ausführlicher Leistungskatalog.</Description>
     <Description Lang="en">A detailed service catalog.</Description>
     <Description Lang="es">Catálogo de Servicios detallado.</Description>
     <Description Lang="hu">Egy részletes szolgáltatáskatalógus.</Description>
-    <ChangeLog Date="2024-05-10 12:00:00" Version="10.1.15">Add multilanguage support for service descriptions, Keywords field for service filtering.</ChangeLog>    
+    <ChangeLog Date="2024-05-10 12:00:00" Version="10.1.15">Add multilanguage support for service descriptions, Keywords field for service filtering.</ChangeLog>
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Modules/AdminService.pm" />
         <File Permission="660" Location="Custom/Kernel/Modules/AgentITSMServiceZoom.pm" />
@@ -44,7 +44,7 @@
         <File Permission="660" Location="var/httpd/htdocs/js/Core.UI.Dialog.js" />
         <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.Admin.Service.js" />
         <File Permission="660" Location="var/packagesetup/ServiceCatalog.pm" />
-    </Filelist>    
+    </Filelist>
     <DatabaseInstall Type="post">
         <TableCreate Name="service_description">
             <Column AutoIncrement="true" Name="id" PrimaryKey="true" Required="true" Type="BIGINT"></Column>
@@ -141,7 +141,7 @@
         <TableAlter Name="service" Version="10.1.15">
             <ColumnAdd Name="dest_queueid" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
             <ColumnAdd Name="keywords" Required="false" Size="255" Type="VARCHAR"></ColumnAdd>
-            <ColumnChange Name="description_short" NameNew="description_short" Required="false" Size="255" Type="VARCHAR"></ColumnChange>
+            <ColumnChange NameOld="description_short" NameNew="description_short" Required="false" Size="255" Type="VARCHAR"></ColumnChange>
         </TableAlter>
     </DatabaseUpgrade>
     <DatabaseUninstall Type="pre">
@@ -150,7 +150,7 @@
         <TableDrop Name="service_attachment">
         </TableDrop>
         <TableDrop Name="service_description">
-        </TableDrop>        
+        </TableDrop>
         <TableAlter Name="service">
             <ColumnDrop Name="description_short"></ColumnDrop>
             <ColumnDrop Name="description_long"></ColumnDrop>
@@ -161,9 +161,9 @@
     <CodeUpgrade Version="10.1.15"><![CDATA[
     # create the package name
     my $CodeModule = 'var::packagesetup::' . $Param{Structure}->{Name}->{Content};
-      
+
     $Kernel::OM->Get($CodeModule)->CodeUpgradeFromLowerThan_10_1_14();
-]]></CodeUpgrade>    
+]]></CodeUpgrade>
     <IntroInstall Lang="en" Title="Install Information" Type="pre">
         &lt;br&gt;
         WELCOME!&lt;br&gt;
